@@ -1,5 +1,3 @@
-import { link } from 'fs';
-
 export const Socials = [
   {
     name: 'Github',
@@ -9,6 +7,6 @@ export const Socials = [
   {
     name: 'Linkedin',
     src: '/linkedin.svg',
-    link: 'www.linkedin.com/in/fahim77108',
+    link: 'https://www.linkedin.com/in/fahim77108/',
   },
 ];
