@@ -2,7 +2,7 @@ import Social from './Components/socials';
 
 export default function Home() {
   return (
-    <main className="flex flex-auto w-screen h-screen space-y-5 bg-gradient-to-tl from-slate-900 to-gray-500">
+    <main className="relative flex flex-col w-screen h-screen justify-center bg-[#0f172a]">
       <div className="absolute top-0 right-0 p-7">
         <Social />
       </div>
