@@ -17,7 +17,7 @@ export const Socials = [
 export default function Social() {
   return (
     //bg-gradient-to-r from-[#7058b9] to-[#04013d]
-    <div className="flex flex-row gap-5 p-5">
+    <div className="flex items-center absolute top-0 right-0 p-7 flex-row gap-5">
       {Socials.map((social) => (
         <Link
           key={social.name}
