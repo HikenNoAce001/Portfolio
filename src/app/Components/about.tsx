@@ -1,27 +1,45 @@
+import Image from 'next/image';
+
 export default function About() {
   return (
-    <section id="about">
-      <div className="flex flex-col items-center justify-center p-10">
-        <h1 className="text-3xl font-bold">About</h1>
-        <p className="text-2xl space-y-5">
-          I am a dedicated Junior Developer with one year of professional
-          experience, split evenly between quality assurance (QA) and
-          development. My journey in the tech industry began with a 6-month role
-          as a QA, where I honed my skills in identifying bugs, understanding
-          user requirements, and ensuring the delivery of high-quality software
-          products. This experience gave me a strong foundation in testing and a
-          keen eye for detail, which I now bring into my development work. For
-          the past 6 months, I’ve transitioned into a developer role, where I’ve
-          been actively contributing to building and maintaining applications.
-          My time in QA has given me a unique perspective as a developer,
-          allowing me to write cleaner, more efficient code with the end-user in
-          mind. I&lsquo;m passionate about coding and am always eager to learn
-          new technologies and best practices to enhance my skills further. I
-          thrive in environments where learning is encouraged, and I’m always
-          open to feedback that helps me grow as a developer. My goal is to
-          continue developing my technical expertise while contributing
-          positively to my team and the projects I work on.
-        </p>
+    <section id="about" className="max-w-8xl mx-auto">
+      <div className="items-center flex flex-col justify-center p-10">
+        <h1 className="text-5xl mb-12 font-serif p-6 bg-gradient-to-r from-[#000000] to-[#350249] rounded-full text-white">
+          About
+        </h1>
+        <div className="space-y-[15px]">
+          <div className="">
+            <Image
+              src="/min4.png"
+              alt="min3"
+              width={300}
+              height={300}
+              className="float-right"
+            />
+            <p className="mb-5 font-serif text-[25px] space-y-3 leading-loose opacity-70">
+              As an ambitious junior developer, I&apos;ve rapidly progressed in
+              my career, embracing new challenges and responsibilities with
+              enthusiasm. Currently engaged in an innovative project, I leverage
+              my expanding skill set to contribute meaningfully to our
+              team&apos;s objectives.
+            </p>
+          </div>
+
+          <p className="mb-5 font-serif text-[25px] space-y-3 leading-loose opacity-70">
+            My journey is characterized by an insatiable curiosity and an
+            unwavering commitment to mastering new technologies. I thrive in
+            environments that foster continuous learning and welcome the
+            opportunity to push the boundaries of my expertise.
+          </p>
+
+          <p className="font-serif text-[25px] space-y-3 leading-loose opacity-70">
+            Eager to collaborate with seasoned professionals, I am actively
+            seeking opportunities to be mentored by industry leaders. My goal is
+            to absorb knowledge, refine my craft, and evolve into a versatile
+            and indispensable asset in the ever-evolving landscape of software
+            development.
+          </p>
+        </div>
       </div>
     </section>
   );

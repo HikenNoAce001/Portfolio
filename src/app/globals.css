@@ -31,3 +31,7 @@ body {
     text-wrap: balance;
   }
 }
+/* @font-face {
+  font-family: 'Sevillana', cursive;
+  src: url('../public/fonts/Sevillana-Regular.ttf');
+} */
