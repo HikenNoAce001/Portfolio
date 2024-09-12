@@ -7,7 +7,7 @@ export default function Experience() {
             Experience
           </h1>
           <div>
-            <p className="text-2xl space-y-5">
+            <p className="mb-5 font-serif text-[25px] space-y-3 leading-loose opacity-70">
               I am a dedicated Junior Developer with one year of professional
               experience, split evenly between quality assurance (QA) and
               development. My journey in the tech industry began with a 6-month
