@@ -1,6 +1,6 @@
 import Social from './Components/socials';
 import Experience from './Components/experience';
-import About from './About/page';
+import About from './Components/about';
 import Navbar from './Components/Navbar';
 import Landing from './Components/Home';
 import Project from './Components/project';
@@ -10,7 +10,6 @@ export default function Home() {
     <>
       <Landing />
       <Social />
-      <Navbar />
       <About />
       <Experience />
       <Project />
