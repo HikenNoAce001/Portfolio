@@ -11,7 +11,7 @@ export default function Home() {
       <Social />
       <About />
       <Experience />
-      <Project />
+      {/* <Project /> */}
     </>
   );
 }
