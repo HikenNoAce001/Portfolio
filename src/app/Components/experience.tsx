@@ -2,34 +2,42 @@ import Link from 'next/link';
 import Image from 'next/image';
 const experiences = [
   {
-    period: '2023 - Present',
+    period: 'May 2023 - Present',
     title: 'Junior Software Developer',
     company: '4Takeaway',
     link: 'https://4takeaway.com',
     location: 'Mönchengladbach, North Rhine-Westphalia, Germany',
     description:
-      'Developing web applications using React and Node.js. Collaborating with senior developers on large-scale projects.',
-    technologies: ['React', 'Node.js', 'GraphQL', 'MongoDB'],
+      'Developing a food delivery platform using Next.js with TypeScript for frontend.Optimizing application performance and implementing responsive UI components.',
+    technologies: ['Next.js', 'Typescript', 'Laravel', 'AWS', 'Tailwind CSS'],
   },
   {
-    period: '2021 - 2023',
+    period: 'May 2023 - Present',
+    title: 'Junior Software Developer',
+    company: 'The WOS Group Gmbh',
+    link: 'https://thewos.com/',
+    location: 'Mönchengladbach, North Rhine-Westphalia, Germany',
+    description:
+      'Developing a food delivery platform (4Takeaway) using Next.js and TypeScript.Optimized web performance and implemented responsive designs.Contributed in the development of a social media app and leraned intregation testing.',
+    technologies: [
+      'Next.js',
+      'Typescript',
+      'Laravel',
+      'AWS',
+      'Tailwind CSS',
+      'Flutter',
+    ],
+  },
+  {
+    period: 'Oct 2022 - Nov 2022',
     title: 'Software Engineering Intern',
-    company: 'StartUp Solutions',
+    company: 'Diligite',
     link: 'https://4takeaway.com',
-    location: 'New York, NY',
+    location:
+      '7th Floor, Sheikh Kamal IT Business Incubator, CUET, Raozan, Chittagong-4349',
     description:
-      'Assisted in the development of mobile applications. Learned and applied Agile methodologies in a fast-paced environment.',
-    technologies: ['Flutter', 'Firebase', 'Git', 'Jira'],
-  },
-  {
-    period: '2020 - 2021',
-    title: 'Junior Web Developer',
-    company: 'Creative Web Designs',
-    link: 'https://4takeaway.com',
-    location: 'Austin, TX',
-    description:
-      'Created responsive websites for various clients. Improved site performance and implemented SEO best practices.',
-    technologies: ['HTML', 'CSS', 'JavaScript', 'WordPress'],
+      'Assisted in the development of a File Management System. Learned and applied Agile methodologies in a fast-paced environment.',
+    technologies: ['React.js', 'Node.js', 'Git', 'Jira'],
   },
 ];
 
@@ -37,7 +45,7 @@ export default function Experience() {
   return (
     <section id="experience" className="">
       <div className="flex flex-col items-center justify-center p-10">
-        <h1 className="text-4xl mb-12 font-serif p-6 bg-black rounded-full text-[#ecfccb]">
+        <h1 className="text-4xl font-bold mb-12 font-serif p-6  text-[#ecfccb]">
           Experience
         </h1>
         <div className="mt-2 w-full max-w-3xl">
@@ -64,11 +72,11 @@ export default function Experience() {
                         className="inline-flex items-center"
                       >
                         <Image
-                          src="/link.svg" // Make sure to add this SVG to your public folder
+                          src="/link.svg"
                           alt="External link"
-                          width={16}
-                          height={16}
-                          className="text-gray-400 hover:text-blue-300 transition-colors"
+                          width={20}
+                          height={20}
+                          className="opacity-50 hover:opacity-100 transition-opacity duration-300"
                         />
                       </Link>
                     </div>

@@ -32,7 +32,7 @@ export default function RootLayout({
         <div
           className="pointer-events-none fixed inset-0 z-30 transition duration-300"
           style={{
-            background: `radial-gradient(800px at ${mousePosition.x}px ${mousePosition.y}px, rgba(176, 196, 222, 0.15), transparent 50%)`,
+            background: `radial-gradient(800px at ${mousePosition.x}px ${mousePosition.y}px, rgba(176, 196, 222, 0.10), transparent 50%)`,
           }}
         />
         <div className="relative z-40">{children}</div>

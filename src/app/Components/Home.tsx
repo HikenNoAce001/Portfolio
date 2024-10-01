@@ -7,7 +7,7 @@ export default function Landing() {
       <div className="flex flex-col items-center justify-center flex-grow text-center">
         <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 relative mb-4 sm:mb-6">
           <Image
-            src={'/Wall.jpg'}
+            src={'/Fahim.jpeg'}
             alt="Profile"
             layout="fill"
             objectFit="cover"

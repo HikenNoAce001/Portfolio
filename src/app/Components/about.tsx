@@ -2,35 +2,46 @@ import Image from 'next/image';
 
 export default function About() {
   return (
-    <section id="about" className="max-w-8xl mx-auto md:mx-8">
-      <div className="items-center flex flex-col justify-center p-10">
-        <h1 className="text-4xl mb-12 font-serif p-6 bg-black rounded-full text-[#ecfccb]">
-          About
-        </h1>
-        <div className="space-y-[15px]">
-          <div className="">
+    <section
+      id="about"
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+    >
+      <h1 className="text-4xl mb-12 font-bold font-serif p-6 text-[#ecfccb] text-center max-w-max mx-auto">
+        About
+      </h1>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="lg:col-span-2 space-y-4">
+          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
+            As a passionate web development enthusiast, I blend creativity with
+            technical precision to craft seamless user experiences. My expertise
+            lies in modern frontend technologies, particularly Next.js and
+            React, where I excel at translating design concepts into functional,
+            elegant code.
+          </p>
+          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
+            Adaptability is my strength,I thrive on learning new technologies
+            and contributing effectively to diverse projects. Whether it&apos;s
+            optimizing performance, implementing responsive designs, or solving
+            complex coding challenges, I approach each task with enthusiasm and
+            attention to detail.
+          </p>
+          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
+            My journey in web development is driven by a constant desire to
+            innovate and push boundaries. I&apos;m currently expanding my skills
+            into backend technologies, aiming to become a versatile full-stack
+            developer. My goal is to contribute cutting-edge solutions to
+            challenging projects in collaborative environments, always staying
+            at the forefront of web development trends.
+          </p>
+        </div>
+        <div className="hidden lg:flex justify-center items-center">
+          <div className="relative w-full max-w-[300px] aspect-square">
             <Image
-              src="/min4.png"
-              alt="min3"
-              width={180}
-              height={150}
-              className="hidden sm:block sm:float-right "
+              src="/geek4.png"
+              alt="Nerd"
+              layout="fill"
+              objectFit="contain"
             />
-            <p className="mb-5 font-serif text-[#ddd6fe] text-[25px] space-y-3 leading-loose opacity-70">
-              A passionate web development enthusiast with a keen eye for
-              creating seamless user experiences, I thrive at the intersection
-              of design and functionality. Specializing in modern frontend
-              technologies, particularly Next.js and React, I bring a blend of
-              creativity and technical acumen to every project. Known for my
-              adaptability, I excel at learning new technologies and
-              contributing effectively to diverse projects. My true passion lies
-              in crafting elegant code and pushing the boundaries of web
-              development. I&apos;m eager to expand my skillset into backend
-              technologies, always seeking opportunities to learn and grow. My
-              goal is to evolve into a well-rounded full-stack developer,
-              contributing innovative solutions to challenging projects in a
-              collaborative environment.
-            </p>
           </div>
         </div>
       </div>
