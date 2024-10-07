@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth transition duration-300 delay-300">
       <body
-        className={`${inter.className} bg-slate-900 text-white min-h-screen relative overflow-x-hidden`}
+        className={`${inter.className} bg-slate-950 text-white min-h-screen relative overflow-x-hidden`}
       >
         <div
           className="pointer-events-none fixed inset-0 z-30 transition duration-300"
