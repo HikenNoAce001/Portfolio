@@ -45,7 +45,7 @@ export default function Experience() {
   return (
     <section id="experience" className="">
       <div className="flex flex-col items-center justify-center p-10">
-        <h1 className="text-4xl font-bold mb-12 font-serif p-6  text-sky-300">
+        <h1 className="text-4xl font-bold mb-12 font-serif p-6  text-slate-300">
           Experience
         </h1>
         <div className="mt-2 w-full max-w-3xl">
