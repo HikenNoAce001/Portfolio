@@ -30,7 +30,7 @@ export default function Social() {
             alt={social.name}
             width={40}
             height={40}
-            className="transition-transform transform hover:scale-110"
+            className="transition-transform transform hover:scale-110 opacity-50"
           />
         </Link>
       ))}

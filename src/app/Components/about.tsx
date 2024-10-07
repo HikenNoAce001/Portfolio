@@ -2,43 +2,47 @@ import Image from 'next/image';
 
 export default function About() {
   return (
-    <section id="about" className="max-w-8xl mx-auto">
-      <div className="items-center flex flex-col justify-center p-10">
-        <h1 className="text-5xl mb-12 font-serif p-6 bg-gradient-to-r from-[#000000] to-[#350249] rounded-full text-white">
-          About
-        </h1>
-        <div className="space-y-[15px]">
-          <div className="">
+    <section
+      id="about"
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+    >
+      <h1 className="text-4xl mb-12 font-bold font-serif p-6 text-slate-300 text-center max-w-max mx-auto">
+        About
+      </h1>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="lg:col-span-2 space-y-4">
+          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
+            As a passionate web development enthusiast, I blend creativity with
+            technical precision to craft seamless user experiences. My expertise
+            lies in modern frontend technologies, particularly Next.js and
+            React, where I excel at translating design concepts into functional,
+            elegant code.
+          </p>
+          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
+            Adaptability is my strength,I thrive on learning new technologies
+            and contributing effectively to diverse projects. Whether it&apos;s
+            optimizing performance, implementing responsive designs, or solving
+            complex coding challenges, I approach each task with enthusiasm and
+            attention to detail.
+          </p>
+          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
+            My journey in web development is driven by a constant desire to
+            innovate and push boundaries. I&apos;m currently expanding my skills
+            into backend technologies, aiming to become a versatile full-stack
+            developer. My goal is to contribute cutting-edge solutions to
+            challenging projects in collaborative environments, always staying
+            at the forefront of web development trends.
+          </p>
+        </div>
+        <div className="hidden lg:flex justify-center items-center">
+          <div className="relative w-full max-w-[300px] aspect-square">
             <Image
-              src="/min4.png"
-              alt="min3"
-              width={300}
-              height={300}
-              className="float-right"
+              src="/geek4.png"
+              alt="Nerd"
+              layout="fill"
+              objectFit="contain"
             />
-            <p className="mb-5 font-serif text-[25px] space-y-3 leading-loose opacity-70">
-              As an ambitious junior developer, I&apos;ve rapidly progressed in
-              my career, embracing new challenges and responsibilities with
-              enthusiasm. Currently engaged in an innovative project, I leverage
-              my expanding skill set to contribute meaningfully to our
-              team&apos;s objectives.
-            </p>
           </div>
-
-          <p className="mb-5 font-serif text-[25px] space-y-3 leading-loose opacity-70">
-            My journey is characterized by an insatiable curiosity and an
-            unwavering commitment to mastering new technologies. I thrive in
-            environments that foster continuous learning and welcome the
-            opportunity to push the boundaries of my expertise.
-          </p>
-
-          <p className="font-serif text-[25px] space-y-3 leading-loose opacity-70">
-            Eager to collaborate with seasoned professionals, I am actively
-            seeking opportunities to be mentored by industry leaders. My goal is
-            to absorb knowledge, refine my craft, and evolve into a versatile
-            and indispensable asset in the ever-evolving landscape of software
-            development.
-          </p>
         </div>
       </div>
     </section>
