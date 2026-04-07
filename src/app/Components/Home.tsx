@@ -11,14 +11,17 @@ export default function Landing() {
             alt="Profile"
             layout="fill"
             objectFit="cover"
-            className="rounded-full"
+            className="rounded-full border-4 border-cyan-600/30 dark:border-cyan-400/20"
           />
         </div>
-        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-mono opacity-90 break-words mb-2">
+        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-mono opacity-90 break-words mb-2 text-slate-900 dark:text-white">
           Mohammad Zobair Hossain Fahim
         </h1>
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-serif mb-6">
-          Junior Software Engineer
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-serif mb-3 text-cyan-600 dark:text-cyan-400">
+          Software Engineer
+        </p>
+        <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-gray-400">
+          @ The WOS Germany GmbH
         </p>
       </div>
       <Navbar />

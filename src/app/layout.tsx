@@ -1,7 +1,7 @@
-'use client';
 import { Inter } from 'next/font/google';
-import { useEffect, useState } from 'react';
 import './globals.css';
+import { ThemeProvider } from './contexts/ThemeContext';
+import ClientLayout from './Components/ClientLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,32 +10,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const updateMousePosition = (ev: MouseEvent) => {
-      setMousePosition({ x: ev.clientX, y: ev.clientY });
-    };
-
-    window.addEventListener('mousemove', updateMousePosition);
-
-    return () => {
-      window.removeEventListener('mousemove', updateMousePosition);
-    };
-  }, []);
-
   return (
-    <html lang="en" className="scroll-smooth transition duration-300 delay-300">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.className} bg-slate-950 text-white min-h-screen relative overflow-x-hidden`}
+        className={`${inter.className} bg-white dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen relative overflow-x-hidden transition-colors duration-300`}
       >
-        <div
-          className="pointer-events-none fixed inset-0 z-30 transition duration-300"
-          style={{
-            background: `radial-gradient(800px at ${mousePosition.x}px ${mousePosition.y}px, rgba(176, 196, 222, 0.10), transparent 50%)`,
-          }}
-        />
-        <div className="relative z-40">{children}</div>
+        <ThemeProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </ThemeProvider>
       </body>
     </html>
   );
