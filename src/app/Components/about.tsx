@@ -6,32 +6,90 @@ export default function About() {
       id="about"
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
     >
-      <h1 className="text-4xl mb-12 font-bold font-serif p-6 text-slate-300 text-center max-w-max mx-auto">
+      <h1 className="text-4xl mb-12 font-bold p-6 text-slate-900 dark:text-slate-100 text-center max-w-max mx-auto tracking-tight">
         About
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2 space-y-4">
-          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
-            As a passionate web development enthusiast, I blend creativity with
-            technical precision to craft seamless user experiences. My expertise
-            lies in modern frontend technologies, particularly Next.js and
-            React, where I excel at translating design concepts into functional,
-            elegant code.
+        <div className="lg:col-span-2 space-y-6">
+          {/* Value Proposition */}
+          <p className="font-sans text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+            I&apos;m a{' '}
+            <span className="font-semibold text-cyan-600 dark:text-cyan-400">
+              Software Engineer
+            </span>{' '}
+            with 2+ years of experience building scalable web and mobile
+            applications using React.js, Next.js, and Flutter. Currently working
+            remotely at{' '}
+            <span className="font-semibold text-cyan-600 dark:text-cyan-400">
+              The WOS Germany GmbH
+            </span>
+            , I specialize in full-stack development, REST API optimization, and
+            Agile methodologies.
           </p>
-          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
-            Adaptability is my strength,I thrive on learning new technologies
-            and contributing effectively to diverse projects. Whether it&apos;s
-            optimizing performance, implementing responsive designs, or solving
-            complex coding challenges, I approach each task with enthusiasm and
-            attention to detail.
+
+          {/* Key Achievements */}
+          <div className="space-y-3">
+            <h3 className="text-xl font-semibold text-cyan-600 dark:text-cyan-400">
+              Key Achievements
+            </h3>
+            <ul className="space-y-2 text-slate-700 dark:text-slate-300">
+              <li className="flex items-start">
+                <span className="text-cyan-600 dark:text-cyan-400 mr-2 mt-1">
+                  ▸
+                </span>
+                <span>
+                  Developed and maintained{' '}
+                  <span className="font-semibold">15+ production features</span>{' '}
+                  for Lentho.com, serving{' '}
+                  <span className="font-semibold">
+                    5,000+ daily active users
+                  </span>
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-cyan-600 dark:text-cyan-400 mr-2 mt-1">
+                  ▸
+                </span>
+                <span>
+                  Optimized REST API performance, reducing average response time
+                  by <span className="font-semibold">40%</span>
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-cyan-600 dark:text-cyan-400 mr-2 mt-1">
+                  ▸
+                </span>
+                <span>
+                  Implemented secure OTP-based authentication, improving login
+                  success rate by <span className="font-semibold">25%</span>
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-cyan-600 dark:text-cyan-400 mr-2 mt-1">
+                  ▸
+                </span>
+                <span>
+                  Established code review standards, reducing production bugs by{' '}
+                  <span className="font-semibold">30%</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* What Drives Me */}
+          <p className="font-sans text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+            I thrive in collaborative environments where I can deliver
+            high-quality solutions through clean code, thorough testing, and
+            continuous improvement. My approach combines technical expertise
+            with a focus on user experience and system performance.
           </p>
-          <p className="font-sans text-indigo-200 text-base sm:text-lg leading-relaxed opacity-90">
-            My journey in web development is driven by a constant desire to
-            innovate and push boundaries. I&apos;m currently expanding my skills
-            into backend technologies, aiming to become a versatile full-stack
-            developer. My goal is to contribute cutting-edge solutions to
-            challenging projects in collaborative environments, always staying
-            at the forefront of web development trends.
+
+          {/* Adaptability */}
+          <p className="font-sans text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+            Strong believer in technology-agnostic problem solving. While I
+            specialize in React, Next.js, and Flutter, I&apos;m highly adaptable
+            and can quickly learn new languages and frameworks like Golang,
+            Rust, or any technology the project demands.
           </p>
         </div>
         <div className="hidden lg:flex justify-center items-center">
