@@ -2,15 +2,18 @@
 import { useTheme } from '../contexts/ThemeContext';
 
 export default function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, mounted } = useTheme();
 
   return (
     <button
       onClick={toggleTheme}
-      className="fixed top-6 right-6 z-50 p-3 rounded-full bg-gray-800/40 dark:bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 hover:border-cyan-400/50 transition-all duration-300 hover:scale-110"
+      suppressHydrationWarning
+      className="absolute top-6 left-6 z-50 p-3 rounded-full bg-slate-200/70 dark:bg-gray-800/40 backdrop-blur-sm border border-slate-300/60 dark:border-gray-700/50 hover:border-cyan-500/60 dark:hover:border-cyan-400/50 transition-all duration-300 hover:scale-110"
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? (
+      {!mounted ? (
+        <span className="block w-5 h-5" />
+      ) : theme === 'dark' ? (
         <svg
           className="w-5 h-5 text-yellow-300"
           fill="none"
