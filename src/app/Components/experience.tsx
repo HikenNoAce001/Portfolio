@@ -5,7 +5,7 @@ const experiences = [
     period: 'May 2023 - Present',
     title: 'Software Engineer',
     company: 'The WOS Germany GmbH',
-    link: 'https://lentho.com',
+    link: 'https://thewos.com/',
     location: 'Mönchengladbach, Germany (Remote)',
     achievements: [
       {

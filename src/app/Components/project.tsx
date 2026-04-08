@@ -3,6 +3,46 @@ import Image from 'next/image';
 
 const projects = [
   {
+    name: 'LENTHO',
+    tagline: 'Multi-tenant food ordering & restaurant management platform',
+    type: 'Professional Project',
+    link: 'https://lentho.com/de-DE',
+    github: null,
+    description:
+      'Production storefront for the LENTHO platform — a multi-tenant food ordering system serving both customers and restaurant operators. Built with Next.js App Router and internationalized for German and English markets, with a dedicated business dashboard for restaurant management alongside the customer-facing ordering experience.',
+    achievements: [
+      'Multi-locale support (DE/EN) via next-intl',
+      'Separate customer and restaurant dashboards',
+      'Sentry error monitoring in production',
+      'Firebase push messaging integration',
+    ],
+    technologies: [
+      'Next.js',
+      'TypeScript',
+      'Tailwind CSS',
+      'Zustand',
+      'SWR',
+      'React Hook Form',
+      'Zod',
+      'Radix UI',
+      'Docker',
+    ],
+    images: [
+      { src: '/project-LENTHO/image.png', alt: 'LENTHO storefront' },
+      {
+        src: '/project-LENTHO/image copy.png',
+        alt: 'LENTHO storefront detail',
+      },
+      { src: '/project-LENTHO/image copy 2.png', alt: 'LENTHO dashboard' },
+      {
+        src: '/project-LENTHO/image copy 3.png',
+        alt: 'LENTHO dashboard detail',
+      },
+    ],
+    isLive: true,
+    isPrivate: true,
+  },
+  {
     name: 'Marketplace Workflow System',
     tagline: '',
     type: 'Personal Project',
@@ -80,6 +120,42 @@ const projects = [
       { src: '/project-portfolio/about.png', alt: 'Portfolio about' },
     ],
     isLive: true,
+    isPrivate: false,
+  },
+  {
+    name: 'Urban Garden Companion App',
+    tagline: 'Mobile plant care app for urban gardeners',
+    type: 'Design Project',
+    link: 'https://www.figma.com/design/zQKafZT7XX7wupYDLlBNuN/Urban-Garden-Companion-App?node-id=0-1&t=xA4VmMVfJcnQTYgi-1',
+    github: null,
+    description:
+      'A mobile plant care app that helps urban gardeners discover, track, and care for indoor and outdoor plants. It uses camera-based space scanning to analyze sunlight, temperature, and humidity, then recommends suitable plants. Designed for city dwellers and beginner plant parents who want personalized care reminders and plant suggestions.',
+    achievements: [
+      'AI-powered space analysis driving personalized plant recommendations',
+      'Low-friction onboarding: preferences → scan → first plant added',
+      'Cohesive green-toned design system with reusable care detail cards',
+      'Bottom tab navigation across Home, My Garden, Scan, and Profile',
+    ],
+    technologies: [
+      'Figma',
+      'Auto Layout',
+      'Prototyping',
+      'iOS Design Guidelines',
+    ],
+    images: [
+      { src: '/project-urban garden/Sign up.png', alt: 'Sign up screen' },
+      {
+        src: '/project-urban garden/4.plant preferneces.png',
+        alt: 'Plant preferences',
+      },
+      { src: '/project-urban garden/5.scan.png', alt: 'Space scan' },
+      { src: '/project-urban garden/home.png', alt: 'Home screen' },
+      {
+        src: '/project-urban garden/plant details.png',
+        alt: 'Plant details',
+      },
+    ],
+    isLive: false,
     isPrivate: false,
   },
 ];
