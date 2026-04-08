@@ -143,15 +143,15 @@ const projects = [
       'iOS Design Guidelines',
     ],
     images: [
-      { src: '/project-urban garden/Sign up.png', alt: 'Sign up screen' },
+      { src: '/project-urban-garden/sign-up.png', alt: 'Sign up screen' },
       {
-        src: '/project-urban garden/4.plant preferneces.png',
+        src: '/project-urban-garden/plant-preferences.png',
         alt: 'Plant preferences',
       },
-      { src: '/project-urban garden/5.scan.png', alt: 'Space scan' },
-      { src: '/project-urban garden/home.png', alt: 'Home screen' },
+      { src: '/project-urban-garden/scan.png', alt: 'Space scan' },
+      { src: '/project-urban-garden/home.png', alt: 'Home screen' },
       {
-        src: '/project-urban garden/plant details.png',
+        src: '/project-urban-garden/plant-details.png',
         alt: 'Plant details',
       },
     ],
