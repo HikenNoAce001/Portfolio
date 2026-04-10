@@ -15,7 +15,7 @@ export default function Landing() {
           />
         </div>
         <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-mono opacity-90 break-words mb-2 text-slate-900 dark:text-white">
-          Mohammad Zobair Hossain Fahim
+          Mohammad Zobair Hosain Fahim
         </h1>
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-serif mb-3 text-cyan-600 dark:text-cyan-400">
           Software Engineer
