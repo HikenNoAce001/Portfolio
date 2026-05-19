@@ -24,6 +24,7 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -38,10 +39,27 @@ export default function ClientLayout({
     };
   }, []);
 
+  useEffect(() => {
+    const open = () => setLightboxOpen(true);
+    const close = () => setLightboxOpen(false);
+
+    window.addEventListener('lightbox:open', open);
+    window.addEventListener('lightbox:close', close);
+
+    return () => {
+      window.removeEventListener('lightbox:open', open);
+      window.removeEventListener('lightbox:close', close);
+    };
+  }, []);
+
   return (
     <>
       <ThemeToggle />
-      <div className="fixed top-6 right-6 z-50 flex items-center gap-3">
+      <div
+        className={`fixed top-6 right-6 z-50 flex items-center gap-3 transition-opacity duration-300 ${
+          lightboxOpen ? 'pointer-events-none opacity-0' : 'opacity-100'
+        }`}
+      >
         {socials.map((social) => (
           <Link
             key={social.name}

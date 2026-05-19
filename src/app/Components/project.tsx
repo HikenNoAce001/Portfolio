@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import ProjectGallery from './ProjectGallery';
 
 const projects = [
   {
@@ -41,6 +42,53 @@ const projects = [
     ],
     isLive: true,
     isPrivate: true,
+  },
+  {
+    name: 'Team Hub',
+    tagline: 'Real-time collaborative team workspace',
+    type: 'Full-Stack Project',
+    link: 'https://teamhub-pulse.up.railway.app',
+    github: 'https://github.com/HikenNoAce001/Collaborative-Team-Hub',
+    description:
+      'Multi-tenant collaborative workspace where teams manage announcements, goals, action items, and analytics in real time. Built as a Turborepo monorepo with an Express 5 API and a Next.js 16 front end, it features live presence, a drag-and-drop kanban, rich-text announcements, and an immutable audit log written transactionally with every mutation.',
+    achievements: [
+      'Real-time sync via Socket.io workspace rooms with live presence dots',
+      'Optimistic UI on every mutation- kanban drag, reactions, comments with snapshot rollback',
+      'Append-only audit log written inside the same DB transaction as each mutation',
+      'JWT in httpOnly cookies with refresh-token rotation, hashed at rest',
+      'Tiptap rich-text announcements with @mentions, reactions, and comments',
+      'Analytics dashboard with Recharts charts and CSV export',
+    ],
+    technologies: [
+      'Next.js',
+      'React',
+      'Express 5',
+      'Prisma',
+      'PostgreSQL',
+      'Socket.io',
+      'TanStack Query',
+      'Zustand',
+      'Tailwind CSS',
+      'Turborepo',
+    ],
+    images: [
+      {
+        src: '/project-team-hub/kanban.png',
+        alt: 'Action items kanban board',
+      },
+      {
+        src: '/project-team-hub/announcements.png',
+        alt: 'Announcements feed',
+      },
+      { src: '/project-team-hub/workspaces.png', alt: 'Workspaces list' },
+      { src: '/project-team-hub/landing.png', alt: 'Team Hub landing page' },
+      {
+        src: '/project-team-hub/landing-light.png',
+        alt: 'Team Hub landing page (light mode)',
+      },
+    ],
+    isLive: true,
+    isPrivate: false,
   },
   {
     name: 'Marketplace Workflow System',
@@ -250,24 +298,7 @@ export default function Project() {
                 </p>
 
                 {/* Project Screenshots */}
-                {project.images && project.images.length > 0 && (
-                  <div className="mb-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-                    {project.images.map((img, imgIndex) => (
-                      <div
-                        key={imgIndex}
-                        className="relative aspect-video rounded-md overflow-hidden border border-gray-300/70 dark:border-gray-700/50 bg-gray-100 dark:bg-gray-800/40"
-                      >
-                        <Image
-                          src={img.src}
-                          alt={img.alt}
-                          fill
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
-                          className="object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <ProjectGallery images={project.images} />
 
                 {/* Key Achievements */}
                 <div className="mb-4">
