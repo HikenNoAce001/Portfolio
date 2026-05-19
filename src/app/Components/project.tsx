@@ -94,7 +94,7 @@ const projects = [
     name: 'Marketplace Workflow System',
     tagline: '',
     type: 'Personal Project',
-    link: null,
+    link: 'https://marketplace-workflow-system.up.railway.app/',
     github: 'https://github.com/HikenNoAce001/marketplace-workflow-system',
     description:
       'Full-stack project marketplace with role-based access control, real-time bidding, and ZIP deliverable management. Buyers post projects, solvers bid and deliver work, with atomic cascade operations ensuring data consistency throughout the workflow.',
