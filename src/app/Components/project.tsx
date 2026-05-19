@@ -126,7 +126,7 @@ const projects = [
       },
       { src: '/project-market-workflow/solver panel.png', alt: 'Solver panel' },
     ],
-    isLive: false,
+    isLive: true,
     isPrivate: false,
   },
   {
