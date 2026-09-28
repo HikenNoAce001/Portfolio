@@ -29,14 +29,14 @@ const projects = [
       'Docker',
     ],
     images: [
-      { src: '/project-LENTHO/image.png', alt: 'LENTHO storefront' },
+      { src: '/project-lentho/storefront.webp', alt: 'LENTHO storefront' },
       {
-        src: '/project-LENTHO/image copy.png',
+        src: '/project-lentho/storefront-detail.webp',
         alt: 'LENTHO storefront detail',
       },
-      { src: '/project-LENTHO/image copy 2.png', alt: 'LENTHO dashboard' },
+      { src: '/project-lentho/dashboard.webp', alt: 'LENTHO dashboard' },
       {
-        src: '/project-LENTHO/image copy 3.png',
+        src: '/project-lentho/dashboard-detail.webp',
         alt: 'LENTHO dashboard detail',
       },
     ],
@@ -73,17 +73,20 @@ const projects = [
     ],
     images: [
       {
-        src: '/project-team-hub/kanban.png',
+        src: '/project-team-hub/action-items-kanban-board.webp',
         alt: 'Action items kanban board',
       },
       {
-        src: '/project-team-hub/announcements.png',
+        src: '/project-team-hub/announcements-feed.webp',
         alt: 'Announcements feed',
       },
-      { src: '/project-team-hub/workspaces.png', alt: 'Workspaces list' },
-      { src: '/project-team-hub/landing.png', alt: 'Team Hub landing page' },
+      { src: '/project-team-hub/workspaces-list.webp', alt: 'Workspaces list' },
       {
-        src: '/project-team-hub/landing-light.png',
+        src: '/project-team-hub/landing-page.webp',
+        alt: 'Team Hub landing page',
+      },
+      {
+        src: '/project-team-hub/landing-page-light-mode.webp',
         alt: 'Team Hub landing page (light mode)',
       },
     ],
@@ -114,17 +117,20 @@ const projects = [
       'TanStack Query',
     ],
     images: [
-      { src: '/project-market-workflow/admin panel.png', alt: 'Admin panel' },
+      { src: '/project-market-workflow/admin-panel.webp', alt: 'Admin panel' },
       {
-        src: '/project-market-workflow/admin panel 2.png',
+        src: '/project-market-workflow/admin-panel-detail.webp',
         alt: 'Admin panel detail',
       },
-      { src: '/project-market-workflow/Buyer panel.png', alt: 'Buyer panel' },
+      { src: '/project-market-workflow/buyer-panel.webp', alt: 'Buyer panel' },
       {
-        src: '/project-market-workflow/buyer panel 2.png',
+        src: '/project-market-workflow/buyer-panel-detail.webp',
         alt: 'Buyer panel detail',
       },
-      { src: '/project-market-workflow/solver panel.png', alt: 'Solver panel' },
+      {
+        src: '/project-market-workflow/solver-panel.webp',
+        alt: 'Solver panel',
+      },
     ],
     isLive: true,
     isPrivate: false,
@@ -164,8 +170,8 @@ const projects = [
     ],
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
     images: [
-      { src: '/project-portfolio/home.png', alt: 'Portfolio home' },
-      { src: '/project-portfolio/about.png', alt: 'Portfolio about' },
+      { src: '/project-portfolio/home.webp', alt: 'Portfolio home' },
+      { src: '/project-portfolio/about.webp', alt: 'Portfolio about' },
     ],
     isLive: true,
     isPrivate: false,
@@ -191,15 +197,18 @@ const projects = [
       'iOS Design Guidelines',
     ],
     images: [
-      { src: '/project-urban-garden/sign-up.png', alt: 'Sign up screen' },
       {
-        src: '/project-urban-garden/plant-preferences.png',
+        src: '/project-urban-garden/sign-up-screen.webp',
+        alt: 'Sign up screen',
+      },
+      {
+        src: '/project-urban-garden/plant-preferences.webp',
         alt: 'Plant preferences',
       },
-      { src: '/project-urban-garden/scan.png', alt: 'Space scan' },
-      { src: '/project-urban-garden/home.png', alt: 'Home screen' },
+      { src: '/project-urban-garden/space-scan.webp', alt: 'Space scan' },
+      { src: '/project-urban-garden/home-screen.webp', alt: 'Home screen' },
       {
-        src: '/project-urban-garden/plant-details.png',
+        src: '/project-urban-garden/plant-details.webp',
         alt: 'Plant details',
       },
     ],
