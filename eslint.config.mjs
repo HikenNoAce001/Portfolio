@@ -16,6 +16,11 @@ const eslintConfig = [
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
+  {
+    // CLI scripts report to the terminal.
+    files: ['scripts/**'],
+    rules: { 'no-console': 'off' },
+  },
 ];
 
 export default eslintConfig;
