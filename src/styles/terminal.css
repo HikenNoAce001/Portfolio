@@ -1,0 +1,594 @@
+/*
+ * /terminal — the Hyprland "rice" view. Every class is prefixed tm- so it can
+ * never collide with the website's fz- classes. Layout lives in Tailwind
+ * utilities on the components; this file holds what utilities can't express
+ * (conic borders, starship arrows, wallpaper, keyframes).
+ *
+ * --fz-a is registered in globals.css so the conic gradients can spin.
+ */
+
+/* ── wallpaper ─────────────────────────────────────────────────────────── */
+.tm-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+}
+.tm-s1 {
+  opacity: 0.7;
+  background-size: 240px 240px;
+  background-image: radial-gradient(
+      1px 1px at 12px 34px,
+      #e6ebff 50%,
+      transparent 52%
+    ),
+    radial-gradient(1px 1px at 87px 120px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 160px 58px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1px 1px at 210px 190px, #a9b1d6 50%, transparent 52%),
+    radial-gradient(1px 1px at 45px 210px, #7dcfff 50%, transparent 52%),
+    radial-gradient(1px 1px at 130px 160px, #a9b1d6 50%, transparent 52%),
+    radial-gradient(1px 1px at 190px 15px, #e6ebff 50%, transparent 52%);
+}
+.tm-s2 {
+  background-size: 377px 377px;
+  background-image: radial-gradient(
+      1.5px 1.5px at 30px 300px,
+      #e6ebff 50%,
+      transparent 52%
+    ),
+    radial-gradient(1.2px 1.2px at 120px 40px, #d9c8ff 50%, transparent 52%),
+    radial-gradient(1.5px 1.5px at 250px 140px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1px 1px at 340px 260px, #7dcfff 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 200px 350px, #e6ebff 50%, transparent 52%);
+  animation: tm-twinkle 5s ease-in-out infinite alternate;
+}
+@keyframes tm-twinkle {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.tm-neb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: tm-neb 24s ease-in-out infinite alternate;
+}
+@keyframes tm-neb {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(60px, -40px) scale(1.12);
+  }
+}
+.tm-wall-rocket {
+  position: absolute;
+  top: 58%;
+  left: 0;
+  opacity: 0.35;
+  animation: tm-wr 38s linear infinite;
+}
+@keyframes tm-wr {
+  from {
+    transform: translate(-200px, 60px) rotate(-14deg);
+  }
+  to {
+    transform: translate(110vw, -260px) rotate(-14deg);
+  }
+}
+
+/* ── waybar ────────────────────────────────────────────────────────────── */
+.tm-mod {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border: 1px solid #292e42;
+  border-radius: 12px;
+  background: rgba(22, 22, 30, 0.82);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-size: 12.5px;
+  color: #a9b1d6;
+  white-space: nowrap;
+}
+.tm-power {
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.tm-power:hover,
+.tm-power:focus-visible {
+  border-color: #f7768e;
+  color: #f7768e;
+  box-shadow: 0 0 18px rgba(247, 118, 142, 0.3);
+}
+.tm-dot-on {
+  animation: tm-wsg 3s ease-in-out infinite alternate;
+}
+@keyframes tm-wsg {
+  from {
+    box-shadow: 0 0 0 rgba(187, 154, 247, 0);
+  }
+  to {
+    box-shadow: 0 0 12px rgba(187, 154, 247, 0.6);
+  }
+}
+
+/* ── workspace + panes ─────────────────────────────────────────────────── */
+.tm-wsp {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1000px;
+  transition: max-width 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.tm-wsp.tm-wide {
+  max-width: 1420px;
+}
+.tm-pane {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  padding: 2px;
+  border-radius: 13px;
+  background: #292e42;
+  transition: background 0.3s ease;
+}
+.tm-on {
+  background: conic-gradient(
+    from var(--fz-a),
+    #7aa2f7,
+    #bb9af7,
+    #7dcfff,
+    #7aa2f7
+  );
+  animation: tm-spin 6s linear infinite;
+  box-shadow: 0 0 28px rgba(122, 162, 247, 0.18);
+}
+@keyframes tm-spin {
+  to {
+    --fz-a: 360deg;
+  }
+}
+.tm-in {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 11px;
+  background: rgba(22, 22, 30, 0.86);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  backdrop-filter: blur(18px) saturate(1.4);
+}
+.tm-popin {
+  animation: tm-popin 0.5s cubic-bezier(0.2, 1.25, 0.3, 1) both;
+}
+@keyframes tm-popin {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tm-tag {
+  position: absolute;
+  top: 9px;
+  right: 46px;
+  z-index: 2;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: #7d85b0;
+  pointer-events: none;
+}
+.tm-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #3b4261;
+  border-radius: 8px;
+  background: transparent;
+  color: #7d85b0;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+.tm-close:hover,
+.tm-close:focus-visible {
+  color: #f7768e;
+  border-color: #f7768e;
+}
+.tm-out {
+  scrollbar-width: thin;
+  scrollbar-color: #3b4261 transparent;
+}
+.tm-out::-webkit-scrollbar {
+  width: 8px;
+}
+.tm-out::-webkit-scrollbar-thumb {
+  background: #3b4261;
+  border-radius: 8px;
+}
+
+/* ── starship prompt ───────────────────────────────────────────────────── */
+.tm-seg {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 14px 0 10px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 50%,
+    calc(100% - 8px) 100%,
+    0 100%
+  );
+}
+.tm-seg + .tm-seg {
+  margin-left: -4px;
+  padding-left: 16px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 50%,
+    calc(100% - 8px) 100%,
+    0 100%,
+    8px 50%
+  );
+}
+.tm-seg1 {
+  background: #7aa2f7;
+  color: #16161e;
+}
+.tm-seg2 {
+  background: #3b4261;
+  color: #7dcfff;
+}
+.tm-seg3 {
+  background: #292e42;
+  color: #bb9af7;
+}
+.tm-flick {
+  animation: tm-flick 0.18s steps(2, end) infinite alternate;
+}
+@keyframes tm-flick {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+.tm-tmux {
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+.tm-tmux:hover,
+.tm-tmux:focus-visible {
+  color: #c0caf5;
+  background: rgba(122, 162, 247, 0.14);
+}
+.tm-inrow:focus-within .tm-caret {
+  color: #bb9af7;
+}
+
+/* ── whoami pop-up ─────────────────────────────────────────────────────── */
+.tm-cring {
+  background: conic-gradient(
+    from var(--fz-a),
+    #7aa2f7,
+    #bb9af7,
+    #7dcfff,
+    #7aa2f7
+  );
+  animation: tm-spin 6s linear infinite;
+}
+.tm-pop {
+  animation: tm-pop 0.7s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+@keyframes tm-pop {
+  0% {
+    transform: scale(0.2) rotate(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+.tm-pingonce {
+  opacity: 0;
+  animation: tm-pingonce 1s ease-out 0.35s both;
+}
+@keyframes tm-pingonce {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+.tm-li {
+  animation: tm-li 0.4s ease-out both;
+}
+@keyframes tm-li {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── yazi / cava / btop ────────────────────────────────────────────────── */
+.tm-frow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 32px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  text-align: left;
+  color: #a9b1d6;
+  cursor: pointer;
+}
+.tm-frow:hover {
+  background: rgba(122, 162, 247, 0.14);
+}
+.tm-frow[aria-current='true'] {
+  background: #7aa2f7;
+  color: #16161e;
+  font-weight: 700;
+}
+.tm-cbar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(to top, #7aa2f7, #bb9af7 70%, #f7768e);
+  transform-origin: 50% 100%;
+  animation-name: tm-cava;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+@keyframes tm-cava {
+  from {
+    transform: scaleY(0.08);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+/* Music playing: the player sets each bar's scaleY from the spectrum. */
+.tm-cava-live .tm-cbar,
+.tm-cava-flat .tm-cbar {
+  height: 100% !important;
+  animation: none;
+}
+.tm-cava-live .tm-cbar {
+  transition: transform 0.06s linear;
+}
+/* Music paused in the cava pane: lie flat, like cava with no input. */
+.tm-cava-flat .tm-cbar {
+  transform: scaleY(0.06);
+}
+.tm-prog-live {
+  animation: none;
+}
+.tm-play {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #3b4261;
+  border-radius: 8px;
+  background: rgba(22, 22, 30, 0.8);
+  color: #c0caf5;
+  cursor: pointer;
+}
+.tm-play:hover {
+  border-color: #bb9af7;
+  color: #bb9af7;
+}
+@media (max-width: 719.98px) {
+  .tm-play {
+    width: 44px;
+    height: 44px;
+  }
+}
+.tm-prog {
+  transform-origin: left;
+  animation: tm-prog 30s linear infinite;
+}
+@keyframes tm-prog {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.tm-spark {
+  display: flex;
+  align-items: flex-end;
+  width: 200%;
+  height: 100%;
+  animation: tm-spark 12s linear infinite;
+}
+@keyframes tm-spark {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.tm-sbar {
+  flex: 1;
+  margin: 0 1px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(#7dcfff, #3d59a1);
+}
+.tm-meter {
+  transform-origin: left;
+  animation: tm-meter 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both;
+}
+@keyframes tm-meter {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.tm-link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
+}
+.tm-link:hover,
+.tm-link:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+/* ── phone ─────────────────────────────────────────────────────────────── */
+@media (max-width: 719.98px) {
+  .tm-s1 {
+    background-image: radial-gradient(
+        1px 1px at 12px 34px,
+        #e6ebff 50%,
+        transparent 52%
+      ),
+      radial-gradient(1px 1px at 87px 120px, #e6ebff 50%, transparent 52%),
+      radial-gradient(1.4px 1.4px at 160px 58px, #e6ebff 50%, transparent 52%),
+      radial-gradient(1px 1px at 210px 190px, #a9b1d6 50%, transparent 52%),
+      radial-gradient(1px 1px at 45px 210px, #7dcfff 50%, transparent 52%),
+      radial-gradient(1px 1px at 130px 160px, #a9b1d6 50%, transparent 52%);
+  }
+  @keyframes tm-neb {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(30px, -30px) scale(1.12);
+    }
+  }
+  .tm-mod {
+    gap: 7px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+  .tm-wsp {
+    max-width: none;
+  }
+  .tm-pane {
+    /* a single window is always focused on a phone */
+    background: conic-gradient(
+      from var(--fz-a),
+      #7aa2f7,
+      #bb9af7,
+      #7dcfff,
+      #7aa2f7
+    );
+    animation: tm-spin 6s linear infinite;
+    box-shadow: 0 0 28px rgba(122, 162, 247, 0.18);
+  }
+  .tm-in {
+    background: rgba(22, 22, 30, 0.88);
+  }
+  .tm-seg {
+    height: 18px;
+    font-size: 11px;
+    padding: 0 12px 0 8px;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 7px) 0,
+      100% 50%,
+      calc(100% - 7px) 100%,
+      0 100%
+    );
+  }
+  .tm-seg + .tm-seg {
+    padding-left: 14px;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 7px) 0,
+      100% 50%,
+      calc(100% - 7px) 100%,
+      0 100%,
+      7px 50%
+    );
+  }
+  .tm-cbar {
+    border-radius: 2px 2px 0 0;
+  }
+  .tm-out {
+    scrollbar-width: none;
+  }
+  .tm-out::-webkit-scrollbar {
+    display: none;
+  }
+}
+.tm-chips {
+  scrollbar-width: none;
+}
+.tm-chips::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── reduced motion ────────────────────────────────────────────────────── */
+/* Loops stop; one-shot entrances jump straight to their end state so nothing
+   is left invisible at frame zero. */
+@media (prefers-reduced-motion: reduce) {
+  .tm-root *,
+  .tm-root *::before,
+  .tm-root *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .tm-pingonce {
+    opacity: 0;
+  }
+  .tm-prog {
+    transform: scaleX(0.42);
+  }
+  .tm-wall-rocket {
+    transform: translate(46vw, -90px) rotate(-14deg);
+  }
+}

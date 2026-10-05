@@ -1,61 +1,52 @@
-import Porthole from '@/components/art/Porthole';
 import { content } from '@/content';
-import Emphasized from './Emphasized';
-import Section from './Section';
+import CrewId from './CrewId';
+import Loadout from './Loadout';
+import SectionHead from './SectionHead';
 
 const { profile } = content;
 
+const para =
+  'm-0 max-w-[36em] text-pretty text-base leading-[1.65] text-soft sm:text-lg sm:leading-[1.7]';
+
 export default function About() {
-  const { education } = profile;
   return (
-    <Section id="about" title="About">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-        <Porthole
-          src={profile.photo.src}
-          alt="Portrait of Fahim"
-          className="w-[120px] shrink-0 md:w-[160px]"
-        />
-        <div>
-          <p className="font-display text-lg font-semibold text-starlight">
-            {profile.fullName}
-          </p>
-          <p className="text-dust">
-            {profile.role}, {profile.location}
-          </p>
+    <section
+      id="about"
+      className="relative flex -scroll-mt-10 flex-col gap-7 py-16 sm:-scroll-mt-24 sm:gap-14 sm:py-[120px]"
+    >
+      <div
+        aria-hidden="true"
+        className="fz-aurora left-0 top-[30px] h-[110px] w-[380px] sm:left-[10%] sm:top-10 sm:h-40 sm:w-[900px]"
+      />
+      <SectionHead stop="about" filled />
+      <div className="relative flex flex-col gap-[18px] pl-[26px] sm:flex-row sm:flex-wrap sm:gap-16 sm:pl-10">
+        <div className="fz-reveal flex min-w-0 flex-col gap-[18px] sm:flex-[999_1_480px] sm:gap-6">
+          <h2 className="fz-h2 m-0 font-display text-[28px] font-semibold leading-[1.15] tracking-[-0.015em] text-ink sm:text-[44px] sm:leading-[1.12]">
+            Frontend roots.
+            <br />
+            <span className="text-blue">Backend &amp; AI trajectory.</span>
+          </h2>
+          {profile.about.map((p) => (
+            <p key={p} className={`${para} max-sm:hidden`}>
+              {p}
+            </p>
+          ))}
+          {profile.aboutShort.map((p) => (
+            <p key={p} className={`${para} sm:hidden`}>
+              {p}
+            </p>
+          ))}
+          <div className="flex flex-wrap gap-x-6 gap-y-2.5 font-mono text-[13px] tracking-[0.06em] text-faint max-sm:hidden">
+            <span>BASE · CHITTAGONG, BD</span>
+            <span>UTC+6</span>
+            <span>B.SC. CSE · CUET</span>
+          </div>
+        </div>
+        <div className="fz-reveal flex min-w-0 flex-col gap-[18px] sm:flex-[1_1_420px] sm:gap-5">
+          <CrewId />
+          <Loadout />
         </div>
       </div>
-
-      <div className="mt-8 space-y-5 text-starlight/90">
-        {profile.about.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
-      </div>
-
-      <h3 className="mt-10 font-display text-lg font-semibold text-starlight">
-        Key achievements
-      </h3>
-      <ul className="mt-4 space-y-3 text-starlight/90">
-        {profile.highlights.map((highlight) => (
-          <li key={highlight.text} className="flex gap-3">
-            <span aria-hidden="true" className="text-comet">
-              *
-            </span>
-            <span>
-              <Emphasized
-                value={highlight}
-                strongClassName="font-bold text-starlight"
-              />
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <p className="mt-8 text-starlight/90">{profile.stackSentence}</p>
-
-      <p className="mt-6 text-dust">
-        {education.degree}, {education.school}, {education.graduated}.
-        {education.thesis && <> Thesis: {education.thesis}</>}
-      </p>
-    </Section>
+    </section>
   );
 }

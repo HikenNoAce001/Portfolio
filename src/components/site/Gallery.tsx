@@ -5,15 +5,20 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 type Shot = { src: string; alt: string };
 
-// A "Screenshots" button that opens a modal <dialog>. showModal() makes the
-// rest of the page inert and Esc closes it; focus returns to the trigger.
-// Images are only rendered while the dialog is open.
+// A screenshot gallery in a modal <dialog>. showModal() makes the rest of the
+// page inert and Esc closes it; focus returns to the trigger. Dialog images
+// only render while it is open.
+//
+// variant "link":  a text button for a card's link row.
+// variant "frame": the first screenshot as a framed, clickable preview.
 export default function Gallery({
   name,
   images,
+  variant = 'link',
 }: {
   name: string;
   images: Shot[];
+  variant?: 'link' | 'frame';
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -58,36 +63,59 @@ export default function Gallery({
   };
 
   const shot = index === null ? null : images[index];
+  const label = `Screenshots (${count})`;
 
   return (
     <>
-      <button
-        ref={trigger}
-        type="button"
-        onClick={open}
-        className="inline-flex min-h-11 items-center text-comet underline-offset-4 hover:underline"
-      >
-        Screenshots ({count})
-      </button>
+      {variant === 'frame' ? (
+        <button
+          ref={trigger}
+          type="button"
+          onClick={open}
+          aria-label={`${name}: open ${label.toLowerCase()}`}
+          className="group relative block aspect-[16/10] w-full min-w-0 overflow-hidden rounded-[14px] border-[1.5px] border-line-bright bg-deep p-0 text-left max-sm:rounded-xl"
+        >
+          <Image
+            src={images[0].src}
+            alt=""
+            fill
+            sizes="(min-width: 720px) 560px, 90vw"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+          <div aria-hidden="true" className="fz-scanline" />
+          <span className="absolute bottom-3 left-3 rounded-full border border-line-strong bg-night/85 px-3 py-1.5 font-mono text-[11px] tracking-[0.08em] text-ink backdrop-blur">
+            {label}
+          </span>
+        </button>
+      ) : (
+        <button
+          ref={trigger}
+          type="button"
+          onClick={open}
+          className="flex min-h-11 items-center gap-1.5 text-[15px] font-semibold text-muted transition-colors hover:text-violet"
+        >
+          {label}
+        </button>
+      )}
 
       <dialog
         ref={dialog}
         aria-label={`${name} screenshots`}
         onKeyDown={onKeyDown}
         onClick={(e) => e.target === dialog.current && close()}
-        className="m-auto h-[min(92vh,900px)] w-[min(94vw,1280px)] max-w-none rounded-panel border border-dust/25 bg-orbit p-0 text-starlight backdrop:bg-abyss/90"
+        className="m-auto h-[min(92vh,900px)] w-[min(94vw,1280px)] max-w-none rounded-[14px] border border-line-strong bg-deep p-0 text-ink backdrop:bg-night/90"
       >
         {shot && (
           <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between gap-4 border-b border-dust/25 px-4 py-2">
-              <p className="text-sm text-dust" aria-live="polite">
+            <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-2">
+              <p className="font-mono text-xs text-muted" aria-live="polite">
                 {index! + 1} of {count}: {shot.alt}
               </p>
               <button
                 ref={closeButton}
                 type="button"
                 onClick={close}
-                className="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-starlight hover:text-comet"
+                className="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-ink hover:text-violet"
               >
                 Close
               </button>
@@ -103,18 +131,18 @@ export default function Gallery({
               />
             </figure>
             {count > 1 && (
-              <div className="flex justify-between gap-4 border-t border-dust/25 px-4 py-2">
+              <div className="flex justify-between gap-4 border-t border-line px-4 py-2">
                 <button
                   type="button"
                   onClick={() => step(-1)}
-                  className="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-comet"
+                  className="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-blue"
                 >
                   Previous
                 </button>
                 <button
                   type="button"
                   onClick={() => step(1)}
-                  className="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-comet"
+                  className="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-blue"
                 >
                   Next
                 </button>

@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import {
-  Atkinson_Hyperlegible_Next,
-  Martian_Mono,
-  Unbounded,
-} from 'next/font/google';
+import { Instrument_Sans, JetBrains_Mono, Unbounded } from 'next/font/google';
 import './globals.css';
 
 const display = Unbounded({
@@ -12,28 +8,26 @@ const display = Unbounded({
   display: 'swap',
 });
 
-const body = Atkinson_Hyperlegible_Next({
+const body = Instrument_Sans({
   subsets: ['latin'],
   variable: '--font-body',
   display: 'swap',
 });
 
-// Only used on /terminal (Phase 5) and inline code, so it isn't preloaded.
-const mono = Martian_Mono({
+const mono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
-  preload: false,
 });
 
 export const metadata: Metadata = {
   title: 'Mohammad Zobair Hosain Fahim, software engineer',
   description:
-    'Fahim builds full-stack web products with React, Next.js, FastAPI, and PostgreSQL. See his projects, experience, and a terminal version of the site.',
+    'Fahim is a software engineer with three years of production experience in React, Next.js, FastAPI and PostgreSQL, now moving toward backend systems and AI engineering. Website and terminal views.',
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0F1238',
+  themeColor: '#0b0c17',
   colorScheme: 'dark',
 };
 

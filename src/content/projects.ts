@@ -1,12 +1,12 @@
 import type { Project } from './types';
 
-// The portfolio tagline is temporary; Phase 7 rewrites that entry.
+// One record per project. Projects with a `mission` block appear on the site
+// and in the terminal; the rest (the portfolio itself) are kept as data only.
 export const projects: Project[] = [
   {
     slug: 'lentho',
-    name: 'LENTHO',
+    name: 'Lentho',
     tagline: 'Multi-tenant food ordering & restaurant management platform',
-    kind: 'professional',
     live: true,
     source: 'proprietary',
     links: {
@@ -49,16 +49,48 @@ export const projects: Project[] = [
         alt: 'LENTHO dashboard detail',
       },
     ],
-    patch: {
-      glyph: 'bowl',
-      ring: 'professional',
+    mission: {
+      id: 'MSN-01',
+      dir: 'lentho',
+      aliases: [],
+      status: 'live',
+      tag: 'PROFESSIONAL',
+      blurb:
+        'Multi-tenant food ordering and restaurant management platform for European users.',
+      points: [
+        'German / English locales and separate dashboards',
+        'Sentry monitoring, Firebase messaging',
+      ],
+      chips: [
+        { text: 'Next.js', tone: 'plain' },
+        { text: 'TypeScript', tone: 'plain' },
+        { text: 'Tailwind', tone: 'plain' },
+        { text: 'Zustand', tone: 'plain' },
+        { text: 'SWR', tone: 'plain' },
+        { text: 'Zod', tone: 'plain' },
+        { text: 'Radix UI', tone: 'plain' },
+        { text: 'Docker', tone: 'plain' },
+      ],
+      phone: {
+        blurb:
+          'Multi-tenant food ordering and restaurant management platform for European users. DE/EN locales, separate dashboards, Sentry, Firebase messaging.',
+        stack: ['Next.js', 'TypeScript', 'Zustand', 'Zod', 'Docker'],
+        tone: 'plain',
+      },
+      liveLabel: 'lentho.com',
+      termName: 'Lentho',
+      termBlurb:
+        'Multi-tenant food ordering & restaurant management platform for European users.',
+      termPoints: [
+        'DE/EN locales, separate dashboards',
+        'Sentry monitoring, Firebase messaging',
+      ],
     },
   },
   {
     slug: 'team-hub',
     name: 'Team Hub',
     tagline: 'Real-time collaborative team workspace',
-    kind: 'full-stack',
     live: true,
     source: 'public',
     links: {
@@ -113,16 +145,45 @@ export const projects: Project[] = [
         alt: 'Team Hub landing page (light mode)',
       },
     ],
-    patch: {
-      glyph: 'kanban',
-      ring: 'full-stack',
+    mission: {
+      id: 'MSN-02',
+      dir: 'team-hub',
+      aliases: ['team', 'teamhub'],
+      status: 'live',
+      tag: 'FULL-STACK',
+      blurb:
+        'Real-time collaborative workspace for announcements, goals and action items — live presence, drag-and-drop kanban, immutable audit log, JWT auth.',
+      points: [
+        'Live presence, drag-and-drop kanban',
+        'Immutable audit log, JWT auth',
+      ],
+      chips: [
+        { text: 'Express 5', tone: 'violet' },
+        { text: 'PostgreSQL', tone: 'violet' },
+        { text: 'Prisma', tone: 'violet' },
+        { text: 'Socket.io', tone: 'violet' },
+        { text: 'Next.js 16', tone: 'plain' },
+        { text: 'Turborepo', tone: 'plain' },
+      ],
+      phone: {
+        blurb:
+          'Real-time collaborative workspace — live presence, kanban, audit log, JWT auth.',
+        stack: ['Express 5', 'PostgreSQL', 'Prisma', 'Socket.io'],
+        tone: 'violet',
+      },
+      termName: 'Team Hub',
+      termBlurb:
+        'Real-time collaborative workspace for announcements, goals and action items.',
+      termPoints: [
+        'live presence, drag-and-drop kanban',
+        'immutable audit log, JWT auth',
+      ],
     },
   },
   {
     slug: 'marketplace-workflow',
     name: 'Marketplace Workflow System',
     tagline: 'Project marketplace with role-based access and real-time bidding',
-    kind: 'personal',
     live: true,
     source: 'public',
     links: {
@@ -170,16 +231,41 @@ export const projects: Project[] = [
         alt: 'Solver panel',
       },
     ],
-    patch: {
-      glyph: 'crate',
-      ring: 'personal',
+    mission: {
+      id: 'MSN-03',
+      dir: 'marketplace',
+      aliases: ['market', 'marketplace-workflow'],
+      status: 'live',
+      tag: 'PERSONAL',
+      blurb:
+        'Role-based marketplace with bidding and ZIP deliverables — RBAC, atomic operations, presigned uploads, XSS-safe auth.',
+      points: ['RBAC, atomic operations', 'Presigned uploads, XSS-safe auth'],
+      chips: [
+        { text: 'FastAPI', tone: 'violet' },
+        { text: 'PostgreSQL', tone: 'violet' },
+        { text: 'MinIO', tone: 'violet' },
+        { text: 'Next.js', tone: 'plain' },
+        { text: 'Docker', tone: 'plain' },
+      ],
+      phone: {
+        name: 'Marketplace Workflow',
+        blurb:
+          'Role-based marketplace with bidding and ZIP deliverables — RBAC, presigned uploads.',
+        stack: ['FastAPI', 'PostgreSQL', 'MinIO', 'Docker'],
+        tone: 'violet',
+      },
+      termName: 'Marketplace Workflow',
+      termBlurb: 'Role-based marketplace with bidding and ZIP deliverables.',
+      termPoints: [
+        'RBAC, atomic operations',
+        'presigned uploads, XSS-safe auth',
+      ],
     },
   },
   {
     slug: 'digital-prescription',
     name: 'Digital Prescription Generator',
     tagline: 'Prescription system with a searchable medicine database',
-    kind: 'personal',
     live: false,
     source: 'proprietary',
     links: {},
@@ -193,16 +279,38 @@ export const projects: Project[] = [
     ],
     stack: ['React.js', 'Node.js', 'MySQL', 'REST API'],
     images: [],
-    patch: {
-      glyph: 'capsule',
-      ring: 'personal',
+    mission: {
+      id: 'MSN-04',
+      dir: 'rx-generator',
+      aliases: ['rx', 'prescription', 'digital-prescription'],
+      status: 'private',
+      tag: 'PERSONAL',
+      blurb:
+        'Prescription system for doctors with 10,000+ searchable medicines — sub-100 ms search with caching, PDF generation.',
+      points: ['Sub-100 ms search with caching', 'PDF generation'],
+      chips: [
+        { text: 'Node.js', tone: 'violet' },
+        { text: 'MySQL', tone: 'violet' },
+        { text: 'REST API', tone: 'violet' },
+        { text: 'React', tone: 'plain' },
+      ],
+      phone: {
+        name: 'Prescription Generator',
+        blurb:
+          '10,000+ searchable medicines, sub-100 ms search, PDF generation.',
+        stack: ['React', 'Node.js', 'MySQL'],
+        tone: 'violet',
+      },
+      termName: 'Prescription Generator',
+      termBlurb:
+        'Prescription system for doctors with 10,000+ searchable medicines.',
+      termPoints: ['sub-100 ms search with caching', 'PDF generation'],
     },
   },
   {
     slug: 'portfolio',
     name: 'Personal Portfolio',
     tagline: 'Portfolio site built with Next.js and Tailwind CSS',
-    kind: 'personal',
     live: true,
     source: 'public',
     links: {
@@ -228,16 +336,11 @@ export const projects: Project[] = [
         alt: 'Portfolio about',
       },
     ],
-    patch: {
-      glyph: 'rocket',
-      ring: 'this site',
-    },
   },
   {
     slug: 'urban-garden',
-    name: 'Urban Garden Companion App',
+    name: 'Urban Garden Companion',
     tagline: 'Mobile plant care app for urban gardeners',
-    kind: 'design',
     live: false,
     source: 'public',
     links: {
@@ -275,9 +378,32 @@ export const projects: Project[] = [
         alt: 'Plant details',
       },
     ],
-    patch: {
-      glyph: 'leaf',
-      ring: 'design',
+    mission: {
+      id: 'MSN-05',
+      dir: 'urban-garden',
+      aliases: ['garden'],
+      status: 'design',
+      tag: 'FIGMA',
+      blurb:
+        'Mobile plant-care app concept with AI-powered space analysis — camera-based scanning, personalised care plans, care tracking.',
+      points: ['Camera-based scanning', 'Personalised care plans, tracking'],
+      chips: [
+        { text: 'Figma', tone: 'plain' },
+        { text: 'Auto Layout', tone: 'plain' },
+        { text: 'Prototyping', tone: 'plain' },
+      ],
+      phone: {
+        blurb: 'Plant-care app concept with AI-powered space analysis.',
+        stack: ['Figma', 'Prototyping'],
+        tone: 'plain',
+      },
+      termName: 'Urban Garden Companion',
+      termBlurb:
+        'Mobile plant-care app concept with AI-powered space analysis.',
+      termPoints: [
+        'camera-based scanning',
+        'personalised care plans, tracking',
+      ],
     },
   },
 ];

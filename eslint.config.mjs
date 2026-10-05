@@ -4,6 +4,8 @@ import tseslint from 'typescript-eslint';
 import prettierPlugin from 'eslint-plugin-prettier/recommended';
 
 const eslintConfig = [
+  // Other tools' git worktrees (e.g. Kilo) carry their own copy of the repo.
+  { ignores: ['.kilo/**'] },
   ...nextConfig,
   ...nextCoreWebVitals,
   ...tseslint.configs.recommended,

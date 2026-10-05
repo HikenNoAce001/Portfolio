@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "prepare": "husky install",
     "type-check": "tsc --noEmit",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"tests/**/*.test.mjs\"",
     "images:optimize": "node scripts/optimize-images.mjs"
   },
   "dependencies": {

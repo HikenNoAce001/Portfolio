@@ -3,46 +3,62 @@ import type { Role } from './types';
 export const experience: Role[] = [
   {
     id: 'wos-germany',
-    company: 'The WOS Germany GmbH',
-    companyUrl: 'https://thewos.com/',
     title: 'Software Engineer',
-    start: 'May 2023',
-    location: 'Mönchengladbach, Germany (Remote)',
+    org: 'The WOS Germany GmbH · Lentho.com',
+    period: 'MAY 2023 — 2026',
+    periodIso: '2023-05 → 2026',
+    place: ['MÖNCHENGLADBACH, DE', 'REMOTE'],
+    placeShort: 'REMOTE',
     highlights: [
-      {
-        text: 'Developed and maintained 15+ production features for Lentho.com using Flutter and Next.js, serving 5,000+ daily active users across web and mobile platforms',
-        strong: ['15+ production features', '5,000+ daily active users'],
-      },
-      {
-        text: 'Optimized REST API performance by eliminating redundant calls and implementing caching strategies, reducing average response time by 40%',
-        strong: ['40%'],
-      },
-      {
-        text: 'Designed and implemented secure OTP-based authentication system with session management, improving user login success rate by 25%',
-        strong: ['25%'],
-      },
-      {
-        text: 'Established code review standards and QA protocols across a 6-member distributed team, reducing production bugs by 30%',
-        strong: ['30%'],
-      },
+      'Shipped 15+ production features for a multi-tenant SaaS used by 5,000+ people daily.',
+      'Cut REST API response times by 40%.',
+      'Built OTP authentication that lifted login success by 25%.',
+      'Set code-review standards that reduced production bugs by 30%.',
     ],
-    stack: ['Flutter', 'Next.js', 'TypeScript', 'REST API', 'Laravel', 'AWS'],
+    highlightsShort: [
+      '15+ production features, 5,000+ daily users',
+      'REST API response times cut by 40%',
+      'OTP auth lifted login success by 25%',
+      'Review standards cut prod bugs by 30%',
+    ],
+    stack: [
+      'Next.js',
+      'TypeScript',
+      'Tailwind',
+      'Zustand',
+      'SWR',
+      'Docker',
+      'Sentry',
+    ],
+    terminal: {
+      org: 'Software Engineer · The WOS Germany GmbH',
+      lines: [
+        'Lentho.com · Mönchengladbach, DE (remote)',
+        '  ▸ 15+ production features, 5,000+ DAU',
+        '  ▸ REST API response time −40%',
+        '  ▸ OTP auth → login success +25%',
+        '  ▸ review standards → prod bugs −30%',
+      ],
+    },
   },
   {
     id: 'diligite',
-    company: 'Diligite Limited',
     title: 'Software Development Intern',
-    start: 'Oct 2022',
-    end: 'Nov 2022',
-    location: 'Chittagong, Bangladesh',
+    org: 'Diligite Limited',
+    period: 'OCT — NOV 2022',
+    periodIso: '2022-10 → 2022-11',
+    place: ['CHITTAGONG, BD'],
+    placeShort: 'CHITTAGONG',
     highlights: [
-      {
-        text: 'Built 5+ reusable React.js UI components for a file-sharing app, improving code reuse and maintainability',
-      },
-      {
-        text: 'Collaborated via Git, Jira, and Agile workflows including sprint planning and code reviews',
-      },
+      'Built 5+ React.js UI components, working in Git, Jira and Agile sprints.',
     ],
-    stack: ['React.js', 'Node.js', 'Git', 'Jira'],
+    highlightsShort: [
+      'Built 5+ React.js UI components in Git, Jira and Agile sprints.',
+    ],
+    stack: [],
+    terminal: {
+      org: 'Software Dev Intern · Diligite Limited',
+      lines: ['  ▸ 5+ React.js UI components · Git, Jira'],
+    },
   },
 ];

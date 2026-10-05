@@ -2,151 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design tokens (docs/DESIGN.md section 4). Channels are space-separated RGB
-   so Tailwind opacity modifiers work: bg-orbit/50, border-dust/25. */
+/* Tokyo Night tokens. Channels are space-separated RGB so Tailwind opacity
+   modifiers work (bg-panel/80). Values come from the Deep Space Redesign
+   canvas build notes. */
 :root {
   color-scheme: dark;
 
-  --abyss: 15 18 56; /* #0F1238 page background */
-  --orbit: 23 27 74; /* #171B4A raised surfaces */
-  --starlight: 244 239 225; /* #F4EFE1 primary text, stars */
-  --dust: 155 160 201; /* #9BA0C9 secondary text, hairlines */
-  --flame: 255 138 61; /* #FF8A3D primary action, rocket flame */
-  --comet: 92 225 214; /* #5CE1D6 links, focus ring, rider hoodie */
-  --nebula: 91 62 150; /* #5B3E96 decorative glow only */
-  --ember: 255 210 122; /* #FFD27A decorative warm accents */
+  --night: 11 12 23; /* #0b0c17 page */
+  --deep: 17 18 29; /* #11121d card interiors */
+  --panel: 22 22 30; /* #16161e raised surfaces */
+  --raised: 31 35 53; /* #1f2335 chips, inputs */
+  --line: 41 46 66; /* #292e42 hairlines */
+  --line-strong: 59 66 97; /* #3b4261 */
+  --line-bright: 65 72 104; /* #414868 */
 
-  /* Rider appearance: placeholders until Fahim picks values. */
-  --rider-skin: #e3b088;
-  --rider-hair: #2c2438;
-  --rider-hoodie: rgb(var(--comet));
-  --rider-glasses: #1b1e4b;
+  --ink: 192 202 245; /* #c0caf5 primary text */
+  --soft: 169 177 214; /* #a9b1d6 body */
+  --muted: 144 153 196; /* #9099c4 secondary */
+  --faint: 125 133 176; /* #7d85b0 labels; #737aa2 from the design failed AA on panels */
+
+  --blue: 122 162 247; /* #7aa2f7 actions */
+  --violet: 187 154 247; /* #bb9af7 display + highlights */
+  --cyan: 125 207 255; /* #7dcfff telemetry */
+  --green: 158 206 106; /* #9ece6a status only */
+  --red: 247 118 142; /* #f7768e */
+  --teal: 115 218 202; /* #73daca */
+  --amber: 224 175 104; /* #e0af68 */
+}
+
+/* Registered so the conic-gradient borders can animate their angle. */
+@property --fz-a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
 }
 
 html {
-  background-color: rgb(var(--abyss));
+  background-color: rgb(var(--night));
+  /* No-JS anchor jumps glide; with JS, Hyperjump scrolls instead. Sections
+     set scroll-margin so the label row lands 24px from the top. */
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
 }
 
 body {
-  position: relative;
   min-height: 100vh;
-  background-color: rgb(var(--abyss));
-  color: rgb(var(--starlight));
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 1.0625rem; /* 17px */
-  line-height: 1.6;
-  overflow-x: clip;
-}
-
-/* Static sky: two dot layers, so the backdrop is never empty before any
-   JavaScript runs (the canvas starfield arrives in Phase 3). */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: radial-gradient(
-      1px 1px at 24px 48px,
-      rgb(var(--starlight)) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 132px 210px,
-      rgb(var(--starlight) / 0.8) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1.5px 1.5px at 260px 96px,
-      rgb(var(--starlight)) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 310px 300px,
-      rgb(var(--ember)) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 88px 330px,
-      rgb(var(--starlight) / 0.7) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 200px 20px,
-      rgb(var(--starlight) / 0.9) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1.5px 1.5px at 40px 160px,
-      rgb(var(--starlight) / 0.9) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 340px 180px,
-      rgb(var(--starlight) / 0.8) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 60px 40px,
-      rgb(var(--starlight) / 0.6) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 300px 120px,
-      rgb(var(--starlight) / 0.7) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1.5px 1.5px at 180px 260px,
-      rgb(var(--ember)) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 420px 380px,
-      rgb(var(--starlight) / 0.8) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 120px 430px,
-      rgb(var(--starlight) / 0.7) 50%,
-      transparent 52%
-    ),
-    radial-gradient(
-      1px 1px at 460px 60px,
-      rgb(var(--starlight) / 0.6) 50%,
-      transparent 52%
-    );
-  background-size:
-    340px 360px,
-    340px 360px,
-    340px 360px,
-    340px 360px,
-    340px 360px,
-    340px 360px,
-    340px 360px,
-    340px 360px,
-    520px 470px,
-    520px 470px,
-    520px 470px,
-    520px 470px,
-    520px 470px,
-    520px 470px;
+  background-color: rgb(var(--night));
+  color: rgb(var(--ink));
+  font-family: var(--font-body), 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 :focus-visible {
-  outline: 2px solid rgb(var(--comet));
+  outline: 2px solid rgb(var(--cyan));
   outline-offset: 2px;
 }
 
 ::selection {
-  background: rgb(var(--comet) / 0.3);
+  background: rgb(var(--violet) / 0.3);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
   }
 }
 

@@ -1,0 +1,1725 @@
+/* Website view: ported from the Deep Space Redesign canvas (Main.dc.html).
+   Class names keep the design's fz- prefix. Mobile overrides at the bottom come
+   from MainMobile.dc.html. */
+
+/* page starfield */
+.fz-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+}
+.fz-s1 {
+  opacity: 0.7;
+  background-size: 240px 240px;
+  background-image: radial-gradient(
+      1px 1px at 12px 34px,
+      #e6ebff 50%,
+      transparent 52%
+    ),
+    radial-gradient(1px 1px at 87px 120px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 160px 58px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1px 1px at 210px 190px, #a9b1d6 50%, transparent 52%),
+    radial-gradient(1px 1px at 45px 210px, #7dcfff 50%, transparent 52%),
+    radial-gradient(1px 1px at 130px 160px, #a9b1d6 50%, transparent 52%),
+    radial-gradient(1px 1px at 190px 15px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1px 1px at 70px 75px, #9099c4 50%, transparent 52%);
+}
+.fz-s2 {
+  background-size: 377px 377px;
+  background-image: radial-gradient(
+      1.5px 1.5px at 30px 300px,
+      #e6ebff 50%,
+      transparent 52%
+    ),
+    radial-gradient(1.2px 1.2px at 120px 40px, #d9c8ff 50%, transparent 52%),
+    radial-gradient(1.5px 1.5px at 250px 140px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1px 1px at 340px 260px, #7dcfff 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 200px 350px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1px 1px at 300px 20px, #a9b1d6 50%, transparent 52%),
+    radial-gradient(1.5px 1.5px at 80px 180px, #e6ebff 50%, transparent 52%);
+  animation: fz-twinkle 5s ease-in-out infinite alternate;
+}
+.fz-s3 {
+  background-size: 613px 613px;
+  background-image: radial-gradient(
+      2px 2px at 100px 500px,
+      #e6ebff 50%,
+      transparent 55%
+    ),
+    radial-gradient(2.2px 2.2px at 400px 100px, #c0caf5 50%, transparent 55%),
+    radial-gradient(1.8px 1.8px at 550px 380px, #e6ebff 50%, transparent 55%),
+    radial-gradient(2px 2px at 250px 250px, #bb9af7 50%, transparent 55%),
+    radial-gradient(1.8px 1.8px at 480px 560px, #e6ebff 50%, transparent 55%);
+  animation: fz-twinkle 8s ease-in-out infinite alternate-reverse;
+}
+@keyframes fz-twinkle {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fz-neb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fz-neb 26s ease-in-out infinite alternate;
+}
+@keyframes fz-neb {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(70px, -50px) scale(1.14);
+  }
+}
+.fz-shoot {
+  position: absolute;
+  height: 1.5px;
+  width: 170px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e6ebff, rgba(187, 154, 247, 0));
+  opacity: 0;
+  animation: fz-shoot 8s linear infinite;
+}
+@keyframes fz-shoot {
+  0% {
+    transform: translate(0, 0) rotate(-18deg);
+    opacity: 0;
+  }
+  1.5% {
+    opacity: 1;
+  }
+  7% {
+    transform: translate(-520px, 170px) rotate(-18deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-520px, 170px) rotate(-18deg);
+    opacity: 0;
+  }
+}
+
+/* hero streaming starfield */
+.fz-streams {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent);
+}
+.fz-streams-rot {
+  position: absolute;
+  left: -25%;
+  top: -60%;
+  width: 150%;
+  height: 220%;
+  transform: rotate(-16deg);
+}
+.fz-st {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-repeat: repeat;
+}
+.fz-st1 {
+  width: calc(100% + 300px);
+  opacity: 0.85;
+  background-size: 300px 300px;
+  background-image: radial-gradient(
+      1px 1px at 20px 40px,
+      #c0caf5 50%,
+      transparent 52%
+    ),
+    radial-gradient(1.3px 1.3px at 140px 90px, #e6ebff 50%, transparent 52%),
+    radial-gradient(1px 1px at 260px 200px, #7dcfff 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 80px 250px, #c0caf5 50%, transparent 52%),
+    radial-gradient(1px 1px at 200px 20px, #bb9af7 50%, transparent 52%),
+    radial-gradient(1px 1px at 30px 160px, #a9b1d6 50%, transparent 52%);
+  animation: fz-st1 7s linear infinite;
+}
+@keyframes fz-st1 {
+  to {
+    transform: translateX(-300px);
+  }
+}
+.fz-st2 {
+  width: calc(100% + 420px);
+  background-size: 420px 420px;
+  background-image: radial-gradient(
+      2px 2px at 60px 120px,
+      #e6ebff 50%,
+      transparent 62%
+    ),
+    radial-gradient(1.8px 1.8px at 300px 330px, #c0caf5 50%, transparent 62%),
+    radial-gradient(2.2px 2.2px at 200px 40px, #bb9af7 50%, transparent 62%),
+    radial-gradient(1.6px 1.6px at 380px 200px, #7dcfff 50%, transparent 62%);
+  animation: fz-st2 3s linear infinite;
+}
+@keyframes fz-st2 {
+  to {
+    transform: translateX(-420px);
+  }
+}
+.fz-sat {
+  position: absolute;
+  top: 96px;
+  left: 0;
+  opacity: 0.8;
+  animation: fz-sat 46s linear infinite;
+}
+@keyframes fz-sat {
+  from {
+    transform: translateX(-120px) rotate(-10deg);
+  }
+  to {
+    transform: translateX(1580px) rotate(10deg);
+  }
+}
+.fz-blink {
+  animation: fz-blink 1.4s steps(1, end) infinite;
+}
+.fz-blink2 {
+  animation: fz-blink 1.4s steps(1, end) infinite;
+  animation-delay: 0.7s;
+}
+@keyframes fz-blink {
+  50% {
+    opacity: 0.12;
+  }
+}
+
+/* scene: rocket */
+.fz-kick {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 620px;
+  height: 460px;
+}
+.fz-warp-a .fz-kick {
+  animation: fz-kick-a 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.fz-warp-b .fz-kick {
+  animation: fz-kick-b 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes fz-kick-a {
+  0% {
+    transform: translateX(-170px) scale(0.86);
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes fz-kick-b {
+  0% {
+    transform: translateX(-170px) scale(0.86);
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+.fz-bob {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 620px;
+  height: 460px;
+  animation: fz-bob 3.2s ease-in-out infinite;
+}
+@keyframes fz-bob {
+  0%,
+  100% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+.fz-wobble {
+  animation: fz-wobble 2.6s ease-in-out infinite;
+}
+@keyframes fz-wobble {
+  0%,
+  100% {
+    transform: rotate(-1.4deg);
+  }
+  50% {
+    transform: rotate(1.4deg);
+  }
+}
+.fz-flame {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: fz-flicker 0.14s ease-in-out infinite alternate;
+}
+@keyframes fz-flicker {
+  from {
+    transform: scaleX(0.8) scaleY(0.9);
+  }
+  to {
+    transform: scaleX(1.16) scaleY(1.05);
+  }
+}
+.fz-plume-glow {
+  animation: fz-glowp 1.6s ease-in-out infinite alternate;
+}
+@keyframes fz-glowp {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.95;
+  }
+}
+.fz-ex {
+  position: absolute;
+  left: 128px;
+  top: 283px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  opacity: 0;
+}
+.fz-ex-u {
+  animation: fz-ex-u 1.1s linear infinite;
+}
+.fz-ex-m {
+  animation: fz-ex-m 1.1s linear infinite;
+}
+.fz-ex-d {
+  animation: fz-ex-d 1.1s linear infinite;
+}
+@keyframes fz-ex-u {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-190px, -30px) scale(0.15);
+    opacity: 0;
+  }
+}
+@keyframes fz-ex-m {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-220px, 3px) scale(0.15);
+    opacity: 0;
+  }
+}
+@keyframes fz-ex-d {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-190px, 32px) scale(0.15);
+    opacity: 0;
+  }
+}
+.fz-speed {
+  position: absolute;
+  left: 0;
+  height: 1.5px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(192, 202, 245, 0.8),
+    rgba(125, 207, 255, 0)
+  );
+  opacity: 0;
+  animation: fz-speed 1.3s linear infinite;
+}
+@keyframes fz-speed {
+  0% {
+    transform: translateX(720px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-240px);
+    opacity: 0;
+  }
+}
+
+/* scene: warp launch (replays on Re-launch) */
+.fz-wr {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+.fz-wl {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 2px;
+  border-radius: 2px;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, rgba(192, 202, 245, 0), #e6ebff);
+  opacity: 0;
+  animation-duration: 1.3s;
+  animation-timing-function: cubic-bezier(0.25, 0.6, 0.35, 1);
+  animation-fill-mode: both;
+}
+.fz-warp-a .fz-wl {
+  animation-name: fz-warp-a;
+}
+.fz-warp-b .fz-wl {
+  animation-name: fz-warp-b;
+}
+@keyframes fz-warp-a {
+  0% {
+    transform: translateX(16px) scaleX(0.05);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(580px) scaleX(1);
+    opacity: 0;
+  }
+}
+@keyframes fz-warp-b {
+  0% {
+    transform: translateX(16px) scaleX(0.05);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(580px) scaleX(1);
+    opacity: 0;
+  }
+}
+.fz-flash {
+  position: absolute;
+  left: -100px;
+  top: -100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(230, 235, 255, 0.95) 0%,
+    rgba(187, 154, 247, 0.4) 38%,
+    rgba(122, 162, 247, 0) 70%
+  );
+  opacity: 0;
+  animation-duration: 1.1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+.fz-warp-a .fz-flash {
+  animation-name: fz-flash-a;
+}
+.fz-warp-b .fz-flash {
+  animation-name: fz-flash-b;
+}
+@keyframes fz-flash-a {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+@keyframes fz-flash-b {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+
+/* scene: avatar. Everything here runs on one 1.5s beat (HeroScene BEAT):
+   a meteor arrives every beat and the jump peaks as it passes. */
+.fz-words {
+  position: absolute;
+  left: 0;
+  top: 214px;
+  width: 620px;
+  height: 40px;
+  z-index: 2;
+}
+.fz-jump {
+  transform-origin: 50% 100%;
+  animation: fz-jump 1.5s infinite;
+  animation-delay: -0.875s;
+}
+@keyframes fz-jump {
+  0% {
+    transform: translateY(0) scale(1, 1);
+  }
+  18% {
+    transform: translateY(0) scale(1.08, 0.88);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1);
+  }
+  26% {
+    transform: translateY(-8px) scale(0.94, 1.1);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1);
+  }
+  50% {
+    transform: translateY(-70px) scale(1, 1);
+    animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.3);
+  }
+  72% {
+    transform: translateY(0) scale(0.95, 1.06);
+  }
+  78% {
+    transform: translateY(0) scale(1.1, 0.86);
+  }
+  88%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+.fz-wave {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: fz-wave 0.55s ease-in-out infinite alternate;
+}
+@keyframes fz-wave {
+  from {
+    transform: rotate(-20deg);
+  }
+  to {
+    transform: rotate(24deg);
+  }
+}
+.fz-ant {
+  animation: fz-ant 1.6s steps(1, end) infinite;
+}
+@keyframes fz-ant {
+  50% {
+    fill: #bb9af7;
+  }
+}
+.fz-thrust {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: fz-thrust 1.5s infinite;
+  animation-delay: -0.875s;
+}
+@keyframes fz-thrust {
+  0%,
+  17% {
+    opacity: 0;
+    transform: scaleY(0.2);
+  }
+  24% {
+    opacity: 1;
+    transform: scaleY(1.3);
+  }
+  44% {
+    opacity: 0.85;
+    transform: scaleY(1);
+  }
+  54%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0.3);
+  }
+}
+.fz-type {
+  stroke-dasharray: 18;
+  stroke-dashoffset: 18;
+  animation: fz-type 2.4s steps(6, end) infinite;
+}
+@keyframes fz-type {
+  0% {
+    stroke-dashoffset: 18;
+  }
+  55%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+.fz-holo {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    rgba(187, 154, 247, 0) 30%,
+    rgba(187, 154, 247, 0.14) 45%,
+    rgba(125, 207, 255, 0.12) 52%,
+    rgba(125, 207, 255, 0) 66%
+  );
+  background-size: 250% 100%;
+  animation: fz-holo 6s ease-in-out infinite;
+}
+@keyframes fz-holo {
+  0% {
+    background-position: 120% 0;
+  }
+  60%,
+  100% {
+    background-position: -60% 0;
+  }
+}
+.fz-plus {
+  position: absolute;
+  left: 304px;
+  top: 34px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #9ece6a;
+  text-shadow: 0 0 12px rgba(158, 206, 106, 0.6);
+  opacity: 0;
+  animation: fz-plus 1.5s linear infinite;
+  animation-delay: -0.875s;
+}
+@keyframes fz-plus {
+  0%,
+  46% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  52% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  82% {
+    transform: translateY(-26px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fz-dust {
+  position: absolute;
+  top: 254px;
+  width: 14px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(192, 202, 245, 0.55);
+  opacity: 0;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-delay: -0.875s;
+}
+.fz-dust-l {
+  left: 296px;
+  animation-name: fz-dust-l;
+}
+.fz-dust-r {
+  left: 326px;
+  animation-name: fz-dust-r;
+}
+@keyframes fz-dust-l {
+  0%,
+  74% {
+    transform: translateX(0) scale(0.3);
+    opacity: 0;
+  }
+  79% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(-20px) scale(1.7);
+    opacity: 0;
+  }
+}
+@keyframes fz-dust-r {
+  0%,
+  74% {
+    transform: translateX(0) scale(0.3);
+    opacity: 0;
+  }
+  79% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(20px) scale(1.7);
+    opacity: 0;
+  }
+}
+.fz-word,
+.fz-meteor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 40px;
+  box-shadow: 0 0 18px rgba(122, 162, 247, 0.2);
+}
+.fz-word svg,
+.fz-meteor svg {
+  width: 22px;
+  height: 22px;
+}
+.fz-word {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  /* 8 meteors × 1.5s beat */
+  animation: fz-drift 12s linear infinite both;
+}
+.fz-word-a {
+  background: #1f2335;
+  border: 1px solid #414868;
+  color: #c0caf5;
+}
+.fz-word-b {
+  background: #2a2347;
+  border: 1px solid #5b4a8f;
+  color: #d9c8ff;
+}
+.fz-blob1 {
+  border-radius: 46% 54% 52% 48% / 58% 44% 56% 42%;
+}
+.fz-blob2 {
+  border-radius: 52% 48% 44% 56% / 46% 58% 42% 54%;
+}
+@keyframes fz-drift {
+  0% {
+    transform: translateX(660px) rotate(8deg);
+    opacity: 0;
+  }
+  1.5% {
+    opacity: 1;
+  }
+  18.4% {
+    opacity: 1;
+  }
+  19.8% {
+    transform: translateX(-20px) rotate(-14deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-20px) rotate(-14deg);
+    opacity: 0;
+  }
+}
+.fz-moon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e6ebff, #9099c4 60%, #565f89);
+  offset-path: path('M 4 40 A 56 12 0 1 0 116 40 A 56 12 0 1 0 4 40');
+  offset-rotate: 0deg;
+  animation: fz-orbit 11s linear infinite;
+}
+@keyframes fz-orbit {
+  0% {
+    offset-distance: 0%;
+    opacity: 1;
+    transform: scale(1);
+  }
+  46% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  54% {
+    opacity: 0.3;
+    transform: scale(0.72);
+  }
+  94% {
+    opacity: 0.3;
+    transform: scale(0.72);
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.fz-hudbtn {
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.fz-hudbtn:hover {
+  border-color: #bb9af7 !important;
+  color: #c0caf5 !important;
+}
+
+/* text motion */
+.fz-pulse {
+  animation: fz-pulse 2.2s ease-out infinite;
+}
+@keyframes fz-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(158, 206, 106, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(158, 206, 106, 0);
+  }
+}
+.fz-roles {
+  display: inline-flex;
+  vertical-align: bottom;
+  height: 1.55em;
+  overflow: hidden;
+}
+.fz-roles-in {
+  display: flex;
+  flex-direction: column;
+  animation: fz-roles 6s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+@keyframes fz-roles {
+  0%,
+  42% {
+    transform: translateY(0);
+  }
+  50%,
+  92% {
+    transform: translateY(-1.55em);
+  }
+  100% {
+    transform: translateY(-3.1em);
+  }
+}
+.fz-btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s ease;
+}
+.fz-btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0)
+  );
+  animation: fz-shine 3.8s ease-in-out infinite;
+}
+@keyframes fz-shine {
+  0%,
+  62% {
+    left: -60%;
+  }
+  100% {
+    left: 130%;
+  }
+}
+.fz-btn-primary:hover {
+  background: #9bb8ff !important;
+  color: #0b0c17 !important;
+}
+.fz-btn-ghost {
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.fz-btn-ghost:hover {
+  border-color: #bb9af7 !important;
+  color: #c0caf5 !important;
+  box-shadow: 0 0 22px rgba(187, 154, 247, 0.25);
+}
+
+/* journey */
+.fz-node {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+.fz-node::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  animation: fz-ping 2.4s ease-out infinite;
+}
+@keyframes fz-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.7);
+    opacity: 0;
+  }
+}
+.fz-hline {
+  position: relative;
+  flex: 1 1 40px;
+  height: 1px;
+  background: #292e42;
+  overflow: hidden;
+}
+.fz-hline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -35%;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(122, 162, 247, 0),
+    #7aa2f7,
+    rgba(187, 154, 247, 0)
+  );
+  animation: fz-sweep 4.5s ease-in-out infinite;
+}
+@keyframes fz-sweep {
+  0% {
+    transform: translateX(0);
+  }
+  60%,
+  100% {
+    transform: translateX(385%);
+  }
+}
+.fz-rail-fill {
+  position: absolute;
+  left: 52.5px;
+  top: 128px;
+  bottom: -126px;
+  width: 2px;
+  background: linear-gradient(#7aa2f7, #bb9af7 60%, #7dcfff);
+  transform-origin: top;
+  opacity: 0.8;
+}
+.fz-comet-track {
+  position: absolute;
+  left: 49px;
+  top: 128px;
+  bottom: -110px;
+  width: 9px;
+  container-type: size;
+  pointer-events: none;
+}
+.fz-comet {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #bb9af7;
+  box-shadow:
+    0 0 0 4px rgba(187, 154, 247, 0.18),
+    0 0 18px #bb9af7;
+}
+.fz-comet::before {
+  content: '';
+  position: absolute;
+  left: 3.5px;
+  bottom: 8px;
+  width: 2px;
+  height: 70px;
+  background: linear-gradient(rgba(187, 154, 247, 0), #bb9af7);
+}
+@supports (animation-timeline: scroll()) {
+  .fz-rail-fill {
+    animation: fz-fill linear both;
+    animation-timeline: scroll(root);
+  }
+  .fz-comet {
+    animation: fz-comet linear both;
+    animation-timeline: scroll(root);
+  }
+  .fz-reveal {
+    animation: fz-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+}
+@keyframes fz-fill {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes fz-comet {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100cqh);
+  }
+}
+@keyframes fz-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(56px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fz-aurora {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(42px);
+  opacity: 0.2;
+  background: linear-gradient(
+    90deg,
+    rgba(115, 218, 202, 0),
+    #73daca 28%,
+    #7aa2f7 55%,
+    #bb9af7 80%,
+    rgba(187, 154, 247, 0)
+  );
+  animation: fz-aurora 14s ease-in-out infinite alternate;
+}
+@keyframes fz-aurora {
+  0% {
+    transform: translateX(-60px) skewX(-12deg) scaleY(0.8);
+  }
+  50% {
+    transform: translateX(40px) skewX(8deg) scaleY(1.25);
+  }
+  100% {
+    transform: translateX(90px) skewX(-6deg) scaleY(0.9);
+  }
+}
+.fz-scan {
+  animation: fz-scan 6s ease-in-out infinite;
+}
+@keyframes fz-scan {
+  0%,
+  9%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(122, 162, 247, 0);
+  }
+  4% {
+    box-shadow:
+      0 0 0 1px #7aa2f7,
+      0 0 14px rgba(122, 162, 247, 0.5);
+  }
+}
+.fz-station {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: fz-station 90s linear infinite;
+}
+@keyframes fz-station {
+  from {
+    transform: translateX(240px) rotate(-4deg);
+  }
+  to {
+    transform: translateX(-1500px) rotate(6deg);
+  }
+}
+.fz-draw {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: fz-draw 9s ease-in-out infinite;
+}
+@keyframes fz-draw {
+  0% {
+    stroke-dashoffset: 420;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  45%,
+  75% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+.fz-tw {
+  animation: fz-tw 2.6s ease-in-out infinite alternate;
+}
+@keyframes fz-tw {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fz-ring {
+  padding: 1.5px;
+  border-radius: 24px;
+  background: conic-gradient(
+    from var(--fz-a),
+    #3b4261,
+    #7aa2f7 12%,
+    #bb9af7 22%,
+    #3b4261 36%,
+    #3b4261 64%,
+    #7dcfff 76%,
+    #3b4261 88%
+  );
+  animation: fz-spin 7s linear infinite;
+}
+@keyframes fz-spin {
+  to {
+    --fz-a: 360deg;
+  }
+}
+.fz-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 70px;
+  top: -70px;
+  background: linear-gradient(
+    rgba(122, 162, 247, 0),
+    rgba(122, 162, 247, 0.2),
+    rgba(122, 162, 247, 0)
+  );
+  animation: fz-scanline 3.6s linear infinite;
+}
+@keyframes fz-scanline {
+  to {
+    top: 100%;
+  }
+}
+.fz-card {
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.fz-card:hover {
+  border-color: #414868 !important;
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 1px rgba(122, 162, 247, 0.25),
+    0 24px 60px -24px rgba(122, 162, 247, 0.5);
+}
+
+/* destination planet */
+.fz-planet {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: -1640px;
+  width: 2000px;
+  height: 2000px;
+  margin-left: -1000px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 50% 0%,
+    #26346a 0%,
+    #151a35 28%,
+    #0d0f20 58%
+  );
+  animation: fz-atmo 6s ease-in-out infinite alternate;
+}
+@keyframes fz-atmo {
+  from {
+    box-shadow:
+      0 -2px 0 rgba(125, 207, 255, 0.55),
+      0 -30px 110px rgba(122, 162, 247, 0.14);
+  }
+  to {
+    box-shadow:
+      0 -2px 0 rgba(187, 154, 247, 0.75),
+      0 -50px 170px rgba(187, 154, 247, 0.24);
+  }
+}
+.fz-bands {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4000px;
+  height: 460px;
+  background: repeating-linear-gradient(
+    176deg,
+    rgba(122, 162, 247, 0) 0 38px,
+    rgba(122, 162, 247, 0.08) 38px 52px,
+    rgba(187, 154, 247, 0) 52px 92px,
+    rgba(187, 154, 247, 0.07) 92px 100px
+  );
+  animation: fz-bands 60s linear infinite;
+}
+@keyframes fz-bands {
+  to {
+    transform: translateX(-2000px);
+  }
+}
+.fz-drift {
+  animation: fz-driftm 18s ease-in-out infinite alternate;
+}
+@keyframes fz-driftm {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(180px, -34px);
+  }
+}
+
+/* HYPERJUMP — nav-click transition (src/components/site/Hyperjump.tsx).
+   Ported from the canvas prototype: the stage is the fixed viewport, and the
+   line sweep uses transform like the base .fz-hline rule. */
+.fz-jov {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+  display: none;
+}
+.fz-jov-on {
+  display: block;
+}
+.fz-jdir-down {
+  --jg: to bottom;
+  --j0: calc(100dvh + 120px);
+  --j1: -420px;
+}
+.fz-jdir-up {
+  --jg: to top;
+  --j0: -420px;
+  --j1: calc(100dvh + 120px);
+}
+.fz-jscrim {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(
+      ellipse at 50% 46%,
+      rgba(11, 12, 23, 0) 0%,
+      rgba(11, 12, 23, 0.62) 100%
+    ),
+    linear-gradient(rgba(122, 162, 247, 0.05), rgba(187, 154, 247, 0.07));
+  animation: fz-jscrim 0.9s ease-in-out both;
+}
+@keyframes fz-jscrim {
+  0% {
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fz-jt {
+  position: absolute;
+  top: 0;
+  border-radius: 2px;
+  opacity: 0;
+  background: linear-gradient(
+    var(--jg),
+    var(--jc, #c0caf5),
+    rgba(192, 202, 245, 0)
+  );
+  animation: fz-jt 0.9s cubic-bezier(0.55, 0.05, 0.35, 1) both;
+}
+@keyframes fz-jt {
+  0% {
+    transform: translateY(var(--j0)) scaleY(0.35);
+    opacity: 0;
+  }
+  16% {
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--j1)) scaleY(1.9);
+    opacity: 0;
+  }
+}
+.fz-jflash {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 320px;
+  height: 320px;
+  margin: -160px 0 0 -160px;
+  border-radius: 50%;
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    rgba(230, 235, 255, 0.95) 0%,
+    rgba(187, 154, 247, 0.42) 36%,
+    rgba(122, 162, 247, 0) 70%
+  );
+  animation: fz-jflash 0.9s ease-out both;
+}
+@keyframes fz-jflash {
+  0%,
+  60% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+.fz-hud {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 92px;
+  z-index: 61;
+  display: none;
+  justify-content: center;
+  pointer-events: none;
+}
+.fz-hud-go,
+.fz-hud-arr {
+  display: flex;
+}
+.fz-hud-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 264px;
+  padding: 10px 16px 12px;
+  border: 1px solid #3b4261;
+  border-radius: 14px;
+  background: rgba(22, 22, 30, 0.9);
+  box-shadow: 0 8px 30px rgba(11, 12, 23, 0.6);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c0caf5;
+}
+.fz-hud-go .fz-hud-pill {
+  animation: fz-hud-in 0.22s ease-out both;
+}
+.fz-hud-arr .fz-hud-pill {
+  animation: fz-hud-out 0.45s ease-in 0.6s both;
+}
+@keyframes fz-hud-in {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes fz-hud-out {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+}
+.fz-hud-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.fz-hud-lbl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fz-hud-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7aa2f7;
+}
+.fz-hud-arr .fz-hud-dot {
+  background: #9ece6a;
+}
+.fz-hud-km {
+  color: #7dcfff;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fz-hud-bar {
+  height: 2px;
+  border-radius: 2px;
+  background: #292e42;
+  overflow: hidden;
+}
+.fz-hud-bar i {
+  display: block;
+  height: 100%;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #7aa2f7, #bb9af7, #7dcfff);
+}
+.fz-hud-go .fz-hud-bar i {
+  animation: fz-hbar 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+@keyframes fz-hbar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+/* a wheel, touch or scroll key cut the jump short: fade out fast */
+.fz-jov-cancel,
+.fz-hud-cancel {
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+.fz-land {
+  position: relative;
+}
+.fz-land > span {
+  position: relative;
+  z-index: 1;
+}
+.fz-land::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: -16px -14px;
+  border-radius: 16px;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at 6% 50%,
+    rgba(122, 162, 247, 0.34),
+    rgba(187, 154, 247, 0.12) 45%,
+    rgba(122, 162, 247, 0) 72%
+  );
+  animation: fz-landg 1.5s ease-out both;
+}
+@keyframes fz-landg {
+  0% {
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fz-land .fz-node {
+  animation: fz-landn 1.1s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+@keyframes fz-landn {
+  0% {
+    transform: scale(1);
+  }
+  28% {
+    transform: scale(1.9);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.fz-land .fz-hline::after {
+  animation: fz-landh 0.8s cubic-bezier(0.3, 0.6, 0.3, 1) both;
+}
+@keyframes fz-landh {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(385%);
+  }
+}
+/* Arrival focuses the heading (tabindex=-1) so keyboard and screen-reader
+   users land with the page; only keyboard users get the ring. */
+.fz [data-jump-target]:focus:not(:focus-visible) {
+  outline: none;
+}
+@media (max-width: 719.98px) {
+  .fz-hud {
+    top: 80px;
+  }
+  .fz-hud-pill {
+    min-width: 236px;
+    padding: 9px 14px 11px;
+    font-size: 11px;
+  }
+  /* the scrim is child 1, so this keeps 18 trails */
+  .fz-jt:nth-child(n + 20) {
+    display: none;
+  }
+}
+
+/* reduced motion: freeze every loop and show the static word chips */
+.fz-static {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fz *,
+  .fz *::before,
+  .fz *::after {
+    animation-play-state: paused !important;
+  }
+  .fz .fz-static {
+    display: block;
+  }
+  .fz .fz-word {
+    display: none;
+  }
+  .fz .fz-reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* One-shot entrances start invisible, so freezing them would leave the
+     rocket missing. Skip straight to their end state instead. */
+  .fz .fz-kick,
+  .fz .fz-wl,
+  .fz .fz-flash {
+    animation: none !important;
+  }
+  /* The astronaut rests on the rocket, typing, instead of hanging mid-jump. */
+  .fz .fz-jump,
+  .fz .fz-wave,
+  .fz .fz-thrust {
+    animation: none !important;
+  }
+  .fz .fz-type {
+    animation: none !important;
+    stroke-dashoffset: 0;
+  }
+  .fz .fz-plus,
+  .fz .fz-dust {
+    display: none;
+  }
+  /* Hyperjump becomes an instant jump: no overlay, HUD or landing pulse */
+  .fz .fz-jov,
+  .fz .fz-hud {
+    display: none !important;
+  }
+  .fz .fz-land::before {
+    display: none;
+  }
+  .fz .fz-land .fz-node,
+  .fz .fz-land .fz-hline::after {
+    animation: none;
+  }
+  /* the scroll-linked rail and comet have nothing to show while still */
+  .fz .fz-comet,
+  .fz .fz-rail-fill {
+    display: none;
+  }
+}
+
+/* Mobile (MainMobile.dc.html): tuned sizes for the scaled-down scene. */
+@media (max-width: 719.98px) {
+  @keyframes fz-neb {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(30px, -30px) scale(1.14);
+    }
+  }
+  @keyframes fz-shoot {
+    0% {
+      transform: translate(0, 0) rotate(-18deg);
+      opacity: 0;
+    }
+    1.5% {
+      opacity: 1;
+    }
+    7% {
+      transform: translate(-300px, 100px) rotate(-18deg);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-300px, 100px) rotate(-18deg);
+      opacity: 0;
+    }
+  }
+  @keyframes fz-aurora {
+    0% {
+      transform: translateX(-30px) skewX(-12deg) scaleY(0.8);
+    }
+    50% {
+      transform: translateX(20px) skewX(8deg) scaleY(1.25);
+    }
+    100% {
+      transform: translateX(40px) skewX(-6deg) scaleY(0.9);
+    }
+  }
+  @keyframes fz-driftm {
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(90px, -24px);
+    }
+  }
+  @keyframes fz-atmo {
+    from {
+      box-shadow:
+        0 -2px 0 rgba(125, 207, 255, 0.55),
+        0 -30px 100px rgba(122, 162, 247, 0.14);
+    }
+    to {
+      box-shadow:
+        0 -2px 0 rgba(187, 154, 247, 0.75),
+        0 -40px 130px rgba(187, 154, 247, 0.24);
+    }
+  }
+  @keyframes fz-bands {
+    to {
+      transform: translateX(-1200px);
+    }
+  }
+  .fz-shoot {
+    width: 120px;
+  }
+  .fz-streams {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: auto;
+    height: 420px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
+  .fz-streams-rot {
+    left: -40%;
+    width: 180%;
+  }
+  .fz-ex {
+    width: 9px;
+    height: 9px;
+  }
+  .fz-speed {
+    height: 2.5px;
+  }
+  .fz-wl {
+    top: -2px;
+    height: 3px;
+  }
+  .fz-plus {
+    top: 30px;
+    font-size: 24px;
+  }
+  .fz-dust {
+    width: 16px;
+    height: 7px;
+  }
+  .fz-dust-l {
+    left: 294px;
+  }
+  .fz-moon {
+    width: 16px;
+    height: 16px;
+  }
+  .fz-aurora {
+    filter: blur(30px);
+    opacity: 0.22;
+  }
+  .fz-ring {
+    border-radius: 19.5px;
+  }
+  .fz-scanline {
+    height: 50px;
+    top: -50px;
+  }
+  .fz-planet {
+    bottom: -960px;
+    width: 1200px;
+    height: 1200px;
+    margin-left: -600px;
+  }
+  .fz-bands {
+    width: 2400px;
+    height: 300px;
+    background: repeating-linear-gradient(
+      176deg,
+      rgba(122, 162, 247, 0) 0 26px,
+      rgba(122, 162, 247, 0.08) 26px 36px,
+      rgba(187, 154, 247, 0) 36px 62px,
+      rgba(187, 154, 247, 0.07) 62px 68px
+    );
+    animation-duration: 50s;
+  }
+  .fz-drift {
+    animation-duration: 16s;
+  }
+  .fz-word,
+  .fz-meteor {
+    width: 62px;
+    height: 54px;
+  }
+  .fz-word svg,
+  .fz-meteor svg {
+    width: 30px;
+    height: 30px;
+  }
+  .fz-words {
+    top: 210px;
+    height: 44px;
+  }
+}

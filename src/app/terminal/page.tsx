@@ -1,22 +1,20 @@
-import Link from 'next/link';
+import type { Metadata, Viewport } from 'next';
+import '@/styles/terminal.css';
+import Terminal from '@/components/terminal/Terminal';
 
-export const metadata = { title: 'Terminal · Fahim' };
+export const metadata: Metadata = {
+  title: 'Terminal · Fahim',
+  description:
+    'Mohammad Zobair Hosain Fahim, software engineer — the terminal edition. Try whoami.',
+};
+
+// The prompt bar sits at the bottom, so let the layout shrink with the phone
+// keyboard instead of sliding behind it.
+export const viewport: Viewport = {
+  themeColor: '#0b0c17',
+  interactiveWidget: 'resizes-content',
+};
 
 export default function TerminalPage() {
-  return (
-    <main className="mx-auto flex min-h-screen max-w-[40rem] flex-col items-start justify-center gap-6 px-5 md:px-6">
-      <h1 className="font-display text-2xl font-semibold text-starlight">
-        Terminal
-      </h1>
-      <p className="text-starlight/90">
-        The terminal view is coming soon. Everything is also on the site.
-      </p>
-      <Link
-        href="/"
-        className="inline-flex min-h-11 items-center rounded-full border border-comet px-6 font-semibold text-comet transition-colors hover:bg-comet/10"
-      >
-        Back to site
-      </Link>
-    </main>
-  );
+  return <Terminal />;
 }

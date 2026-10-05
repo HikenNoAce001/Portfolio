@@ -1,57 +1,118 @@
-export type Emphasis = { text: string; strong?: string[] }; // substrings to bold, such as metrics
+export type Tone = 'plain' | 'violet';
+
+export interface Chip {
+  text: string;
+  tone: Tone;
+}
+
+export interface Telemetry {
+  value: number;
+  prefix?: string; // e.g. a minus sign
+  suffix: string; // e.g. "+" or "%"
+  label: string;
+  labelShort?: string; // phone label when it differs
+  accent?: boolean; // cyan instead of ink
+}
 
 export interface Profile {
   fullName: string;
   shortName: string;
+  callsign: string;
   role: string;
-  headline: string; // hero H1
-  intro: string; // hero paragraph
-  summary: string; // one-paragraph professional summary (from the resume)
-  status: string; // current position line
-  availability: string; // used in contact and neofetch
-  location: string;
-  experienceLength: string;
-  about: string[]; // paragraphs
-  highlights: Emphasis[]; // key achievements
-  stackSentence: string; // accessible version of the tech lanes
+  intro: string; // hero paragraph, ends where the rotating focus begins
+  focus: string[]; // rotating "backend systems." / "AI engineering."
+  availability: string;
+  availabilityShort: string; // phone hero
+  contactBlurb: string;
+  contactBlurbShort: string; // phone
+  city: string; // "Chittagong, BD"
+  timezone: string;
+  baseLine: string; // "Chittagong, Bangladesh (UTC+6)"
+  about: string[];
+  aboutShort: string[]; // phone
+  telemetry: Telemetry[];
   education: {
     school: string;
+    schoolShort: string;
     degree: string;
-    graduated: string;
-    thesis?: string;
+    degreeShort: string;
+    graduated: string; // display, e.g. "JUL 2023"
+    graduatedIso: string;
   };
   email: string;
-  phone?: string;
-  socials: { label: string; href: string }[];
-  resumeUrl?: string; // e.g. '/resume.pdf'
-  photo: { src: string; alt: string };
+  socials: { label: string; href: string; short: string }[];
+  resumeUrl: string;
 }
 
 export interface Role {
   id: string;
-  company: string;
-  companyUrl?: string;
   title: string;
-  start: string;
-  end?: string; // omitted means present
-  location: string;
-  highlights: Emphasis[];
+  org: string; // "The WOS Germany GmbH · Lentho.com"
+  period: string; // "MAY 2023 — 2026"
+  periodIso: string; // "2023-05 → 2026"
+  place: string[]; // lines under the date
+  placeShort: string; // after the date on phones
+  highlights: string[];
+  /** Phone bullets. A single entry prints as a paragraph. */
+  highlightsShort: string[];
   stack: string[];
+  /** Short line for the terminal `log` command. */
+  terminal: { org: string; lines: string[] };
 }
 
-export type PatchGlyph =
-  | 'bowl'
-  | 'kanban'
-  | 'crate'
-  | 'capsule'
-  | 'rocket'
-  | 'leaf';
+export interface LoadoutGroup {
+  label: string;
+  tone: Tone;
+  items: string[];
+}
+
+export type TechLogoId =
+  | 'react'
+  | 'nextjs'
+  | 'typescript'
+  | 'fastapi'
+  | 'postgresql'
+  | 'docker'
+  | 'socketio'
+  | 'flutter';
+
+export interface Asteroid {
+  word: string; // accessible name; the meteor shows the logo
+  logo: TechLogoId;
+  tone: Tone;
+}
+
+export type MissionStatus = 'live' | 'private' | 'design';
+
+export interface Mission {
+  id: string; // MSN-01
+  dir: string; // folder name in the terminal's yazi pane
+  aliases: string[]; // extra names `open` accepts
+  status: MissionStatus;
+  tag: string; // PROFESSIONAL, FULL-STACK, ...
+  /** Card copy. The longer summary stays in `Project.summary`. */
+  blurb: string;
+  points: string[]; // two short bullets (terminal and featured card)
+  chips: Chip[];
+  liveLabel?: string; // text for the live link when it is not "Live"
+  /** Phone card copy, from the MainMobile board. */
+  phone: {
+    name?: string; // when the project name is too long for a phone card
+    blurb: string;
+    /** Featured card: chips. Other cards: one "a · b · c" line. */
+    stack: string[];
+    tone: Tone;
+  };
+  /** Terminal-only names. */
+  termName: string;
+  termBlurb: string;
+  termPoints: string[];
+}
 
 export interface Project {
   slug: string;
   name: string;
   tagline: string;
-  kind: 'professional' | 'full-stack' | 'personal' | 'design';
   live: boolean;
   source: 'public' | 'proprietary';
   links: { live?: string; code?: string; design?: string };
@@ -59,19 +120,27 @@ export interface Project {
   highlights: string[];
   stack: string[];
   images: { src: string; alt: string }[];
-  patch: { glyph: PatchGlyph; ring: string };
-  brief?: { problem: string; approach: string; outcome: string };
+  /** Present when the project is shown as a mission on the site. */
+  mission?: Mission;
 }
 
-export interface Lane {
-  id: 'frontend' | 'backend' | 'ship' | 'ai';
-  label: string;
-  items: string[];
+/** Music for the terminal's `cava` pane, with what its licence asks for. */
+export interface Track {
+  title: string;
+  artist: string;
+  src: string; // file in public/
+  page: string; // the track's page, linked from the credit
+  license: string;
+  licenseUrl: string;
 }
 
 export interface Content {
   profile: Profile;
   experience: Role[];
   projects: Project[];
-  lanes: Lane[];
+  loadout: LoadoutGroup[];
+  /** The phone loadout is one flat, shorter sweep. */
+  loadoutShort: Chip[];
+  asteroids: Asteroid[];
+  track: Track;
 }
