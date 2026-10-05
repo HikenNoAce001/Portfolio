@@ -1,0 +1,62 @@
+import type { Lane } from './types';
+
+export const lanes: Lane[] = [
+  {
+    id: 'frontend',
+    label: 'Frontend',
+    items: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'HTML5',
+      'CSS3',
+      'Tailwind CSS',
+      'Zustand',
+      'TanStack Query',
+      'SWR',
+      'React Hook Form',
+      'Zod',
+      'Radix UI',
+      'Flutter',
+    ],
+  },
+  {
+    id: 'backend',
+    label: 'Backend and data',
+    items: [
+      'Python',
+      'FastAPI',
+      'Node.js',
+      'Express',
+      'Laravel',
+      'PostgreSQL',
+      'MySQL',
+      'Prisma',
+      'Socket.io',
+      'REST APIs',
+    ],
+  },
+  {
+    id: 'ship',
+    label: 'Shipping and tools',
+    items: [
+      'Docker',
+      'CI/CD',
+      'AWS',
+      'Vercel',
+      'MinIO',
+      'Turborepo',
+      'Sentry',
+      'Firebase',
+      'Git',
+      'Jira',
+      'Figma',
+    ],
+  },
+  {
+    id: 'ai',
+    label: 'AI and languages',
+    items: ['C++', 'LangChain', 'LLM applications'],
+  },
+];

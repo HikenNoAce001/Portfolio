@@ -1,34 +1,44 @@
 import type { Config } from 'tailwindcss';
 
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
-  darkMode: 'class',
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      nav: '900px', // nav links collapse into a menu below this width
+      journey: '1100px', // flight layout starts here
+      xl: '1280px',
+    },
+    // Major-third scale (docs/DESIGN.md): 14, 17, 21, 27, 34, 43, 54.
+    fontSize: {
+      sm: ['0.875rem', { lineHeight: '1.5' }],
+      base: ['1.0625rem', { lineHeight: '1.6' }],
+      lg: ['1.3125rem', { lineHeight: '1.4' }],
+      xl: ['1.6875rem', { lineHeight: '1.25' }],
+      '2xl': ['2.125rem', { lineHeight: '1.2' }],
+      '3xl': ['2.6875rem', { lineHeight: '1.15' }],
+      '4xl': ['3.375rem', { lineHeight: '1.1' }],
+    },
     extend: {
-      fontSize: {
-        xs: ['12px', { lineHeight: '15.6px' }],
-        sm: ['14px', { lineHeight: '18.2px' }],
-        base: ['16px', { lineHeight: '24px' }],
-        lg: ['18px', { lineHeight: '27px' }],
-        h8: ['14px', { lineHeight: '21px' }],
-        h7: ['16px', { lineHeight: '24px' }],
-        h6: ['18px', { lineHeight: '27px' }],
-        h5: ['20px', { lineHeight: '30px' }],
-        h4: ['24px', { lineHeight: '36px' }],
-        h3: ['30px', { lineHeight: '42px' }],
-        h2: ['36px', { lineHeight: '54px' }],
-        h1: ['60px', { lineHeight: '66px' }],
-        header: ['52px', { lineHeight: '66px' }],
+      colors: {
+        abyss: token('abyss'),
+        orbit: token('orbit'),
+        starlight: token('starlight'),
+        dust: token('dust'),
+        flame: token('flame'),
+        comet: token('comet'),
+        nebula: token('nebula'),
+        ember: token('ember'),
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
+      borderRadius: { panel: '14px', shot: '10px' },
     },
   },
   plugins: [],
