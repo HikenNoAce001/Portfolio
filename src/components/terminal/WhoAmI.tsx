@@ -4,7 +4,7 @@ import Duo from './Duo';
 
 const { profile } = content;
 
-export const PORTRAIT_SRC = '/fahim-cutout.webp';
+export const PORTRAIT_SRC = '/fahim-portrait.webp';
 
 // `whoami`: the portrait pops in on a spinning gradient ring, then the facts
 // slide in one by one.

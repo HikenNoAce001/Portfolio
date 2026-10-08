@@ -8,8 +8,8 @@ const dt =
 const dd = 'm-0 text-[13px] text-soft sm:text-sm';
 const corner = 'absolute size-2 border-cyan sm:size-2.5';
 
-// The "Crew ID" badge: the background-removed portrait on a violet glow, with
-// a scan line and a holographic sheen. Decorative motion only.
+// The "Crew ID" badge: the portrait photo in a violet-glow frame, with a scan
+// line and a holographic sheen. Decorative motion only.
 export default function CrewId() {
   return (
     <article
@@ -38,7 +38,7 @@ export default function CrewId() {
           }}
         >
           <Image
-            src="/fahim-cutout.webp"
+            src="/fahim-portrait.webp"
             alt="Portrait of Fahim"
             fill
             sizes="132px"

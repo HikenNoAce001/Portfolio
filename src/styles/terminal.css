@@ -146,16 +146,18 @@
   background: #292e42;
   transition: background 0.3s ease;
 }
+/* Ring colours are blue/violet/cyan blended 60% toward #292e42 so the focus
+   ring (and what shows through the translucent .tm-in) stays subtle. */
 .tm-on {
   background: conic-gradient(
     from var(--fz-a),
-    #7aa2f7,
-    #bb9af7,
-    #7dcfff,
-    #7aa2f7
+    #5a74af,
+    #816faf,
+    #5b8fb3,
+    #5a74af
   );
   animation: tm-spin 6s linear infinite;
-  box-shadow: 0 0 28px rgba(122, 162, 247, 0.18);
+  box-shadow: 0 0 14px rgba(122, 162, 247, 0.07);
 }
 @keyframes tm-spin {
   to {
@@ -521,13 +523,13 @@
     /* a single window is always focused on a phone */
     background: conic-gradient(
       from var(--fz-a),
-      #7aa2f7,
-      #bb9af7,
-      #7dcfff,
-      #7aa2f7
+      #5a74af,
+      #816faf,
+      #5b8fb3,
+      #5a74af
     );
     animation: tm-spin 6s linear infinite;
-    box-shadow: 0 0 28px rgba(122, 162, 247, 0.18);
+    box-shadow: 0 0 14px rgba(122, 162, 247, 0.07);
   }
   .tm-in {
     background: rgba(22, 22, 30, 0.88);

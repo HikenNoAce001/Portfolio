@@ -29,6 +29,7 @@ const PORTRAIT = { shortSide: 480 };
 
 const jobs = [
   { from: 'Fahim2.jpg', to: 'profile.webp', ...PORTRAIT },
+  { from: 'Fahim.png', to: 'fahim-portrait.webp', ...PORTRAIT },
 
   {
     from: 'project-LENTHO/image.png',
