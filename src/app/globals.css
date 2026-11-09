@@ -2,36 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Tokyo Night tokens. Channels are space-separated RGB so Tailwind opacity
+   modifiers work (bg-panel/80). Values come from the Deep Space Redesign
+   canvas build notes. */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  color-scheme: dark;
+
+  --night: 11 12 23; /* #0b0c17 page */
+  --deep: 17 18 29; /* #11121d card interiors */
+  --panel: 22 22 30; /* #16161e raised surfaces */
+  --raised: 31 35 53; /* #1f2335 chips, inputs */
+  --line: 41 46 66; /* #292e42 hairlines */
+  --line-strong: 59 66 97; /* #3b4261 */
+  --line-bright: 65 72 104; /* #414868 */
+
+  --ink: 192 202 245; /* #c0caf5 primary text */
+  --soft: 169 177 214; /* #a9b1d6 body */
+  --muted: 144 153 196; /* #9099c4 secondary */
+  --faint: 125 133 176; /* #7d85b0 labels; #737aa2 from the design failed AA on panels */
+
+  --blue: 122 162 247; /* #7aa2f7 actions */
+  --violet: 187 154 247; /* #bb9af7 display + highlights */
+  --cyan: 125 207 255; /* #7dcfff telemetry */
+  --green: 158 206 106; /* #9ece6a status only */
+  --red: 247 118 142; /* #f7768e */
+  --teal: 115 218 202; /* #73daca */
+  --amber: 224 175 104; /* #e0af68 */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Registered so the conic-gradient borders can animate their angle. */
+@property --fz-a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+html {
+  background-color: rgb(var(--night));
+  /* No-JS anchor jumps glide; with JS, Hyperjump scrolls instead. Sections
+     set scroll-margin so the label row lands 24px from the top. */
+  scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  /* background: (
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  min-height: 100vh;
+  background-color: rgb(var(--night));
+  color: rgb(var(--ink));
+  font-family: var(--font-body), 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--cyan));
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgb(var(--violet) / 0.3);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  .text-pretty {
+    text-wrap: pretty;
+  }
 }
-/* @font-face {
-  font-family: 'Sevillana', cursive;
-  src: url('../public/fonts/Sevillana-Regular.ttf');
-} */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

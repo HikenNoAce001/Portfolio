@@ -1,33 +1,54 @@
 import type { Config } from 'tailwindcss';
 
+// Tokens are space-separated RGB channels in globals.css so Tailwind opacity
+// modifiers work: bg-panel/80, border-line/50.
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
-  darkMode: 'class',
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
-      fontSize: {
-        xs: ['12px', { lineHeight: '15.6px' }],
-        sm: ['14px', { lineHeight: '18.2px' }],
-        base: ['16px', { lineHeight: '24px' }],
-        lg: ['18px', { lineHeight: '27px' }],
-        h8: ['14px', { lineHeight: '21px' }],
-        h7: ['16px', { lineHeight: '24px' }],
-        h6: ['18px', { lineHeight: '27px' }],
-        h5: ['20px', { lineHeight: '30px' }],
-        h4: ['24px', { lineHeight: '36px' }],
-        h3: ['30px', { lineHeight: '42px' }],
-        h2: ['36px', { lineHeight: '54px' }],
-        h1: ['60px', { lineHeight: '66px' }],
-        header: ['52px', { lineHeight: '66px' }],
+      colors: {
+        // Tokyo Night surfaces
+        night: token('night'), // page background
+        deep: token('deep'), // card interiors
+        panel: token('panel'), // raised surfaces
+        raised: token('raised'), // asteroid chips, inputs
+        // hairlines
+        line: token('line'),
+        'line-strong': token('line-strong'),
+        'line-bright': token('line-bright'),
+        // text
+        ink: token('ink'), // primary
+        soft: token('soft'), // body
+        muted: token('muted'), // secondary
+        faint: token('faint'), // labels
+        // accents
+        blue: token('blue'), // actions
+        violet: token('violet'), // display + highlights
+        cyan: token('cyan'), // telemetry
+        green: token('green'), // status only
+        red: token('red'),
+        teal: token('teal'),
+        amber: token('amber'),
+        // violet pill borders and text (backend chips)
+        'violet-dim': '#44386b',
+        'violet-soft': '#cdb5fa',
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        display: ['var(--font-display)', 'Arial Black', 'sans-serif'],
+        body: ['var(--font-body)', 'Segoe UI', 'system-ui', 'sans-serif'],
+        mono: [
+          'var(--font-mono)',
+          'ui-monospace',
+          'SF Mono',
+          'Menlo',
+          'monospace',
+        ],
+      },
+      screens: {
+        // The design switches layout at 720px (scene scales to 0.56 below).
+        sm: '720px',
       },
     },
   },

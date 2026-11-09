@@ -3,7 +3,9 @@ import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
 import tseslint from 'typescript-eslint';
 import prettierPlugin from 'eslint-plugin-prettier/recommended';
 
-export default [
+const eslintConfig = [
+  // Other tools' git worktrees (e.g. Kilo) carry their own copy of the repo.
+  { ignores: ['.kilo/**'] },
   ...nextConfig,
   ...nextCoreWebVitals,
   ...tseslint.configs.recommended,
@@ -14,7 +16,13 @@ export default [
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['warn'],
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/ban-ts-ignore': 'off',
     },
   },
+  {
+    // CLI scripts report to the terminal.
+    files: ['scripts/**'],
+    rules: { 'no-console': 'off' },
+  },
 ];
+
+export default eslintConfig;
