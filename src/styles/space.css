@@ -70,19 +70,32 @@
   pointer-events: none;
   opacity: 0;
 }
-/* A zero-size pivot at the rocket's centre: TravelRocket sets data-dir from
-   the scroll direction, and a half-turn here points the rocket (and its
-   smoke) the way the page is going. */
+/* A zero-size pivot at the rocket's centre, driven by TravelRocket:
+   data-moving shows the rocket only while the page scrolls (quick in, slower
+   out), data-dir half-turns it (and its smoke) to face the way the page is
+   going, and data-rest stops the smoke once it has faded out. */
 .fz-trv-turn {
   position: absolute;
   left: 0;
   top: 0;
   width: 0;
   height: 0;
-  transition: transform 0.6s cubic-bezier(0.3, 0.1, 0.2, 1);
+  opacity: 0;
+  transition:
+    transform 0.6s cubic-bezier(0.3, 0.1, 0.2, 1),
+    opacity 0.8s ease;
+}
+.fz-trv-turn[data-moving='true'] {
+  opacity: 1;
+  transition:
+    transform 0.6s cubic-bezier(0.3, 0.1, 0.2, 1),
+    opacity 0.25s ease;
 }
 .fz-trv-turn[data-dir='up'] {
   transform: rotate(180deg);
+}
+.fz-trv-turn[data-rest='true'] .fz-smoke span {
+  animation-play-state: paused;
 }
 .fz-trv-sway {
   position: absolute;
@@ -91,62 +104,135 @@
   width: var(--fz-trv);
   height: calc(var(--fz-trv) * 0.4);
 }
-/* Smoke: puffs leave the tail, swell and thin out. Drawn pointing left of a
-   right-facing rocket; the sway layer turns the whole thing nose-down. */
+/* Smoke: a foamy cloud. Each puff is a cluster of round bubbles (soft
+   radial lobes, no blur filter); eleven of them leave the tail, billow to
+   several times their size and overlap into one thick trail longer than the
+   rocket. Drawn pointing left of a right-facing rocket; the sway layer turns
+   the whole thing nose-down. */
+/* Thinned as one group, so overlapping puffs don't add up to a solid mass. */
+.fz-smoke {
+  opacity: 0.42;
+}
 .fz-smoke span {
   position: absolute;
-  left: 2%;
+  left: 4%;
   top: 50%;
-  width: 20%;
+  width: 44%;
   aspect-ratio: 1;
-  margin: -10% 0 0 -10%;
-  border-radius: 50%;
+  margin: -22% 0 0 -22%;
   background: radial-gradient(
-    circle,
-    rgba(223, 227, 255, 0.75) 0%,
-    rgba(187, 154, 247, 0.35) 42%,
-    rgba(187, 154, 247, 0) 70%
-  );
+      ellipse 24% 24% at 30% 62%,
+      rgba(240, 242, 255, 0.95) 0%,
+      rgba(232, 232, 255, 0.76) 55%,
+      rgba(226, 222, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse 22% 22% at 52% 30%,
+      rgba(240, 242, 255, 0.95) 0%,
+      rgba(232, 232, 255, 0.76) 55%,
+      rgba(226, 222, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse 24% 24% at 72% 58%,
+      rgba(240, 242, 255, 0.9) 0%,
+      rgba(232, 232, 255, 0.72) 55%,
+      rgba(226, 222, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse 20% 20% at 44% 52%,
+      rgba(240, 242, 255, 0.95) 0%,
+      rgba(232, 232, 255, 0.76) 55%,
+      rgba(226, 222, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse 18% 18% at 28% 36%,
+      rgba(240, 242, 255, 0.85) 0%,
+      rgba(232, 232, 255, 0.68) 55%,
+      rgba(226, 222, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse 18% 18% at 68% 32%,
+      rgba(240, 242, 255, 0.85) 0%,
+      rgba(232, 232, 255, 0.68) 55%,
+      rgba(226, 222, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse 22% 22% at 50% 72%,
+      rgba(240, 242, 255, 0.85) 0%,
+      rgba(232, 232, 255, 0.68) 55%,
+      rgba(226, 222, 255, 0) 100%
+    );
   opacity: 0;
-  animation: fz-puff 2.8s linear infinite;
+  animation: fz-puff 4.4s linear infinite;
 }
 .fz-smoke span:nth-child(1) {
-  --fz-py: -70%;
+  --fz-py: -30%;
+  --fz-pr: 50deg;
 }
 .fz-smoke span:nth-child(2) {
-  --fz-py: 55%;
+  --fz-py: 26%;
+  --fz-pr: -70deg;
   animation-delay: -0.4s;
 }
 .fz-smoke span:nth-child(3) {
-  --fz-py: -20%;
+  --fz-py: -8%;
+  --fz-pr: 95deg;
   animation-delay: -0.8s;
 }
 .fz-smoke span:nth-child(4) {
-  --fz-py: 80%;
+  --fz-py: 40%;
+  --fz-pr: -40deg;
   animation-delay: -1.2s;
 }
 .fz-smoke span:nth-child(5) {
-  --fz-py: -95%;
+  --fz-py: -42%;
+  --fz-pr: -85deg;
   animation-delay: -1.6s;
 }
 .fz-smoke span:nth-child(6) {
-  --fz-py: 25%;
+  --fz-py: 12%;
+  --fz-pr: 65deg;
   animation-delay: -2s;
 }
 .fz-smoke span:nth-child(7) {
-  --fz-py: -45%;
+  --fz-py: -20%;
+  --fz-pr: -55deg;
   animation-delay: -2.4s;
+}
+.fz-smoke span:nth-child(8) {
+  --fz-py: 34%;
+  --fz-pr: 80deg;
+  animation-delay: -2.8s;
+}
+.fz-smoke span:nth-child(9) {
+  --fz-py: -4%;
+  --fz-pr: -30deg;
+  animation-delay: -3.2s;
+}
+.fz-smoke span:nth-child(10) {
+  --fz-py: -36%;
+  --fz-pr: 45deg;
+  animation-delay: -3.6s;
+}
+.fz-smoke span:nth-child(11) {
+  --fz-py: 20%;
+  --fz-pr: -95deg;
+  animation-delay: -4s;
 }
 @keyframes fz-puff {
   0% {
-    transform: translate(0, 0) scale(0.45);
+    transform: translate(0, 0) rotate(0deg) scale(0.22);
     opacity: 0;
   }
-  12% {
+  8% {
     opacity: 1;
   }
+  55% {
+    opacity: 0.8;
+  }
   100% {
-    transform: translate(-460%, var(--fz-py, 0%)) scale(2.6);
+    transform: translate(-300%, var(--fz-py, 0%)) rotate(var(--fz-pr, 0deg))
+      scale(2.4);
     opacity: 0;
   }
 }
