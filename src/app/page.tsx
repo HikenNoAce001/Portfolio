@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/styles/space.css';
 import Backdrop from '@/components/space/Backdrop';
+import TravelRocket from '@/components/space/TravelRocket';
 import ViewToggleKey from '@/components/ViewToggleKey';
 import About from '@/components/site/About';
 import Contact from '@/components/site/Contact';
@@ -9,6 +10,8 @@ import FlightLog from '@/components/site/FlightLog';
 import Hero from '@/components/site/Hero';
 import Hyperjump from '@/components/site/Hyperjump';
 import Missions from '@/components/site/Missions';
+import MobileNav from '@/components/site/MobileNav';
+import OffscreenPause from '@/components/site/OffscreenPause';
 import SiteHeader from '@/components/site/SiteHeader';
 import { pageMeta } from '@/lib/site';
 
@@ -31,7 +34,9 @@ export default function Home() {
         Skip to main content
       </a>
       <Backdrop />
+      <TravelRocket />
       <SiteHeader />
+      <MobileNav />
       <main id="main" className="flex flex-1 flex-col">
         <Hero />
         <div className="relative z-[2] mx-auto flex w-full max-w-[1344px] flex-col px-4 sm:px-12">
@@ -53,6 +58,7 @@ export default function Home() {
         <Contact />
       </main>
       <Hyperjump />
+      <OffscreenPause />
       <ViewToggleKey to="/terminal" />
     </div>
   );

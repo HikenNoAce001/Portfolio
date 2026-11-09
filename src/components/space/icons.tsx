@@ -117,6 +117,14 @@ export function ClockIcon({ size = 15, className }: IconProps) {
   );
 }
 
+export function MenuIcon({ size = 20, className }: IconProps) {
+  return (
+    <svg {...base(size, className)} strokeWidth="2">
+      <path d="M4 7h16M4 12h16M4 17h10" />
+    </svg>
+  );
+}
+
 export function CloseIcon({ size = 12, className }: IconProps) {
   return (
     <svg {...base(size, className)} strokeWidth="2.6">

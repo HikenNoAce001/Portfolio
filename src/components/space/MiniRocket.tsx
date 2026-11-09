@@ -1,12 +1,19 @@
-// Original art: the small rocket on approach in the contact section.
-export default function MiniRocket() {
+// Original art: the small rocket on approach in the contact section, also
+// used by the travel rocket (which sets its own size and heading in CSS).
+export default function MiniRocket({
+  width = 170,
+  rotate = 28,
+}: {
+  width?: number | string;
+  rotate?: number;
+}) {
   return (
     <svg
       viewBox="-30 0 350 140"
       style={{
-        width: '170px',
-        height: '68px',
-        transform: 'rotate(28deg)',
+        width,
+        aspectRatio: '350 / 140',
+        transform: rotate ? `rotate(${rotate}deg)` : undefined,
         overflow: 'visible',
       }}
     >

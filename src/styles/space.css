@@ -2,12 +2,206 @@
    Class names keep the design's fz- prefix. Mobile overrides at the bottom come
    from MainMobile.dc.html. */
 
-/* page starfield */
+/* page starfield: fixed to the viewport, so each layer is one screen (plus
+   its parallax travel) instead of the whole page's height. Where scroll
+   timelines exist the three layers drift up at different speeds as the page
+   scrolls, which reads as depth; elsewhere the sky stays still. */
 .fz-stars {
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   background-repeat: repeat;
+}
+@supports (animation-timeline: scroll()) {
+  .fz-s1 {
+    bottom: -480px;
+    animation: fz-par1 linear both;
+    animation-timeline: scroll(root);
+  }
+  .fz-s2 {
+    bottom: -754px;
+    animation:
+      fz-twinkle 5s ease-in-out infinite alternate,
+      fz-par2 linear both;
+    animation-timeline: auto, scroll(root);
+  }
+  .fz-s3 {
+    bottom: -1226px;
+    animation:
+      fz-twinkle 8s ease-in-out infinite alternate-reverse,
+      fz-par3 linear both;
+    animation-timeline: auto, scroll(root);
+  }
+}
+/* each layer travels a whole number of its own tiles */
+@keyframes fz-par1 {
+  to {
+    transform: translateY(-480px);
+  }
+}
+@keyframes fz-par2 {
+  to {
+    transform: translateY(-754px);
+  }
+}
+@keyframes fz-par3 {
+  to {
+    transform: translateY(-1226px);
+  }
+}
+
+/* travel rocket: a large, see-through rocket in the middle of the screen
+   that flies nose-down with the page, trailing smoke. It is a ghost over the
+   content (text stays dominant; it never takes clicks), appears after the
+   hero and fades out before the contact planet, where the rocket on approach
+   takes over. Its position is scroll-driven, so it needs no JS and stays
+   hidden where scroll timelines are missing. */
+.fz-trv {
+  --fz-trv: 300px; /* rocket length */
+  --fz-trv-o: 0.17;
+  --fz-trv-sw: 44px; /* sway to each side */
+  display: none;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+/* A zero-size pivot at the rocket's centre: TravelRocket sets data-dir from
+   the scroll direction, and a half-turn here points the rocket (and its
+   smoke) the way the page is going. */
+.fz-trv-turn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transition: transform 0.6s cubic-bezier(0.3, 0.1, 0.2, 1);
+}
+.fz-trv-turn[data-dir='up'] {
+  transform: rotate(180deg);
+}
+.fz-trv-sway {
+  position: absolute;
+  left: calc(var(--fz-trv) / -2);
+  top: calc(var(--fz-trv) * -0.2);
+  width: var(--fz-trv);
+  height: calc(var(--fz-trv) * 0.4);
+}
+/* Smoke: puffs leave the tail, swell and thin out. Drawn pointing left of a
+   right-facing rocket; the sway layer turns the whole thing nose-down. */
+.fz-smoke span {
+  position: absolute;
+  left: 2%;
+  top: 50%;
+  width: 20%;
+  aspect-ratio: 1;
+  margin: -10% 0 0 -10%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(223, 227, 255, 0.75) 0%,
+    rgba(187, 154, 247, 0.35) 42%,
+    rgba(187, 154, 247, 0) 70%
+  );
+  opacity: 0;
+  animation: fz-puff 2.8s linear infinite;
+}
+.fz-smoke span:nth-child(1) {
+  --fz-py: -70%;
+}
+.fz-smoke span:nth-child(2) {
+  --fz-py: 55%;
+  animation-delay: -0.4s;
+}
+.fz-smoke span:nth-child(3) {
+  --fz-py: -20%;
+  animation-delay: -0.8s;
+}
+.fz-smoke span:nth-child(4) {
+  --fz-py: 80%;
+  animation-delay: -1.2s;
+}
+.fz-smoke span:nth-child(5) {
+  --fz-py: -95%;
+  animation-delay: -1.6s;
+}
+.fz-smoke span:nth-child(6) {
+  --fz-py: 25%;
+  animation-delay: -2s;
+}
+.fz-smoke span:nth-child(7) {
+  --fz-py: -45%;
+  animation-delay: -2.4s;
+}
+@keyframes fz-puff {
+  0% {
+    transform: translate(0, 0) scale(0.45);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-460%, var(--fz-py, 0%)) scale(2.6);
+    opacity: 0;
+  }
+}
+@supports (animation-timeline: scroll()) {
+  .fz-trv {
+    display: block;
+    animation: fz-trv linear both;
+    animation-timeline: scroll(root);
+  }
+  .fz-trv-sway {
+    animation: fz-trv-sway linear both;
+    animation-timeline: scroll(root);
+  }
+}
+/* stays around the middle of the screen, easing a little lower on the way */
+@keyframes fz-trv {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translateY(44vh);
+  }
+  11%,
+  89% {
+    opacity: var(--fz-trv-o);
+  }
+  95%,
+  100% {
+    opacity: 0;
+    transform: translateY(56vh);
+  }
+}
+/* nose down (90deg), leaning into each turn */
+@keyframes fz-trv-sway {
+  0%,
+  50%,
+  100% {
+    transform: translateX(0) rotate(90deg);
+  }
+  12.5%,
+  62.5% {
+    transform: translateX(calc(var(--fz-trv-sw) * -1)) rotate(96deg);
+  }
+  37.5%,
+  87.5% {
+    transform: translateX(var(--fz-trv-sw)) rotate(84deg);
+  }
+}
+
+/* Sections that are off screen stop their loops (OffscreenPause adds the
+   class), so the page does no animation work for what nobody can see. The
+   scroll-driven reveals keep running: they have to be ready on entry. */
+.fz-off *:not(.fz-reveal),
+.fz-off *::before,
+.fz-off *::after {
+  animation-play-state: paused !important;
 }
 .fz-s1 {
   opacity: 0.7;
@@ -812,13 +1006,14 @@
   );
   animation: fz-shine 3.8s ease-in-out infinite;
 }
+/* 475% of its own width = from left -60% to 130% of the button */
 @keyframes fz-shine {
   0%,
   62% {
-    left: -60%;
+    transform: translateX(0);
   }
   100% {
-    left: 130%;
+    transform: translateX(475%);
   }
 }
 .fz-btn-primary:hover {
@@ -1090,21 +1285,22 @@
   }
 }
 .fz-scanline {
+  --fz-sl: 70px;
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 70px;
-  top: -70px;
+  inset: 0;
   background: linear-gradient(
-    rgba(122, 162, 247, 0),
-    rgba(122, 162, 247, 0.2),
-    rgba(122, 162, 247, 0)
-  );
+      rgba(122, 162, 247, 0),
+      rgba(122, 162, 247, 0.2),
+      rgba(122, 162, 247, 0)
+    )
+    top / 100% var(--fz-sl) no-repeat;
+  transform: translateY(calc(-1 * var(--fz-sl)));
   animation: fz-scanline 3.6s linear infinite;
 }
+/* the band sits at the top of a frame-sized layer, so 100% is the frame */
 @keyframes fz-scanline {
   to {
-    top: 100%;
+    transform: translateY(100%);
   }
 }
 .fz-card {
@@ -1540,9 +1736,11 @@
   .fz .fz-land .fz-hline::after {
     animation: none;
   }
-  /* the scroll-linked rail and comet have nothing to show while still */
+  /* the scroll-linked rail, comet and travel rocket have nothing to show
+     while still */
   .fz .fz-comet,
-  .fz .fz-rail-fill {
+  .fz .fz-rail-fill,
+  .fz .fz-trv {
     display: none;
   }
 }
@@ -1613,6 +1811,19 @@
   .fz-shoot {
     width: 120px;
   }
+  .fz-trv {
+    --fz-trv: 210px;
+    --fz-trv-o: 0.15;
+    --fz-trv-sw: 22px;
+  }
+  /* A glow this size repaints the whole planet every frame, which phones
+     feel while scrolling: hold it at its midpoint instead. */
+  .fz-planet {
+    animation: none;
+    box-shadow:
+      0 -2px 0 rgba(156, 180, 251, 0.65),
+      0 -24px 84px rgba(155, 158, 247, 0.19);
+  }
   .fz-streams {
     left: 0;
     right: 0;
@@ -1660,8 +1871,7 @@
     border-radius: 19.5px;
   }
   .fz-scanline {
-    height: 50px;
-    top: -50px;
+    --fz-sl: 50px;
   }
   .fz-planet {
     bottom: -960px;
@@ -1697,5 +1907,29 @@
   .fz-words {
     top: 210px;
     height: 44px;
+  }
+}
+
+/* phone menu drawer: slides in from the right */
+.fz-drawer[open] {
+  animation: fz-drawer 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.fz-drawer[open]::backdrop {
+  animation: fz-fade 0.28s ease;
+}
+@keyframes fz-drawer {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes fz-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fz-drawer[open],
+  .fz-drawer[open]::backdrop {
+    animation: none;
   }
 }
