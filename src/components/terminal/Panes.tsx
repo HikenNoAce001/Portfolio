@@ -1,6 +1,6 @@
 import { content } from '@/content';
 import { CloseIcon, FolderIcon } from '@/components/space/icons';
-import { termMissions } from '@/lib/terminal/commands';
+import { termMissions, termRoles, type YaziDir } from '@/lib/terminal/commands';
 import { player, useBars, usePlayerState, useProgress } from './usePlayer';
 
 const { profile, track } = content;
@@ -30,26 +30,42 @@ function CloseButton({
   );
 }
 
-// ── yazi: the missions as a folder list with a README preview ────────────
+// ── yazi: missions and flight-log roles as folders with a README preview ─
+// One window with a tab per folder: `missions` and `log` both open it.
 
 const STATE_TONE = {
   live: 'text-green',
   design: 'text-violet',
   private: 'text-muted',
+  current: 'text-green',
+  past: 'text-muted',
 };
+
+const DIRS: { dir: YaziDir; label: string }[] = [
+  { dir: 'log', label: 'Flight log' },
+  { dir: 'missions', label: 'Missions' },
+];
 
 export function YaziPane({
   focused,
   onFocus,
   onClose,
+  dir,
   sel,
   onPick,
-}: PaneProps & { sel: string; onPick: (key: string) => void }) {
+  onDir,
+}: PaneProps & {
+  dir: YaziDir;
+  sel: string;
+  onPick: (key: string) => void;
+  onDir: (dir: YaziDir) => void;
+}) {
+  const entries = dir === 'log' ? termRoles : termMissions;
   const idx = Math.max(
     0,
-    termMissions.findIndex((m) => m.key === sel),
+    entries.findIndex((m) => m.key === sel),
   );
-  const m = termMissions[idx];
+  const m = entries[idx];
 
   return (
     <div
@@ -61,15 +77,30 @@ export function YaziPane({
           yazi
         </span>
         <CloseButton label="Close file manager" onClose={onClose} />
-        <div className="flex-none px-3.5 pb-2 pt-[11px] font-bold text-blue">
-          ~/missions/<span className="text-ink">{m.key}</span>
+        <div className="flex flex-none items-center gap-3 pb-2 pl-3.5 pr-[88px] pt-[7px]">
+          <span className="min-w-0 flex-1 truncate font-bold text-blue">
+            ~/{dir}/<span className="text-ink">{m.key}</span>
+          </span>
+          <div className="flex flex-none gap-1">
+            {DIRS.map((d) => (
+              <button
+                key={d.dir}
+                type="button"
+                className="tm-ytab"
+                aria-pressed={d.dir === dir}
+                onClick={() => onDir(d.dir)}
+              >
+                {d.dir}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="flex min-h-0 flex-1">
           <nav
-            aria-label="Missions"
+            aria-label={DIRS.find((d) => d.dir === dir)?.label}
             className="flex flex-[0_0_172px] flex-col gap-0.5 border-r border-line px-1.5 py-1"
           >
-            {termMissions.map((f) => (
+            {entries.map((f) => (
               <button
                 key={f.key}
                 type="button"
@@ -88,7 +119,12 @@ export function YaziPane({
               # {m.title}
             </div>
             <div className={`text-xs ${STATE_TONE[m.state]}`}>● {m.status}</div>
-            <div className="text-soft">{m.desc}</div>
+            <div className="text-soft">
+              {m.desc}
+              {m.meta && (
+                <span className="block text-xs text-faint">{m.meta}</span>
+              )}
+            </div>
             <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
               {m.points.map((p) => (
                 <li key={p} className="text-muted">
@@ -118,7 +154,7 @@ export function YaziPane({
             drwxr-xr-x {' '}fahim
           </span>
           <span className="ml-auto flex items-center px-2.5 text-faint">
-            {idx + 1}/{termMissions.length}
+            {idx + 1}/{entries.length}
           </span>
         </div>
       </div>
@@ -189,7 +225,7 @@ function Credit() {
         rel="noopener noreferrer"
         className="tm-link text-violet"
       >
-        ♪ {track.title} — {track.artist}
+        ♪ {track.title} by {track.artist}
       </a>
       <span className="text-faint"> · </span>
       <a
@@ -285,7 +321,7 @@ function Meter({
     <div className="flex flex-col gap-1">
       <div className="flex justify-between gap-2">
         <span className="text-blue">{label}</span>
-        <span className="text-green">{value}</span>
+        <span className={up ? 'text-cyan' : 'text-green'}>{value}</span>
       </div>
       <div className="h-[5px] overflow-hidden rounded-[3px] bg-line">
         <div
@@ -304,7 +340,7 @@ function Meter({
 }
 
 export function BtopPane({ focused, onFocus, onClose }: PaneProps) {
-  const [features, users, api, bugs] = profile.telemetry;
+  const [features, users, years, bugs] = profile.telemetry;
   return (
     <div
       className={`tm-pane tm-popin flex-1 ${focused ? 'tm-on' : ''}`}
@@ -342,18 +378,18 @@ export function BtopPane({ focused, onFocus, onClose }: PaneProps) {
             </span>
           </div>
           <Meter
-            label="api time"
-            value={`▼ ${api.value}%`}
-            pct={api.value}
-            delay=".3s"
-          />
-          <Meter
             label="prod bugs"
             value={`▼ ${bugs.value}%`}
             pct={bugs.value}
             delay=".5s"
           />
-          <Meter label="login ok" value="▲ 25%" pct={25} up delay=".7s" />
+          <Meter
+            label="in prod"
+            value={`${years.value}${years.suffix}`}
+            pct={75}
+            up
+            delay=".7s"
+          />
         </div>
       </div>
     </div>

@@ -1,24 +1,26 @@
 import type { Project } from './types';
 
 // One record per project. Projects with a `mission` block appear on the site
-// and in the terminal; the rest (the portfolio itself) are kept as data only.
+// and in the terminal; the rest are kept as data only. Missions are Fahim's
+// own projects: Lentho is professional work for WOS Germany, so it lives in
+// the Flight log (experience.ts), not here.
 export const projects: Project[] = [
   {
     slug: 'lentho',
     name: 'Lentho',
-    tagline: 'Multi-tenant food ordering & restaurant management platform',
+    tagline:
+      'Multi-tenant food ordering, deals and cashback platform for European users',
     live: true,
     source: 'proprietary',
     links: {
       live: 'https://lentho.com/de-DE',
     },
     summary:
-      'Production storefront for the LENTHO platform — a multi-tenant food ordering system serving both customers and restaurant operators. Built with Next.js App Router and internationalized for German and English markets, with a dedicated business dashboard for restaurant management alongside the customer-facing ordering experience.',
+      'Production storefront for the LENTHO platform, a multi-tenant food ordering system serving both customers and restaurant operators. Built with Next.js App Router and internationalized for German and English markets, with a dedicated business dashboard for restaurant management alongside the customer-facing ordering experience.',
+    // Fahim's own work (his Lentho git history), not platform features.
     highlights: [
-      'Multi-locale support (DE/EN) via next-intl',
-      'Separate customer and restaurant dashboards',
-      'Sentry error monitoring in production',
-      'Firebase push messaging integration',
+      'German / English localization across the storefront, restaurant panel and back office',
+      'Back office upgraded from Next.js 14 to 16 and React 19, with leaner data fetching',
     ],
     stack: [
       'Next.js',
@@ -31,61 +33,9 @@ export const projects: Project[] = [
       'Radix UI',
       'Docker',
     ],
-    images: [
-      {
-        src: '/project-lentho/storefront.webp',
-        alt: 'LENTHO storefront',
-      },
-      {
-        src: '/project-lentho/storefront-detail.webp',
-        alt: 'LENTHO storefront detail',
-      },
-      {
-        src: '/project-lentho/dashboard.webp',
-        alt: 'LENTHO dashboard',
-      },
-      {
-        src: '/project-lentho/dashboard-detail.webp',
-        alt: 'LENTHO dashboard detail',
-      },
-    ],
-    mission: {
-      id: 'MSN-01',
-      dir: 'lentho',
-      aliases: [],
-      status: 'live',
-      tag: 'PROFESSIONAL',
-      blurb:
-        'Multi-tenant food ordering and restaurant management platform for European users.',
-      points: [
-        'German / English locales and separate dashboards',
-        'Sentry monitoring, Firebase messaging',
-      ],
-      chips: [
-        { text: 'Next.js', tone: 'plain' },
-        { text: 'TypeScript', tone: 'plain' },
-        { text: 'Tailwind', tone: 'plain' },
-        { text: 'Zustand', tone: 'plain' },
-        { text: 'SWR', tone: 'plain' },
-        { text: 'Zod', tone: 'plain' },
-        { text: 'Radix UI', tone: 'plain' },
-        { text: 'Docker', tone: 'plain' },
-      ],
-      phone: {
-        blurb:
-          'Multi-tenant food ordering and restaurant management platform for European users. DE/EN locales, separate dashboards, Sentry, Firebase messaging.',
-        stack: ['Next.js', 'TypeScript', 'Zustand', 'Zod', 'Docker'],
-        tone: 'plain',
-      },
-      liveLabel: 'lentho.com',
-      termName: 'Lentho',
-      termBlurb:
-        'Multi-tenant food ordering & restaurant management platform for European users.',
-      termPoints: [
-        'DE/EN locales, separate dashboards',
-        'Sentry monitoring, Firebase messaging',
-      ],
-    },
+    // No screenshots: Lentho is professional work, so its screens stay off the
+    // site (Fahim removed public/project-lentho, Nov 2026).
+    images: [],
   },
   {
     slug: 'team-hub',
@@ -146,16 +96,24 @@ export const projects: Project[] = [
       },
     ],
     mission: {
-      id: 'MSN-02',
+      id: 'MSN-01',
       dir: 'team-hub',
       aliases: ['team', 'teamhub'],
       status: 'live',
       tag: 'FULL-STACK',
       blurb:
-        'Real-time collaborative workspace for announcements, goals and action items — live presence, drag-and-drop kanban, immutable audit log, JWT auth.',
+        'Real-time, multi-tenant workspace where teams run goals, announcements and a drag-and-drop kanban of action items.',
       points: [
         'Live presence, drag-and-drop kanban',
-        'Immutable audit log, JWT auth',
+        'Transactional audit log, JWT auth',
+      ],
+      // Checked against ~/Team_Hub (apps/api): 11 modules, 14 Prisma models,
+      // sha256-hashed refresh tokens, express-rate-limit, Socket.io rooms,
+      // audit(tx) inside each $transaction.
+      features: [
+        '11-module Express 5 API with Swagger docs and a 14-model Prisma schema',
+        'JWT cookies with hashed refresh-token rotation, RBAC and rate limiting',
+        'Socket.io presence and notifications, plus an audit log written in the same transaction as each change',
       ],
       chips: [
         { text: 'Express 5', tone: 'violet' },
@@ -167,23 +125,24 @@ export const projects: Project[] = [
       ],
       phone: {
         blurb:
-          'Real-time collaborative workspace — live presence, kanban, audit log, JWT auth.',
+          'Real-time, multi-tenant team workspace: goals, announcements and a drag-and-drop kanban.',
         stack: ['Express 5', 'PostgreSQL', 'Prisma', 'Socket.io'],
         tone: 'violet',
       },
       termName: 'Team Hub',
       termBlurb:
-        'Real-time collaborative workspace for announcements, goals and action items.',
+        'Real-time, multi-tenant workspace for goals, announcements and action items.',
       termPoints: [
-        'live presence, drag-and-drop kanban',
-        'immutable audit log, JWT auth',
+        '11-module Express 5 API, 14-model Prisma schema',
+        'JWT cookies, hashed refresh rotation, RBAC',
+        'Socket.io presence, transactional audit log',
       ],
     },
   },
   {
     slug: 'marketplace-workflow',
     name: 'Marketplace Workflow System',
-    tagline: 'Project marketplace with role-based access and real-time bidding',
+    tagline: 'Project marketplace with role-based access and live bid updates',
     live: true,
     source: 'public',
     links: {
@@ -191,11 +150,11 @@ export const projects: Project[] = [
       code: 'https://github.com/HikenNoAce001/marketplace-workflow-system',
     },
     summary:
-      'Full-stack project marketplace with role-based access control, real-time bidding, and ZIP deliverable management. Buyers post projects, solvers bid and deliver work, with atomic cascade operations ensuring data consistency throughout the workflow.',
+      'Full-stack project marketplace with role-based access control, live bid updates (polled every 5 s), and ZIP deliverable management. Buyers post projects, solvers bid and deliver work, with atomic cascade operations ensuring data consistency throughout the workflow.',
     highlights: [
       'Role-based access (Admin / Buyer / Solver)',
       'Atomic bid acceptance with cascade state machine',
-      'Presigned MinIO URLs — backend never proxies files',
+      'ZIP deliverables validated and stored in MinIO, downloaded through presigned URLs',
       'JWT in memory + httpOnly refresh cookie (XSS-safe)',
       'Docker monorepo (FastAPI, PostgreSQL, Next.js) built under a tight production deadline',
       'Requirements and technical specs written before coding, enabling clear task breakdown and parallel development',
@@ -232,14 +191,26 @@ export const projects: Project[] = [
       },
     ],
     mission: {
-      id: 'MSN-03',
+      id: 'MSN-02',
       dir: 'marketplace',
       aliases: ['market', 'marketplace-workflow'],
       status: 'live',
-      tag: 'PERSONAL',
+      tag: 'FULL-STACK',
       blurb:
-        'Role-based marketplace with bidding and ZIP deliverables — RBAC, atomic operations, presigned uploads, XSS-safe auth.',
-      points: ['RBAC, atomic operations', 'Presigned uploads, XSS-safe auth'],
+        'Project marketplace where buyers post work and solvers bid, build and hand in ZIP deliverables for review.',
+      points: [
+        'Bid acceptance in one transaction',
+        'Role guards, MinIO storage',
+      ],
+      // Checked against ~/project-workflow-system (backend/app): async SQLModel
+      // + asyncpg + Alembic; accept_request rejects other bids, assigns the
+      // solver and sets ASSIGNED in one commit; require_role guards; ZIPs are
+      // validated and uploaded by the API, downloads use presigned URLs.
+      features: [
+        'Async FastAPI backend with SQLModel, asyncpg and Alembic migrations',
+        'Accepting a bid rejects the others, assigns the solver and moves the project on in one transaction',
+        'Role guards for admin, buyer and solver; validated ZIPs stored in MinIO with presigned downloads',
+      ],
       chips: [
         { text: 'FastAPI', tone: 'violet' },
         { text: 'PostgreSQL', tone: 'violet' },
@@ -250,15 +221,17 @@ export const projects: Project[] = [
       phone: {
         name: 'Marketplace Workflow',
         blurb:
-          'Role-based marketplace with bidding and ZIP deliverables — RBAC, presigned uploads.',
+          'Buyers post projects, solvers bid and deliver ZIPs, all on an async FastAPI backend.',
         stack: ['FastAPI', 'PostgreSQL', 'MinIO', 'Docker'],
         tone: 'violet',
       },
       termName: 'Marketplace Workflow',
-      termBlurb: 'Role-based marketplace with bidding and ZIP deliverables.',
+      termBlurb:
+        'Project marketplace where buyers post work and solvers bid and deliver ZIPs.',
       termPoints: [
-        'RBAC, atomic operations',
-        'presigned uploads, XSS-safe auth',
+        'async FastAPI, SQLModel, asyncpg, Alembic',
+        'bid acceptance in one transaction',
+        'role guards; ZIPs in MinIO, presigned downloads',
       ],
     },
   },
@@ -270,24 +243,23 @@ export const projects: Project[] = [
     source: 'proprietary',
     links: {},
     summary:
-      'Full-stack prescription management system with Medex database integration. Enables doctors to search 10,000+ medicines by generic or brand name and generate digital prescriptions with optimized caching and database queries.',
+      'Full-stack prescription management system with Medex database integration. Enables doctors to search medicines by generic or brand name and generate digital prescriptions, with cached search and optimized database queries.',
     highlights: [
-      '10,000+ searchable medicines',
-      'Sub-100ms medication search response',
-      'Efficient caching mechanisms',
+      'Searchable medicine database',
+      'Cached medicine search',
       'PDF prescription generation',
     ],
     stack: ['React.js', 'Node.js', 'MySQL', 'REST API'],
     images: [],
     mission: {
-      id: 'MSN-04',
+      id: 'MSN-03',
       dir: 'rx-generator',
       aliases: ['rx', 'prescription', 'digital-prescription'],
       status: 'private',
       tag: 'PERSONAL',
       blurb:
-        'Prescription system for doctors with 10,000+ searchable medicines — sub-100 ms search with caching, PDF generation.',
-      points: ['Sub-100 ms search with caching', 'PDF generation'],
+        'Prescription system for doctors with a searchable medicine database, cached search and PDF prescriptions.',
+      points: ['Cached medicine search', 'PDF prescriptions'],
       chips: [
         { text: 'Node.js', tone: 'violet' },
         { text: 'MySQL', tone: 'violet' },
@@ -297,14 +269,14 @@ export const projects: Project[] = [
       phone: {
         name: 'Prescription Generator',
         blurb:
-          '10,000+ searchable medicines, sub-100 ms search, PDF generation.',
+          'Searchable medicine database, cached search, PDF prescriptions.',
         stack: ['React', 'Node.js', 'MySQL'],
         tone: 'violet',
       },
       termName: 'Prescription Generator',
       termBlurb:
-        'Prescription system for doctors with 10,000+ searchable medicines.',
-      termPoints: ['sub-100 ms search with caching', 'PDF generation'],
+        'Prescription system for doctors with a searchable medicine database.',
+      termPoints: ['cached medicine search', 'PDF prescriptions'],
     },
   },
   {
@@ -379,13 +351,13 @@ export const projects: Project[] = [
       },
     ],
     mission: {
-      id: 'MSN-05',
+      id: 'MSN-04',
       dir: 'urban-garden',
       aliases: ['garden'],
       status: 'design',
       tag: 'FIGMA',
       blurb:
-        'Mobile plant-care app concept with AI-powered space analysis — camera-based scanning, personalised care plans, care tracking.',
+        'Mobile plant-care app concept with AI-powered space analysis, camera-based scanning, personalised care plans and care tracking.',
       points: ['Camera-based scanning', 'Personalised care plans, tracking'],
       chips: [
         { text: 'Figma', tone: 'plain' },

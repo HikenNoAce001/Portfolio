@@ -1,13 +1,23 @@
+import type { Metadata } from 'next';
 import '@/styles/space.css';
 import Backdrop from '@/components/space/Backdrop';
 import ViewToggleKey from '@/components/ViewToggleKey';
 import About from '@/components/site/About';
 import Contact from '@/components/site/Contact';
+import Education from '@/components/site/Education';
 import FlightLog from '@/components/site/FlightLog';
 import Hero from '@/components/site/Hero';
 import Hyperjump from '@/components/site/Hyperjump';
 import Missions from '@/components/site/Missions';
 import SiteHeader from '@/components/site/SiteHeader';
+import { pageMeta } from '@/lib/site';
+
+export const metadata: Metadata = pageMeta({
+  path: '/',
+  title: 'Mohammad Zobair Hosain Fahim, software engineer',
+  description:
+    'Fahim is a full-stack software engineer with three years of production experience in React, Next.js, TypeScript and Flutter, plus backend projects in FastAPI, Express and PostgreSQL, now moving toward backend systems and AI engineering. Website and terminal views.',
+});
 
 export default function Home() {
   return (
@@ -38,6 +48,7 @@ export default function Home() {
           <About />
           <FlightLog />
           <Missions />
+          <Education />
         </div>
         <Contact />
       </main>

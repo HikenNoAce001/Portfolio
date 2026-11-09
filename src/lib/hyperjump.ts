@@ -1,7 +1,7 @@
 // Hyperjump: the nav-click transition between journey stops. Everything here
 // is pure (no DOM, no imports) so it can be unit-tested with `node --test`.
 
-export type StopId = 'top' | 'about' | 'log' | 'missions' | 'contact';
+export type StopId = 'top' | 'about' | 'log' | 'missions' | 'edu' | 'contact';
 
 export interface Stop {
   n: string; // "02"
@@ -29,8 +29,15 @@ export const STOPS: Record<StopId, Stop> = {
     note: 'Geostationary',
     alt: true,
   },
-  contact: {
+  edu: {
     n: '04',
+    name: 'Education & research',
+    km: 326000,
+    note: 'Earth–Moon L1',
+    alt: true,
+  },
+  contact: {
+    n: '05',
     name: 'Contact',
     km: 384400,
     note: 'Next destination',
@@ -43,6 +50,7 @@ export const STOP_ORDER: StopId[] = [
   'about',
   'log',
   'missions',
+  'edu',
   'contact',
 ];
 

@@ -28,29 +28,7 @@ const PHONE = { width: 900 };
 const PORTRAIT = { shortSide: 480 };
 
 const jobs = [
-  { from: 'Fahim2.jpg', to: 'profile.webp', ...PORTRAIT },
   { from: 'Fahim.png', to: 'fahim-portrait.webp', ...PORTRAIT },
-
-  {
-    from: 'project-LENTHO/image.png',
-    to: 'project-lentho/storefront.webp',
-    ...DESKTOP,
-  },
-  {
-    from: 'project-LENTHO/image copy.png',
-    to: 'project-lentho/storefront-detail.webp',
-    ...DESKTOP,
-  },
-  {
-    from: 'project-LENTHO/image copy 2.png',
-    to: 'project-lentho/dashboard.webp',
-    ...DESKTOP,
-  },
-  {
-    from: 'project-LENTHO/image copy 3.png',
-    to: 'project-lentho/dashboard-detail.webp',
-    ...DESKTOP,
-  },
 
   {
     from: 'project-team-hub/kanban.png',

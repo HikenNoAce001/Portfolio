@@ -47,9 +47,12 @@ test('section header labels come from the stops', () => {
   assert.equal(altLabel('about'), 'Alt 100 km · Kármán line');
   assert.equal(altLabel('log'), 'Alt 408 km · Low Earth orbit');
   assert.equal(altLabel('missions'), 'Alt 35,786 km · Geostationary');
+  assert.equal(altLabel('edu'), 'Alt 326,000 km · Earth–Moon L1');
   assert.equal(altLabel('contact'), '384,400 km · Next destination');
   assert.equal(altShort('missions'), '35,786 km');
   assert.equal(stopLabel('log'), '02 Flight log');
+  assert.equal(stopLabel('edu'), '04 Education & research');
+  assert.equal(stopLabel('contact'), '05 Contact');
 });
 
 test('jumpDirection compares scroll positions', () => {
@@ -72,13 +75,24 @@ test('targetY lands the row 24px down and clamps', () => {
 });
 
 test('currentStop picks the last row in the upper third', () => {
-  assert.equal(currentStop([null, 600, 1400, 2400, 3400], 900), 'top');
-  assert.equal(currentStop([null, -500, 200, 1200, 2200], 900), 'log');
-  assert.equal(currentStop([null, -3000, -2000, -900, 100], 900), 'contact');
+  assert.equal(currentStop([null, 600, 1400, 2400, 3400, 4400], 900), 'top');
+  assert.equal(currentStop([null, -500, 200, 1200, 2200, 3200], 900), 'log');
+  assert.equal(currentStop([null, -3000, -2000, -900, 100, 1100], 900), 'edu');
+  assert.equal(
+    currentStop([null, -4000, -3000, -2000, -900, 100], 900),
+    'contact',
+  );
 });
 
 test('stops and trails', () => {
-  assert.deepEqual(STOP_ORDER, ['top', 'about', 'log', 'missions', 'contact']);
+  assert.deepEqual(STOP_ORDER, [
+    'top',
+    'about',
+    'log',
+    'missions',
+    'edu',
+    'contact',
+  ]);
   assert.ok(isStopId('missions'));
   assert.ok(!isStopId('main'));
   assert.ok(!isStopId('toString'));

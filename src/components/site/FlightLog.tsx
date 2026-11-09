@@ -1,10 +1,10 @@
 import SpaceStation from '@/components/space/SpaceStation';
+import { ArrowUpRightIcon } from '@/components/space/icons';
 import { content } from '@/content';
 import Chip from './Chip';
 import SectionHead from './SectionHead';
 
-const { experience, profile } = content;
-const { education } = profile;
+const { experience } = content;
 
 const card =
   'fz-card fz-reveal flex flex-col gap-3 rounded-2xl border border-line p-5 sm:flex-row sm:flex-wrap sm:gap-8 sm:rounded-[18px] sm:p-8';
@@ -50,7 +50,8 @@ export default function FlightLog() {
 
         {experience.map((role) => (
           <article key={role.id} className={`${card} bg-panel/80`}>
-            <div className="flex flex-col gap-2.5 font-mono sm:flex-[0_1_200px]">
+            {/* phones: date and status share a row; desktop: a column */}
+            <div className="flex flex-wrap items-center justify-between gap-2 font-mono sm:flex-[0_1_200px] sm:flex-col sm:flex-nowrap sm:items-start sm:justify-start sm:gap-2.5">
               <span className="text-xs font-bold text-violet sm:text-sm">
                 {role.period}
                 <span className="sm:hidden"> · {role.placeShort}</span>
@@ -63,6 +64,15 @@ export default function FlightLog() {
                   </span>
                 ))}
               </span>
+              {role.current && (
+                <span className="inline-flex items-center gap-1.5 text-[10.5px] font-bold tracking-[0.12em] text-green sm:mt-1 sm:gap-2 sm:text-[11px]">
+                  <span
+                    aria-hidden="true"
+                    className="fz-pulse size-1.5 rounded-full bg-green sm:size-[7px]"
+                  />
+                  CURRENT<span className="max-sm:hidden"> MISSION</span>
+                </span>
+              )}
             </div>
             <div className="flex min-w-0 flex-col gap-3 sm:flex-[999_1_480px] sm:gap-4">
               <div className="flex flex-col gap-0.5 sm:gap-1">
@@ -89,30 +99,20 @@ export default function FlightLog() {
                   ))}
                 </div>
               )}
+              {role.link && (
+                <a
+                  href={role.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-11 items-center gap-1.5 self-start text-[15px] font-semibold text-blue transition-colors hover:text-violet"
+                >
+                  {role.link.label}
+                  <ArrowUpRightIcon />
+                </a>
+              )}
             </div>
           </article>
         ))}
-
-        <article className={`${card} bg-panel/55 max-sm:gap-2`}>
-          <div className="flex flex-col gap-2.5 font-mono sm:flex-[0_1_200px]">
-            <span className="text-xs font-bold text-violet sm:text-sm">
-              {education.graduated}
-              <span className="sm:hidden"> · LAUNCH PAD</span>
-            </span>
-            <span className="text-xs tracking-[0.1em] text-faint max-sm:hidden">
-              LAUNCH PAD
-            </span>
-          </div>
-          <div className="flex min-w-0 flex-col gap-1 sm:flex-[999_1_480px]">
-            <h3 className={h3}>
-              <span className="max-sm:hidden">{education.degree}</span>
-              <span className="sm:hidden">{education.degreeShort}</span>
-            </h3>
-            <span className="text-[15px] text-muted sm:text-[17px]">
-              {education.school}
-            </span>
-          </div>
-        </article>
       </div>
     </section>
   );

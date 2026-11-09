@@ -6,8 +6,8 @@ export const profile: Profile = {
   callsign: '0xzhosain',
   role: 'Software Engineer',
   intro:
-    'Software engineer with 3 years shipping production web apps — React, Next.js and TypeScript up front, FastAPI and PostgreSQL behind it. Now climbing toward',
-  focus: ['backend systems.', 'AI engineering.'],
+    'Full-stack software engineer with 3 years of production experience in React, Next.js, TypeScript and Flutter, plus backend projects in FastAPI, Express and PostgreSQL. Focused on',
+  focus: ['backend systems', 'AI engineering'],
   availability: 'Open to remote roles',
   availabilityShort: 'Open to remote',
   contactBlurb:
@@ -17,15 +17,13 @@ export const profile: Profile = {
   city: 'Chittagong, BD',
   timezone: 'UTC+6',
   baseLine: 'Chittagong, BD (UTC+6)',
+  // **word** marks a highlighted keyword (rendered in cyan, medium weight).
+  // The same text shows on every screen size.
   about: [
-    'For three years I built Lentho.com — a multi-tenant platform for European users spanning food delivery, deals and cashback. I shipped features end to end, and kept getting pulled toward the other side of the wire: shaving API latency, hardening auth, wiring real-time updates.',
-    'That pull is now the plan: I’m going deeper into backend systems and AI engineering. I care more about the problem than the framework — Go, Rust, or whatever the job needs.',
+    'I am a **full-stack engineer** with three years of production work on Lentho.com, a multi-tenant platform used by 5,000+ people daily. I shipped features across its storefront, restaurant panel and back office, and was most drawn to the layer underneath: APIs, authentication and real-time systems.',
+    'Currently, I am leading the website rebuild for **Risk & Safety Solutions Melbourne, Australia**, from design to delivery: I designed the site, I manage the project, and I lead its WordPress development with a two-developer team. Alongside this, I am deepening my expertise in **backend systems** and **AI engineering**. I ramp up on unfamiliar tools and codebases quickly, so I can go wherever the problem leads.',
   ],
-  aboutShort: [
-    'For three years I built Lentho.com — a multi-tenant platform for European users spanning food delivery, deals and cashback — and kept getting pulled toward the other side of the wire: API latency, auth, real-time sync.',
-    'Now I’m going deeper into backend systems and AI engineering.',
-  ],
-  // Numbers from the résumé (WOS Germany / Lentho.com).
+  // Only numbers Fahim can source (résumé, Lentho git history).
   telemetry: [
     {
       value: 15,
@@ -35,11 +33,10 @@ export const profile: Profile = {
     },
     { value: 5000, suffix: '+', label: 'daily active users' },
     {
-      value: 40,
-      prefix: '−',
-      suffix: '%',
-      label: 'REST API response time',
-      labelShort: 'API response time',
+      value: 3,
+      suffix: ' yrs',
+      label: 'shipping to production',
+      labelShort: 'in production',
       accent: true,
     },
     {
@@ -57,6 +54,21 @@ export const profile: Profile = {
     degreeShort: 'B.Sc. CSE',
     graduated: 'JUL 2023',
     graduatedIso: '2023-07',
+    place: 'CHITTAGONG, BANGLADESH',
+    gpa: '3.21 / 4.00',
+    // From the résumé: "Federated learning optimization using Laplacian
+    // Smoothing SGD combined with FedNova, evaluated on CIFAR-10."
+    thesis: {
+      title: 'Federated learning optimization',
+      summary:
+        'Optimizing federated learning by combining Laplacian Smoothing SGD with FedNova, evaluated on the CIFAR-10 dataset.',
+      tags: [
+        'Federated learning',
+        'Laplacian Smoothing SGD',
+        'FedNova',
+        'CIFAR-10',
+      ],
+    },
   },
   email: 'zobairf03@gmail.com',
   socials: [

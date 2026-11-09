@@ -7,6 +7,7 @@ const nav = [
   { label: 'About', href: '#about' },
   { label: 'Flight log', href: '#log' },
   { label: 'Missions', href: '#missions' },
+  { label: 'Education', href: '#edu' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -39,7 +40,7 @@ export default function SiteHeader() {
       <div
         role="group"
         aria-label="View"
-        className="flex items-center gap-0.5 rounded-full border border-line-strong bg-panel/80 p-[3px] font-mono text-xs sm:gap-1 sm:p-1 sm:text-[13px]"
+        className="flex items-center gap-0.5 rounded-full border border-line-strong bg-panel/80 p-[3px] font-mono text-xs max-sm:hidden sm:gap-1 sm:p-1 sm:text-[13px]"
       >
         <span
           aria-current="page"

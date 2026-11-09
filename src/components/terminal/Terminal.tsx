@@ -17,10 +17,12 @@ import {
   compactChips,
   desktopChips,
   firstMission,
+  firstRole,
   runCommand,
   tipLines,
   type Entry,
   type PaneName,
+  type YaziDir,
 } from '@/lib/terminal/commands';
 import Fastfetch from './Fastfetch';
 import { OutputLine } from './Output';
@@ -39,7 +41,8 @@ interface State {
   nextId: number;
   past: string[];
   idx: number; // position while walking history, -1 = typing fresh
-  sel: string; // mission highlighted in yazi
+  dir: YaziDir; // yazi's active tab
+  sel: Record<YaziDir, string>; // folder highlighted in each tab
   focus: Focus;
   open: Record<PaneName, boolean>;
 }
@@ -56,20 +59,21 @@ const initial: State = {
   nextId: 3,
   past: ['fastfetch'],
   idx: -1,
-  sel: firstMission,
+  dir: 'missions',
+  sel: { missions: firstMission, log: firstRole },
   focus: 'term',
   open: { files: false, btop: false, cava: false },
 };
 
-const TITLES: Record<Focus, string> = {
-  term: 'kitty — ~/portfolio',
-  files: 'yazi — ~/missions',
-  btop: 'btop — telemetry',
-  cava: 'cava — oceanis',
+const TITLES: Record<Exclude<Focus, 'files'>, string> = {
+  term: 'kitty · ~/portfolio',
+  btop: 'btop · telemetry',
+  cava: 'cava · oceanis',
 };
 
 // A Hyprland desktop with one centred kitty window. Commands that need more
-// room (missions, btop, cava) tile extra panes beside it; `close` tidies up.
+// room (log, missions, btop, cava) tile extra panes beside it; `close` tidies
+// up.
 export default function Terminal() {
   const router = useRouter();
   const clock = useClock();
@@ -119,6 +123,7 @@ export default function Terminal() {
       if (res.clear) {
         return { ...p, entries: [], input: '', past, idx: -1, focus: 'term' };
       }
+      const dir = res.dir ?? p.dir;
       const open = res.closeAll
         ? { files: false, btop: false, cava: false }
         : res.open
@@ -134,7 +139,8 @@ export default function Terminal() {
         input: '',
         past,
         idx: -1,
-        sel: res.sel ?? p.sel,
+        dir,
+        sel: res.sel ? { ...p.sel, [dir]: res.sel } : p.sel,
         focus: 'term',
         open,
       };
@@ -216,7 +222,9 @@ export default function Terminal() {
     <main className="tm-root relative flex h-dvh min-h-[640px] flex-col gap-2.5 overflow-hidden bg-night p-2.5 font-mono text-ink max-sm:min-h-0 max-sm:gap-2 max-sm:p-2">
       <h1 className="sr-only">Fahim’s terminal</h1>
       <Wallpaper />
-      <Waybar title={TITLES[s.focus]} />
+      <Waybar
+        title={s.focus === 'files' ? `yazi · ~/${s.dir}` : TITLES[s.focus]}
+      />
 
       <div className={`tm-wsp ${hasSide ? 'tm-wide' : ''}`}>
         {/* kitty */}
@@ -358,13 +366,19 @@ export default function Terminal() {
           <div className="flex min-w-0 flex-1 basis-0 flex-col gap-2.5 max-sm:hidden">
             {s.open.files && (
               <YaziPane
-                sel={s.sel}
+                dir={s.dir}
+                sel={s.sel[s.dir]}
                 focused={s.focus === 'files'}
                 onFocus={() => setS((p) => ({ ...p, focus: 'files' }))}
                 onClose={() => closePane('files')}
                 onPick={(key) =>
-                  setS((p) => ({ ...p, sel: key, focus: 'files' }))
+                  setS((p) => ({
+                    ...p,
+                    sel: { ...p.sel, [p.dir]: key },
+                    focus: 'files',
+                  }))
                 }
+                onDir={(dir) => setS((p) => ({ ...p, dir, focus: 'files' }))}
               />
             )}
             {hasBottom && (

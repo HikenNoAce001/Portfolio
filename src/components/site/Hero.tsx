@@ -53,23 +53,10 @@ export default function Hero() {
           </h1>
 
           <p className="m-0 max-w-[34em] text-pretty text-[17px] leading-[1.55] text-muted sm:text-[21px]">
-            {profile.intro}{' '}
-            <span className="sr-only">
-              {profile.focus.join(' ').replace('. ', ' and ')}
-            </span>
-            <span aria-hidden="true" className="fz-roles">
-              <span className="fz-roles-in">
-                <span className="block h-[1.55em] whitespace-nowrap text-ink">
-                  {first}
-                </span>
-                <span className="block h-[1.55em] whitespace-nowrap text-cyan">
-                  {second}
-                </span>
-                <span className="block h-[1.55em] whitespace-nowrap text-ink">
-                  {first}
-                </span>
-              </span>
-            </span>
+            {/* Both focuses are always on screen (no rotation), so no visitor
+                sees only one of them. */}
+            {profile.intro} <span className="text-ink">{first}</span> and{' '}
+            <span className="text-cyan">{second}</span>.
           </p>
 
           <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3.5">
@@ -77,9 +64,15 @@ export default function Hero() {
               See missions
               <ArrowRightIcon />
             </a>
-            <a href={profile.resumeUrl} className={ghostBtn}>
+            <a
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={ghostBtn}
+            >
               <DownloadIcon />
               Résumé (PDF)
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <span className="font-mono text-[13px] text-faint max-sm:hidden">
               or press{' '}

@@ -20,7 +20,7 @@ export interface Profile {
   callsign: string;
   role: string;
   intro: string; // hero paragraph, ends where the rotating focus begins
-  focus: string[]; // rotating "backend systems." / "AI engineering."
+  focus: [string, string]; // "backend systems", "AI engineering": both shown, never rotated
   availability: string;
   availabilityShort: string; // phone hero
   contactBlurb: string;
@@ -28,8 +28,7 @@ export interface Profile {
   city: string; // "Chittagong, BD"
   timezone: string;
   baseLine: string; // "Chittagong, Bangladesh (UTC+6)"
-  about: string[];
-  aboutShort: string[]; // phone
+  about: string[]; // **word** marks a highlighted keyword; same on every screen
   telemetry: Telemetry[];
   education: {
     school: string;
@@ -38,6 +37,10 @@ export interface Profile {
     degreeShort: string;
     graduated: string; // display, e.g. "JUL 2023"
     graduatedIso: string;
+    place: string; // "CHITTAGONG, BANGLADESH"
+    gpa: string; // "3.21 / 4.00"
+    /** The undergraduate thesis, shown in the Education & research section. */
+    thesis: { title: string; summary: string; tags: string[] };
   };
   email: string;
   socials: { label: string; href: string; short: string }[];
@@ -48,22 +51,33 @@ export interface Role {
   id: string;
   title: string;
   org: string; // "The WOS Germany GmbH · Lentho.com"
-  period: string; // "MAY 2023 — 2026"
-  periodIso: string; // "2023-05 → 2026"
+  period: string; // "MAY 2023 – MAY 2026" (en dash, no em dashes in copy)
+  periodIso: string; // "2023-05 → 2026-05"
   place: string[]; // lines under the date
   placeShort: string; // after the date on phones
+  /** The role in progress: shows the green "current mission" status. */
+  current?: boolean;
+  /** A live product to link from the card, e.g. lentho.com. */
+  link?: { label: string; href: string };
   highlights: string[];
   /** Phone bullets. A single entry prints as a paragraph. */
   highlightsShort: string[];
   stack: string[];
-  /** Short line for the terminal `log` command. */
-  terminal: { org: string; lines: string[] };
+  /** Short line for the terminal `log` command. `id` is the role's folder in
+   * yazi (~/log/<id>); `aliases` are other names `open` accepts. */
+  terminal: { org: string; lines: string[]; aliases?: string[] };
 }
 
 export interface LoadoutGroup {
   label: string;
   tone: Tone;
   items: string[];
+  /** The terminal `stack` lines for this group, broken by hand. */
+  term: {
+    label: string; // "frontend"
+    rows: string[];
+    compact?: string[]; // phone rows, when they differ
+  };
 }
 
 export type TechLogoId =
@@ -93,6 +107,9 @@ export interface Mission {
   /** Card copy. The longer summary stays in `Project.summary`. */
   blurb: string;
   points: string[]; // two short bullets (terminal and featured card)
+  /** Backend and feature bullets on the mission card, checked against the
+   * project's code. Cards without them show the blurb only. */
+  features?: string[];
   chips: Chip[];
   liveLabel?: string; // text for the live link when it is not "Live"
   /** Phone card copy, from the MainMobile board. */
@@ -139,8 +156,8 @@ export interface Content {
   experience: Role[];
   projects: Project[];
   loadout: LoadoutGroup[];
-  /** The phone loadout is one flat, shorter sweep. */
-  loadoutShort: Chip[];
+  /** The phone loadout: flat, shorter sweeps, each with an optional label. */
+  loadoutShort: { label?: string; items: Chip[] }[];
   asteroids: Asteroid[];
   track: Track;
 }

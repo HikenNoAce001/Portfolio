@@ -7,7 +7,7 @@ The site has two views of the same content:
 - `/`: the website, a "deep space" journey from launch to the contact planet.
 - `/terminal`: a Hyprland-style terminal with waybar, kitty, fastfetch and commands such as `whoami`, `missions`, `open <name>`, `btop` and `cava`.
 
-Press <kbd>`</kbd> to switch between them.
+Press <kbd>`</kbd> to switch between them. The terminal is for screens 720px and wider. Phones that open `/terminal` get a short animated message from the astronaut, with a link back to the website.
 
 Clicking a nav link, the logo or "See missions" plays **Hyperjump**: a 900 ms eased scroll with star-trails, an altitude HUD and a landing pulse on the section's label row. The links are plain `href="#id"` anchors, so they still work without JavaScript, and with cmd-click or middle-click. Under reduced motion the jump is instant. The stops and their altitudes live in `src/lib/hyperjump.ts`, which also feeds each section header.
 
@@ -33,6 +33,10 @@ pnpm dev          # http://localhost:3000
 
 On commit, Husky and lint-staged run Prettier (with the Tailwind plugin) and ESLint.
 
+## Link previews and search
+
+`src/app/opengraph-image.png` (1200×630, alt text in `opengraph-image.alt.txt`) is the card that LinkedIn, WhatsApp, X and others show when the site is shared; `apple-icon.png` is the small icon iMessage and iOS show. `robots.ts` and `sitemap.ts` serve `/robots.txt` and `/sitemap.xml`. Titles, descriptions and canonical URLs come from `pageMeta` in `src/lib/site.ts`. If you change the card, replace the PNG; link-preview caches can be refreshed with LinkedIn's Post Inspector.
+
 ## Editing content
 
 All copy lives in `src/content/`, and both views read from it, so a change there updates the website and the terminal together.
@@ -55,6 +59,7 @@ src/components/space/     SVG art (astronaut, rockets, planets, backdrop)
 src/components/terminal/  terminal window, waybar, panes
 src/lib/terminal/         the command runner (a pure function)
 src/lib/hyperjump.ts      Hyperjump stops, easing and scroll maths (pure)
+src/lib/site.ts           site URL and the share/search metadata for each page
 tests/                    unit tests for the pure helpers
 src/styles/space.css      website animation (classes prefixed fz-)
 src/styles/terminal.css   terminal styles (classes prefixed tm-)

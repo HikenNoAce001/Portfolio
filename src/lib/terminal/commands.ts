@@ -1,5 +1,6 @@
 import { content } from '@/content';
 import type { MissionStatus } from '@/content';
+import { gmailCompose } from '@/lib/site';
 
 // The terminal's brain: a pure function from a typed command to output. It
 // knows nothing about React, so the component only has to render the result.
@@ -29,6 +30,8 @@ export interface OutLine {
 }
 
 export type PaneName = 'files' | 'btop' | 'cava';
+/** The two folders yazi can show, one tab each. */
+export type YaziDir = 'missions' | 'log';
 export type EntryKind = 'text' | 'fetch' | 'who';
 
 export interface Entry {
@@ -42,7 +45,9 @@ export interface CommandResult {
   kind?: EntryKind;
   lines: OutLine[];
   open?: PaneName;
-  /** Mission folder to preview in yazi. */
+  /** Which yazi tab to show. */
+  dir?: YaziDir;
+  /** Folder to preview in that tab. */
   sel?: string;
   closeAll?: boolean;
   clear?: boolean;
@@ -64,18 +69,26 @@ const L = (t: string, tone: LineTone = 'soft', rest?: Partial<OutLine>) => ({
   ...rest,
 });
 
-// ── missions (the yazi folders) ──────────────────────────────────────────
+// ── the yazi folders: missions and flight-log roles ──────────────────────
 
-export interface TermMission {
+export type RoleState = 'current' | 'past';
+
+export interface YaziEntry {
   key: string; // folder name
   aliases: string[];
   title: string;
-  status: string; // "live · professional"
-  state: MissionStatus;
+  status: string; // "live · full-stack", "2023-05 → 2026-05"
+  state: MissionStatus | RoleState;
   desc: string;
+  /** Faint line under the description (a role's location). */
+  meta?: string;
   points: string[];
   stack: string; // "next.js · typescript · …"
   link?: { href: string; label: string };
+}
+
+export interface TermMission extends YaziEntry {
+  state: MissionStatus;
 }
 
 export const termMissions: TermMission[] = projects
@@ -104,9 +117,27 @@ export const termMissions: TermMission[] = projects
 
 export const firstMission = termMissions[0].key;
 
-function findMission(name: string): TermMission | undefined {
+// Newest first, like the website's flight log.
+export const termRoles: YaziEntry[] = experience.map((r) => ({
+  key: r.id,
+  aliases: r.terminal.aliases ?? [],
+  title: r.title,
+  status: r.current ? `${r.periodIso} · current mission` : r.periodIso,
+  state: r.current ? 'current' : 'past',
+  desc: r.org,
+  meta: r.place.join(' · ').toLowerCase(),
+  points: r.terminal.lines
+    .filter((l) => l.trimStart().startsWith('▸'))
+    .map((l) => l.replace(/^\s*▸\s*/, '')),
+  stack: r.stack.map((s) => s.toLowerCase()).join(' · '),
+  link: r.link,
+}));
+
+export const firstRole = termRoles[0].key;
+
+function findIn<T extends YaziEntry>(list: T[], name: string): T | undefined {
   const n = name.replace(/\/$/, '').toLowerCase();
-  return termMissions.find((m) => m.key === n || m.aliases.includes(n));
+  return list.find((e) => e.key === n || e.aliases.includes(n));
 }
 
 const STATE_GLYPH: Record<MissionStatus, string> = {
@@ -122,35 +153,13 @@ const STACK_TONE: Record<string, LineTone> = {
   Backend: 'violet',
 };
 
-function wrapItems(items: string[], width: number): string[] {
-  const rows: string[] = [];
-  let row = '';
-  for (const item of items) {
-    const next = row ? `${row} · ${item}` : item;
-    if (row && next.length > width) {
-      rows.push(row);
-      row = item;
-    } else {
-      row = next;
-    }
-  }
-  if (row) rows.push(row);
-  return rows;
-}
-
 function stackLines(compact: boolean): OutLine[] {
   const pad = 10;
   return loadout.flatMap((g) => {
     const tone = STACK_TONE[g.label] ?? 'cyan';
-    const rows = wrapItems(
-      g.items.map((i) => i.toLowerCase()),
-      compact ? 36 : 44,
-    );
+    const rows = (compact && g.term.compact) || g.term.rows;
     return rows.map((r, i) =>
-      L(
-        `${i === 0 ? g.label.toLowerCase().padEnd(pad) : ' '.repeat(pad)}${r}`,
-        tone,
-      ),
+      L(`${i === 0 ? g.term.label.padEnd(pad) : ' '.repeat(pad)}${r}`, tone),
     );
   });
 }
@@ -165,18 +174,34 @@ function logLines(): OutLine[] {
     }
     out.push(L(''));
   }
-  const { education } = profile;
-  out.push(L(education.graduatedIso, 'violet'));
-  out.push(L(`${education.degreeShort} · ${education.schoolShort}`, 'star'));
+  out.push(L('→ edu for education & research', 'faint'));
   return out;
 }
 
-function contactLines(): OutLine[] {
+function eduLines(): OutLine[] {
+  const { education } = profile;
+  const { thesis } = education;
+  return [
+    L(`${education.graduatedIso} · Chittagong, Bangladesh`, 'violet'),
+    L(education.degree, 'star'),
+    L(`${education.schoolShort} · CGPA ${education.gpa}`, 'soft'),
+    L(''),
+    L('# undergraduate thesis · research', 'violet'),
+    L(thesis.title, 'star'),
+    L(thesis.summary, 'soft'),
+    L(thesis.tags.map((t) => t.toLowerCase()).join(' · '), 'cyan'),
+  ];
+}
+
+// The terminal is a desktop view, so email opens Gmail (see lib/site.ts).
+function mailHref(compact: boolean) {
+  return compact ? `mailto:${profile.email}` : gmailCompose(profile.email);
+}
+
+function contactLines(compact: boolean): OutLine[] {
   const [github, linkedin] = profile.socials;
   return [
-    L(`email     ${profile.email}`, 'star', {
-      href: `mailto:${profile.email}`,
-    }),
+    L(`email     ${profile.email}`, 'star', { href: mailHref(compact) }),
     L(`github    ${github.short}`, 'soft', { href: github.href }),
     L(`linkedin  ${linkedin.short}`, 'soft', { href: linkedin.href }),
     L(''),
@@ -184,9 +209,9 @@ function contactLines(): OutLine[] {
   ];
 }
 
-function missionInline(m: TermMission): OutLine[] {
+function entryInline(m: YaziEntry): OutLine[] {
   return [
-    L(`# ${m.title} · ${m.state}`, 'violet'),
+    L(`# ${m.title} · ${m.status}`, 'violet'),
     L(m.desc, 'star'),
     ...m.points.map((p) => L(`  + ${p}`)),
     L(m.stack, 'cyan'),
@@ -197,17 +222,22 @@ function missionInline(m: TermMission): OutLine[] {
 // The line shown after `echo $TIP`, also used for the opening screen.
 export const tipLines: OutLine[] = [
   L('→ try whoami, or tap a command below', 'faint'),
-  L('  missions, btop and cava open new panes · close tidies up', 'faint', {
-    wide: true,
-  }),
+  L(
+    '  log, missions, btop and cava open new panes · close tidies up',
+    'faint',
+    {
+      wide: true,
+    },
+  ),
 ];
 
 const helpDesktop: OutLine[] = [
   L('COMMANDS', 'faint'),
   L('  whoami        who’s flying this thing'),
-  L('  missions      projects — opens yazi →'),
-  L('  open <name>   mission details'),
-  L('  log           flight log — work & education'),
+  L('  log           work history (opens yazi →)'),
+  L('  missions      projects (opens yazi →)'),
+  L('  open <name>   role or mission details'),
+  L('  edu           education & research'),
   L('  stack         languages, frameworks, tools'),
   L('  btop          telemetry pane'),
   L('  cava          music visualizer pane ♪'),
@@ -226,7 +256,8 @@ const helpCompact: OutLine[] = [
   L('  whoami       about me'),
   L('  fastfetch    system info (it’s me)'),
   L('  stack        languages & tools'),
-  L('  log          work & education'),
+  L('  log          work history'),
+  L('  edu          education & research'),
   L('  missions     projects'),
   L('  open <name>  mission details'),
   L('  btop         telemetry'),
@@ -244,9 +275,8 @@ function btopInline(): OutLine[] {
     L('telemetry · lentho.com', 'faint'),
     L(`features   ${n(0)} shipped`, 'star'),
     L(`users/day  ${n(1)}`, 'star'),
-    L(`api time   ${n(2)}`, 'green'),
     L(`prod bugs  ${n(3)}`, 'green'),
-    L('login ok   +25%', 'green'),
+    L(`in prod    ${n(2)}`, 'cyan'),
   ];
 }
 
@@ -291,7 +321,21 @@ export function runCommand(
 
     case 'log':
     case 'experience':
-      return { lines: logLines() };
+      if (compact) return { lines: logLines() };
+      return {
+        open: 'files',
+        dir: 'log',
+        lines: [
+          L('spawning yazi → ~/log', 'faint'),
+          L('click a role, or: open <name>', 'cyan'),
+          L('→ edu for education & research', 'faint'),
+        ],
+      };
+
+    case 'edu':
+    case 'education':
+    case 'thesis':
+      return { lines: eduLines() };
 
     case 'missions':
     case 'projects':
@@ -309,6 +353,7 @@ export function runCommand(
       }
       return {
         open: 'files',
+        dir: 'missions',
         lines: [
           L('spawning yazi → ~/missions', 'faint'),
           L('click a mission, or: open <name>', 'cyan'),
@@ -330,18 +375,29 @@ export function runCommand(
           ],
         };
       }
-      const m = findMission(arg);
-      if (!m) {
+      const m = findIn(termMissions, arg);
+      const r = m ? undefined : findIn(termRoles, arg);
+      const hit = m ?? r;
+      if (!hit) {
         return {
-          lines: [L(`no mission called "${arg}" — run missions`, 'red')],
+          lines: [
+            L(`no mission or role called "${arg}". try: missions, log`, 'red'),
+          ],
         };
       }
-      if (compact) return { lines: missionInline(m) };
+      // Lentho is professional work, so it's a role in the flight log.
+      const note =
+        arg === 'lentho'
+          ? [L('lentho is professional work: it lives in ~/log', 'faint')]
+          : [];
+      if (compact) return { lines: [...note, ...entryInline(hit)] };
       return {
         open: 'files',
-        sel: m.key,
+        dir: m ? 'missions' : 'log',
+        sel: hit.key,
         lines: [
-          L(`# ${m.title}  ·  ${m.status}`, 'violet'),
+          ...note,
+          L(`# ${hit.title}  ·  ${hit.status}`, 'violet'),
           L('(previewing in yazi →)', 'faint'),
         ],
       };
@@ -361,7 +417,7 @@ export function runCommand(
         return {
           audio: 'play',
           lines: [
-            L(`♪ now playing: ${track.title} — ${track.artist}`, 'violet', {
+            L(`♪ now playing: ${track.title} by ${track.artist}`, 'violet', {
               href: track.page,
             }),
             L(`  ${track.license}`, 'faint', { href: track.licenseUrl }),
@@ -390,15 +446,15 @@ export function runCommand(
         lines: [
           L(
             compact
-              ? 'nothing to close — this is already focus mode'
-              : 'side panes closed — back to focus mode',
+              ? 'nothing to close, this is already focus mode'
+              : 'side panes closed, back to focus mode',
             'faint',
           ),
         ],
       };
 
     case 'contact':
-      return { lines: contactLines() };
+      return { lines: contactLines(compact) };
 
     case 'resume':
     case 'cv':
@@ -457,8 +513,8 @@ export function runCommand(
     case 'ls':
       return {
         lines: compact
-          ? [L('about.txt  log.md  missions/'), L('contact.vcf  resume.pdf')]
-          : [L('about.txt  log.md  missions/  contact.vcf  resume.pdf')],
+          ? [L('about.txt  log/  missions/'), L('contact.vcf  resume.pdf')]
+          : [L('about.txt  log/  missions/  contact.vcf  resume.pdf')],
       };
 
     case 'pwd':
@@ -485,7 +541,7 @@ export function runCommand(
                 L('[sudo] password for recruiter: ********', 'faint'),
                 L('access granted ✓', 'green'),
                 L(`opening a channel → ${profile.email}`, 'violet', {
-                  href: `mailto:${profile.email}`,
+                  href: mailHref(false),
                 }),
               ],
         };
@@ -505,8 +561,8 @@ export function runCommand(
 /** Chips under the window: tmux status bar (desktop) and chip row (phone). */
 export const desktopChips = [
   'whoami',
-  'missions',
   'log',
+  'missions',
   'btop',
   'cava',
   'contact',
@@ -516,9 +572,9 @@ export const desktopChips = [
 
 export const compactChips = [
   'whoami',
+  'log',
   'missions',
   `open ${termMissions[0].key}`,
-  'log',
   'cava',
   'contact',
   'help',

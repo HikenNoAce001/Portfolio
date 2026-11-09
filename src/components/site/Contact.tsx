@@ -1,9 +1,18 @@
 import MiniRocket from '@/components/space/MiniRocket';
-import { ArrowUpRightIcon, MailIcon } from '@/components/space/icons';
+import {
+  ArrowUpRightIcon,
+  GithubIcon,
+  LinkedinIcon,
+  MailIcon,
+} from '@/components/space/icons';
 import { content } from '@/content';
+import { gmailCompose } from '@/lib/site';
 import SectionHead from './SectionHead';
 
 const { profile } = content;
+
+const primary =
+  'fz-btn-primary flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-blue px-[26px] text-[15px] font-semibold text-night sm:min-h-[54px] sm:text-base';
 
 const ghost =
   'fz-btn-ghost flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-line-bright px-6 text-[15px] font-medium text-soft sm:min-h-[54px] sm:gap-2.5 sm:text-base';
@@ -21,14 +30,14 @@ export default function Contact() {
       <div className="relative z-[2] mx-auto flex w-full max-w-[1248px] flex-col gap-7 sm:gap-14">
         <SectionHead stop="contact" />
         <div className="fz-reveal flex flex-col gap-[18px] sm:items-center sm:gap-7 sm:text-center">
-          <h2 className="fz-h1 m-0 font-display text-[34px] font-semibold leading-[1.1] text-ink sm:text-[68px] sm:leading-[1.06] sm:tracking-[-0.02em]">
-            Next destination:
+          <h2 className="fz-h1 m-0 text-balance font-display text-[34px] font-semibold leading-[1.1] text-ink sm:text-[68px] sm:leading-[1.06] sm:tracking-[-0.02em]">
+            Open for the next mission.
             <br />
             <span
               className="text-violet"
               style={{ textShadow: '0 0 48px rgba(187,154,247,0.4)' }}
             >
-              your team.
+              Say hello.
             </span>
           </h2>
           <p className="m-0 max-w-[32em] text-pretty text-base leading-[1.6] text-muted sm:text-[19px]">
@@ -36,11 +45,21 @@ export default function Contact() {
             <span className="sm:hidden">{profile.contactBlurbShort}</span>
           </p>
           <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3.5">
+            {/* Desktop: Gmail compose in a new tab. Phones: the mail app. */}
+            <a
+              href={gmailCompose(profile.email)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${primary} max-sm:!hidden`}
+            >
+              <MailIcon />
+              {profile.email}
+              <span className="sr-only"> (opens Gmail in a new tab)</span>
+            </a>
             <a
               href={`mailto:${profile.email}`}
-              className="fz-btn-primary flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-blue px-[26px] text-[15px] font-semibold text-night sm:min-h-[54px] sm:text-base"
+              className={`${primary} sm:!hidden`}
             >
-              <MailIcon className="max-sm:hidden" />
               {profile.email}
             </a>
             <div className="grid grid-cols-2 gap-2.5 sm:contents">
@@ -50,6 +69,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className={ghost}
               >
+                <GithubIcon />
                 GitHub
                 <ArrowUpRightIcon className="max-sm:hidden" />
               </a>
@@ -59,6 +79,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className={ghost}
               >
+                <LinkedinIcon />
                 LinkedIn
                 <ArrowUpRightIcon className="max-sm:hidden" />
               </a>

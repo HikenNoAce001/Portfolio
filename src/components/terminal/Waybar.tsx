@@ -56,7 +56,7 @@ export default function Waybar({ title }: { title: string }) {
         </div>
         <Link
           href="/"
-          aria-label="Exit to website view"
+          title="Exit to the website view"
           aria-keyshortcuts="`"
           className="tm-mod tm-power !gap-2 text-soft max-sm:!px-3"
         >
